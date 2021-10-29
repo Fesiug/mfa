@@ -35,8 +35,8 @@ SWEP.Stats = {
 		["Count"]						= 1,
 		["Damage"]						= Range( 55, 60 ),
 		["Range"]						= Range( 2000, 3000 ), -- hammer units
-		["Spread"]						= Range( 1, 1 ), -- degrees, min to max
-		["Spread acceleration time"]	= Range( 2.5, 1.5 ), -- How long it takes to accurate
+		["Spread"]						= Range( 0.2, 1 ), -- degrees, min to max
+		["Spread acceleration time"]	= Range( 1, 1.5 ), -- How long it takes to accurate
 		["Force"]						= 1
 	},
 	["Magazines"] = {
@@ -56,6 +56,7 @@ SWEP.Stats = {
 		},
 		["holster"] = {
 			seq = "holster",
+			rate = 0.6
 		},
 		["reload"] = {
 			seq = "reload_tac",

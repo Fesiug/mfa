@@ -32,9 +32,9 @@ SWEP.Stats = {
 	},
 	["Bullet"] = {
 		["Count"]						= 1,
-		["Damage"]						= Range( 6, 17 ),
+		["Damage"]						= Range( 15, 25 ),
 		["Range"]						= Range( 400, 1000 ), -- hammer units
-		["Spread"]						= Range( 4, 20 ), -- degrees, min to max
+		["Spread"]						= Range( 2, 20 ), -- degrees, min to max
 		["Spread acceleration time"]	= Range( 1.5, 1.5 ), -- How long it takes to accurate
 		["Force"]						= 1
 	},

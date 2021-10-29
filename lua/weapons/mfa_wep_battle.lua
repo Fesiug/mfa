@@ -32,7 +32,7 @@ SWEP.Stats = {
 	},
 	["Bullet"] = {
 		["Count"]						= 1,
-		["Damage"]						= Range( 30, 36 ),
+		["Damage"]						= Range( 30, 40 ),
 		["Range"]						= Range( 800, 3000 ), -- hammer units
 		["Spread"]						= Range( 1, 20 ), -- degrees, min to max
 		["Spread acceleration time"]	= Range( 1.5, 1.5 ), -- How long it takes to accurate
@@ -55,6 +55,7 @@ SWEP.Stats = {
 		},
 		["holster"] = {
 			seq = "holster",
+			rate = 0.6
 		},
 		["reload_empty"] = {
 			seq = "reload_empty",
