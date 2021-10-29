@@ -43,6 +43,7 @@ SWEP.Stats = {
 		["Ammo type"]					= "Buckshot",
 		["Maximum loaded"]				= 6,
 		["Amount reloaded"]				= 1,
+		["Don't unload"]				= true,
 	},
 	["Animation"] = {
 		["fire"] = {

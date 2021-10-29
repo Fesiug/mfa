@@ -35,8 +35,10 @@ function SWEP:StartReload()
 	self:SetReloadingState(true)
 	self:SetBurstCount(0)
 
-	self:GetOwner():SetAmmo( self:Ammo1() + self:Clip1(), self:GetPrimaryAmmoType() )
-	self:SetClip1( 0 )
+	if !self.Stats["Magazines"]["Don't unload"] then
+		self:GetOwner():SetAmmo( self:Ammo1() + self:Clip1(), self:GetPrimaryAmmoType() )
+		self:SetClip1( 0 )
+	end
 end
 
 function SWEP:InsertReload()
