@@ -7,6 +7,9 @@ SWEP.Spawnable					= true
 SWEP.Category					= "MFA"
 SWEP.PrintName					= "Double-Barreled Shotgun"
 
+SWEP.Slot						= 2
+SWEP.SlotPos					= 0
+
 SWEP.ViewModel					= "models/weapons/v_waw_doublebar_new.mdl"
 SWEP.WorldModel					= "models/weapons/w_waw_doublebar_new.mdl"
 

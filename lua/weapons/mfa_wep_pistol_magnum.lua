@@ -7,6 +7,9 @@ SWEP.Spawnable					= true
 SWEP.Category					= "MFA"
 SWEP.PrintName					= "Magnum Pistol"
 
+SWEP.Slot						= 1
+SWEP.SlotPos					= 0
+
 SWEP.ViewModel					= "models/weapons/c_iw3_deserteagle.mdl"
 SWEP.WorldModel					= "models/weapons/w_iw3_deserteagle.mdl"
 
@@ -37,7 +40,7 @@ SWEP.Stats = {
 		["Force"]						= 1
 	},
 	["Magazines"] = {
-		["Ammo type"]					= "Pistol",
+		["Ammo type"]					= "357",
 		["Maximum loaded"]				= 7,
 		["Amount reloaded"]				= 7,
 	},

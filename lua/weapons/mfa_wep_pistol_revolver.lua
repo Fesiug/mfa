@@ -7,6 +7,9 @@ SWEP.Spawnable					= true
 SWEP.Category					= "MFA"
 SWEP.PrintName					= "Revolver"
 
+SWEP.Slot						= 1
+SWEP.SlotPos					= 0
+
 SWEP.ViewModel					= "models/weapons/c_iw4_anaconda.mdl"
 SWEP.WorldModel					= "models/weapons/w_iw3_beretta.mdl"
 
@@ -36,7 +39,7 @@ SWEP.Stats = {
 		["Force"]						= 1
 	},
 	["Magazines"] = {
-		["Ammo type"]					= "Pistol",
+		["Ammo type"]					= "357",
 		["Maximum loaded"]				= 6,
 		["Amount reloaded"]				= 6,
 	},

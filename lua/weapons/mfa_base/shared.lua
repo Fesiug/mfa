@@ -9,6 +9,9 @@ SWEP.Spawnable					= false
 SWEP.Category					= "MFA"
 SWEP.PrintName					= "MFA base"
 
+SWEP.Slot						= 0
+SWEP.SlotPos					= 0
+
 SWEP.ViewModel					= "models/weapons/c_smg1.mdl"
 SWEP.WorldModel					= "models/weapons/w_iw3_mp5.mdl"
 SWEP.ViewModelFOV				= 68

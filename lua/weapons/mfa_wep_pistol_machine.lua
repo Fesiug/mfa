@@ -7,6 +7,9 @@ SWEP.Spawnable					= true
 SWEP.Category					= "MFA"
 SWEP.PrintName					= "Machine Pistol"
 
+SWEP.Slot						= 1
+SWEP.SlotPos					= 0
+
 SWEP.ViewModel					= "models/weapons/c_iw4_tmp.mdl"
 SWEP.WorldModel					= "models/weapons/w_iw4_tmp.mdl"
 

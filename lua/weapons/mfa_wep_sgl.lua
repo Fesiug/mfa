@@ -7,6 +7,9 @@ SWEP.Spawnable					= true
 SWEP.Category					= "MFA"
 SWEP.PrintName					= "Grenade Launcher"
 
+SWEP.Slot						= 3
+SWEP.SlotPos					= 0
+
 SWEP.ViewModel					= "models/weapons/c_iw4_thumper.mdl"
 SWEP.WorldModel					= "models/weapons/w_iw4_thumper.mdl"
 

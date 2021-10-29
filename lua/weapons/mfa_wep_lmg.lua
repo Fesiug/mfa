@@ -7,6 +7,9 @@ SWEP.Spawnable					= true
 SWEP.Category					= "MFA"
 SWEP.PrintName					= "Squad Automatic Weapon"
 
+SWEP.Slot						= 3
+SWEP.SlotPos					= 0
+
 SWEP.ViewModel					= "models/weapons/c_iw3_m249.mdl"
 SWEP.WorldModel					= "models/weapons/w_iw3_m249.mdl"
 
