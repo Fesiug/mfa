@@ -1,0 +1,17 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "models/weapons/iw4/attachments/acog/acog"
+	"$bumpmap" "models/weapons/iw4/attachments/acog/normal"
+	"$normalmapalphaenvmapmask" "1"
+	"$phong" 		"1"
+	"$phongexponent" 	"30"
+	"$phongboost" "1"
+   	"$phongfresnelranges" "[.9 1.6 1.1]"
+                "$phongalbedotint" "1"
+                "$halflambert" "1"
+
+	"$detail"				"models/weapons/iw4/common/camo/beige"
+	"$detailscale" 			"1"
+	"$detailblendfactor"			"1"
+	"$detailblendmode"			"4"
+}

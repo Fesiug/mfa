@@ -1,0 +1,11 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "models/weapons/iw4/intervention/scope"
+	"$bumpmap" "models/weapons/iw4/intervention/scope_normal"
+	"$normalmapalphaenvmapmask" "1"
+	"$phong" 		"1"
+	"$phongexponent" 	"30"
+	"$phongboost" "1"
+   	"$phongfresnelranges" "[.9 1.6 1.1]"
+                "$phongalbedotint" "1"
+}

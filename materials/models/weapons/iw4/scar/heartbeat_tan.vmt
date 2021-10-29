@@ -1,0 +1,15 @@
+"VertexlitGeneric"
+{
+	"$basetexture"			"models/weapons/iw4/attachments/heartbeat/heartbeat"
+	"$bumpmap"			"models/weapons/iw4/attachments/heartbeat/heartbeat_normal"
+	"$phongexponenttexture"		"models/weapons/iw4/attachments/heartbeat/heartbeat_spec"
+	"$phong"				"1"
+	"$phongboost"			"1"
+	"$phongfresnelranges"		"[ 2 4 6 ]"
+	"$halflambert"			"1"
+
+	"$detail"				"models/weapons/iw4/common/camo/beige"
+	"$detailscale" 			"1"
+	"$detailblendfactor"			"1"
+	"$detailblendmode"			"4"
+}

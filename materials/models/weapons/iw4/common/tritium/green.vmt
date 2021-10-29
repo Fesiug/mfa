@@ -1,0 +1,7 @@
+"UnlitGeneric"
+{
+	"$basetexture"	"models/weapons/iw4/common/tritium/green"
+	"$additive"	"1"
+	"$nolod"		"1"
+	"$translucent"	"1"
+}

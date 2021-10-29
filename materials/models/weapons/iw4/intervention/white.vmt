@@ -1,0 +1,13 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/weapons/iw4/intervention/white"
+	"$bumpmap" "models/weapons/iw4/intervention/white_normal"
+                "$phong" "1"
+                "$phongboost" "1"
+                "$phongfresnelranges" "[1 8 6]"
+                "$phongexponent" "120"
+                "$phongalbedotint" "1"
+                "$halflambert" "1"
+}
+
+

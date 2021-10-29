@@ -1,0 +1,7 @@
+"VertexLitGeneric"
+{
+	"$basetexture"	"models/weapons/iw4/common/tritium/green"
+	"$additive"	"1"
+	"$model"		"1"
+	"$selfillum"	"1"
+}

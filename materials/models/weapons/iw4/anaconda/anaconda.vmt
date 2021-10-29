@@ -1,0 +1,15 @@
+"VertexlitGeneric"
+{
+	"$basetexture"			"models/weapons/iw4/anaconda/anaconda"
+	"$bumpmap"			"models/weapons/iw4/anaconda/anaconda_normal"
+	"$phongexponenttexture"		"models/weapons/iw4/anaconda/anaconda_spec"
+	"$phong"				"1"
+	"$phongboost"			"1"
+	"$phongfresnelranges"		"[ 5 7 8 ]"
+	"$halflambert"			"1"
+
+	"$detail"				"models/weapons/iw4/anaconda/anaconda_spec"
+	"$detailscale" 			"1"
+	"$detailblendfactor"			"1"
+	"$detailblendmode"			"1"
+}

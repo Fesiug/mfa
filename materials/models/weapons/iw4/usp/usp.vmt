@@ -1,0 +1,10 @@
+"VertexlitGeneric"
+{
+	"$basetexture"			"models/weapons/iw4/usp/usp"
+	"$bumpmap"			"models/weapons/iw4/usp/usp_normal"
+	"$phong"				"1"
+	"$phongboost"			"1"
+	"$rimlight"			"1"
+	"$phongfresnelranges"		"[ 5 7 8 ]"
+	"$halflambert"			"1"
+}

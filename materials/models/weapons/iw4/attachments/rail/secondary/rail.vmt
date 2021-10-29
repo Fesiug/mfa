@@ -1,0 +1,13 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "models/weapons/iw4/attachments/rail/secondary/rail"
+	"$bumpmap" "models/weapons/iw4/attachments/rail/secondary/normal"
+	"$normalmapalphaenvmapmask" "1"
+	"$phong" 		"1"
+	"$phongexponent" 	"30"
+	"$phongboost" "1"
+   	"$phongfresnelranges" "[.9 1.6 1.1]"
+                "$phongalbedotint" "1"
+                "$halflambert" "1"
+        	"$nocull" "1"
+}

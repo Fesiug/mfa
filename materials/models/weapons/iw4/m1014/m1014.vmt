@@ -1,0 +1,15 @@
+"VertexlitGeneric"
+{
+	"$basetexture"			"models/weapons/iw4/m1014/m1014"
+	"$bumpmap"			"models/weapons/iw4/m1014/m1014_normal"
+	"$phongexponenttexture"		"models/weapons/iw4/m1014/m1014_spec"
+	"$phong"				"1"
+	"$phongboost"			"1"
+	"$phongfresnelranges"		"[ 1 1 1 ]"
+	"$halflambert"			"1"
+
+	"$detail"				"models/weapons/iw4/common/camo/olive_drab"
+	"$detailscale" 			"1"
+	"$detailblendfactor"			"1"
+	"$detailblendmode"			"4"
+}

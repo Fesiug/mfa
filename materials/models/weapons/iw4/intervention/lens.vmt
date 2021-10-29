@@ -1,0 +1,10 @@
+VertexLitGeneric
+{
+	"$surfaceprop" "glass"
+	"$basetexture"	"models/weapons/iw4/intervention/lens"
+                "$bumpmap"           "models/weapons/iw4/intervention/lens_normal"
+	"$envmap" "env_cubemap"
+	"$normalmapalphaenvmapmask"  "1"
+                "$envmaptint" "[0.8 0.5 0.2]"
+                "$translucent" "1"
+}

@@ -1,0 +1,9 @@
+"UnlitGeneric"
+{
+	"$basetexture"  	"models/weapons/iw4/common/scope/thermal"
+	"$translucent"	"1"
+	"$vertexcolor"	"1"
+	"$vertexalpha"	"1"
+	"$ignorez"	"1"
+	"$no_fullbright"	"1"
+}
