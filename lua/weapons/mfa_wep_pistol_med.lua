@@ -5,7 +5,7 @@
 SWEP.Base						= "mfa_base"
 SWEP.Spawnable					= true
 SWEP.Category					= "MFA"
-SWEP.PrintName					= "Medium Pistol"
+SWEP.PrintName					= "Classic Pistol"
 
 SWEP.Slot						= 1
 SWEP.SlotPos					= 0
