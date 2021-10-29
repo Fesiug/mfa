@@ -59,13 +59,13 @@ SWEP.Stats = {
 		["reload_empty"] = {
 			seq = "reload_empty",
 			tpanim = tpa[1],
-			time_load = 1.5,
+			time_load = 2.1,
 			rate = 0.8
 		},
 		["reload_full"] = {
 			seq = "reload",
 			tpanim = tpa[1],
-			time_load = 1.5,
+			time_load = 2.1,
 			rate = 0.8
 		},
 	},

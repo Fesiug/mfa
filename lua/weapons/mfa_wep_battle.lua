@@ -24,7 +24,7 @@ SWEP.Stats = {
 		["Holdtype"] = "smg",
 	},
 	["Function"] = {
-		["Fire delay"]				= (60/450),
+		["Fire delay"]				= (60/310),
 		["Fire recovery delay"]			= 0, -- Delay between each burst
 		["Ammo used"]			= 1,
 		["Ammo required"]		= 1,
@@ -59,13 +59,13 @@ SWEP.Stats = {
 		["reload_empty"] = {
 			seq = "reload_empty",
 			tpanim = tpa[1],
-			time_load = 1.5,
+			time_load = 3,
 			rate = 0.9
 		},
 		["reload_full"] = {
 			seq = "reload",
 			tpanim = tpa[1],
-			time_load = 1.5,
+			time_load = 2.5,
 			rate = 0.9
 		},
 	},
