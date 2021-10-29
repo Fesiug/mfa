@@ -110,6 +110,7 @@ function SWEP:Initialize()
 
 		self.Primary.Ammo = self.qm["Ammo type"]
 		self.Primary.ClipSize = self.qm["Maximum loaded"] or 0
+		self:SetClip1( self.qm["Maximum loaded"] or 0 )
 	end
 end
 
