@@ -1,7 +1,0 @@
-"VertexLitGeneric"
-{
-	"$basetexture"			"models/weapons/iw4/common/shell/rifle"
-	"$bumpmap"			"models/weapons/iw4/common/shell/rifle_normal"
-	"$phongexponenttexture"		"models/weapons/iw4/common/shell/rifle_spec"
-	"$phong"				"1"
-}
