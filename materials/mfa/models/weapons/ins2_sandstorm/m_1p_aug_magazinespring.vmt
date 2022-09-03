@@ -1,0 +1,15 @@
+"SurfaceGGX"
+{
+	"$basetexture" "models\weapons\ins2_sandstorm\magfollowerspring\T_1P_MagFollowerSpring_D"
+	"$bumpmap" "models\weapons\ins2_sandstorm\magfollowerspring\T_1P_MagFollowerSpring_N"
+	"$phongexponenttexture" "models\weapons\ins2_sandstorm\magfollowerspring\T_1P_MagFollowerSpring_M"
+	
+	"$metal" "1"
+	"$roughnessmultiplier" ".75"
+	
+	"$fuzz" "1"
+	"$fuzzmultiplier" ".5"
+	
+	"$envmap" "models\weapons\ins2_sandstorm\envmap_unfuck"
+	"$srgbtint" "[5 5 5]"
+}

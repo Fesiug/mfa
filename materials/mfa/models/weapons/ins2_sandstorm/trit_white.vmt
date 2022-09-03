@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models\weapons\ins2_sandstorm\trit_white"
+	"$color2" "[.8 .8 .8]"
+}

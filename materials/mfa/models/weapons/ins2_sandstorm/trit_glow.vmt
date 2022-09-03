@@ -1,0 +1,5 @@
+"UnlitGeneric"
+{
+	"$basetexture" "models\weapons\ins2_sandstorm\trit_white"
+	"$color" "[0 1 0.15]"
+}

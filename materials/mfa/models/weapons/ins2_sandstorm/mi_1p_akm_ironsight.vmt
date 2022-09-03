@@ -1,0 +1,17 @@
+"SurfaceGGX"
+{
+	"$basetexture" "models\weapons\ins2_sandstorm\misc\AKM_Ironsight_D"
+	"$bumpmap" "models\weapons\ins2_sandstorm\misc\AKM_Ironsight_N"
+	"$phongexponenttexture" "models\weapons\ins2_sandstorm\misc\AKM_Ironsight_M"
+	
+	"$metal" "1"
+	"$roughnessmultiplier" ".9"
+	
+	"$fuzz" "1"
+	"$fuzzmultiplier" ".2"
+	
+	"$envmap" "models\weapons\ins2_sandstorm\envmap_unfuck"
+	"$srgbtint" "[.5 .5 .5]"
+	
+	"$nocull" "1"
+}

@@ -1,0 +1,15 @@
+"SurfaceGGX"
+{
+	"$basetexture" "models\weapons\ins2_sandstorm\sup\T_1P_A_Black45S_D"
+	"$bumpmap" "models\weapons\ins2_sandstorm\sup\T_1P_A_Black45S_N"
+	"$phongexponenttexture" "models\weapons\ins2_sandstorm\sup\T_1P_A_Black45S_M"
+	
+	"$metal" "1"
+	"$roughnessmultiplier" ".5"
+	
+	"$fuzz" "1"
+	"$fuzzmultiplier" ".2"
+	
+	"$envmap" "models\weapons\ins2_sandstorm\envmap_unfuck"
+	"$srgbtint" "[.5 .5 .5]"
+}

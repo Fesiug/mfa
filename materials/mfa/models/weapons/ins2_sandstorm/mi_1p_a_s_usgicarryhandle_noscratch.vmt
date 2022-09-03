@@ -1,0 +1,15 @@
+"SurfaceGGX"
+{
+	"$basetexture" "models\weapons\ins2_sandstorm\carry\T_1P_A_S_USGICarryHandle_D_Noscratch"
+	"$bumpmap" "models\weapons\ins2_sandstorm\carry\T_1P_A_S_USGICarryHandle_N_Noscratch"
+	"$phongexponenttexture" "models\weapons\ins2_sandstorm\carry\T_1P_A_S_USGICarryHandle_M_Noscratch"
+	
+	"$metal" "1"
+	"$roughnessmultiplier" ".75"
+	
+	"$fuzz" "1"
+	"$fuzzmultiplier" ".2"
+	
+	"$envmap" "models\weapons\ins2_sandstorm\envmap_unfuck"
+	"$srgbtint" "[2 2 2]"
+}

@@ -17,8 +17,8 @@ SWEP.ViewModel				= "models/mfa/weapons/g3.mdl"
 SWEP.WorldModel				= "models/mfa/weapons/g3.mdl"
 SWEP.ViewModelFOV			= 70
 
-SWEP.Primary.ClipSize		= 30
-SWEP.Primary.Ammo			= "smg1"
+SWEP.Primary.ClipSize		= 20
+SWEP.Primary.Ammo			= "ar2"
 SWEP.Primary.Sound			= ")weapons/iw3/g3/fire.wav"
 
 SWEP.DamageNear				= 34

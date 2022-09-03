@@ -29,14 +29,14 @@ SWEP.RangeFar				= 50
 --
 -- Recoil
 --
-SWEP.RecoilUp							= 1.5 -- degrees punched
-SWEP.RecoilUpDecay						= 30 -- how much recoil to remove per second
-SWEP.RecoilSide							= 0.5 -- degrees punched, in either direction (-100% to 100%)
-SWEP.RecoilSideDecay					= 30 -- how much recoil to remove per second
+SWEP.RecoilUp							= 2.5 -- degrees punched
+SWEP.RecoilUpDecay						= 25 -- how much recoil to remove per second
+SWEP.RecoilSide							= 0.6 -- degrees punched, in either direction (-100% to 100%)
+SWEP.RecoilSideDecay					= 25 -- how much recoil to remove per second
 SWEP.RecoilUpDrift						= 0.5 -- how much will be smooth recoil
 SWEP.RecoilSideDrift					= 0.5 -- how much will be smooth recoil
 SWEP.RecoilFlipChance					= ( 1 / 3 ) -- chance to flip recoil direction
-SWEP.RecoilADSMult						= ( 1 / 3 ) -- multiply shot recoil by this amount when ads'd
+SWEP.RecoilADSMult						= ( 3 / 4 ) -- multiply shot recoil by this amount when ads'd
 
 
 SWEP.Dispersion				= 0.7

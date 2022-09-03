@@ -13,8 +13,8 @@ SWEP.Trivia = {
 }
 
 SWEP.UseHands				= true
-SWEP.ViewModel				= "models/weapons/c_iw3_m16a4.mdl"
-SWEP.WorldModel				= "models/weapons/w_iw3_m16a4.mdl"
+SWEP.ViewModel				= "models/mfa/weapons/m16a4.mdl"
+SWEP.WorldModel				= "models/mfa/weapons/m16a4.mdl"
 SWEP.ViewModelFOV			= 70
 
 SWEP.Primary.ClipSize		= 30
@@ -39,39 +39,41 @@ SWEP.Firemodes = {
 }
 
 SWEP.ActivePos = {
-	Pos = Vector(0.2, -1, 0.2),
+	Pos = Vector(0.2, -1, 0.8),
 	Ang = Angle(),
 }
 
 SWEP.IronsightPos = {
-	Pos = Vector(-2.535, -3, 0.0),
-	Ang = Angle(0.5, 0, 0),
+	Pos = Vector(-2.42, -3, 1.04),
+	Ang = Angle(0, 0, 0),
 }
 
 SWEP.Animations = {
 	["idle"] = {
-		Source = "idle",
+		Source = "base_idle",
 	},
 	["draw"] = {
-		Source = "draw",
+		Source = "base_draw",
+		Time = 0.8,
+		ReloadingTime = 0.5,
 	},
 	["holster"] = {
-		Source = "holster",
+		Source = "base_holster",
 	},
 	["fire"] = {
-		Source = "fire",
+		Source = "base_fire",
 	},
 	["fire_ads"] = {
-		Source = "fire_iron",
+		Source = "iron_fire",
 	},
 	["reload"] = {
-		Source = "reload",
-		Time = 2.9,
-		LoadIn = 2.7,
+		Source = "base_reload",
+		Time = 4.3,
+		LoadIn = 2.5,
 	},
 	["reload_empty"] = {
-		Source = "reload_empty",
-		Time = 4.2,
-		LoadIn = 3.7,
+		Source = "base_reloadempty",
+		Time = 4.8,
+		LoadIn = 3.5,
 	}
 }

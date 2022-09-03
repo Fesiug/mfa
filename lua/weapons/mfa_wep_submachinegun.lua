@@ -18,7 +18,7 @@ SWEP.WorldModel				= "models/mfa/weapons/mp5.mdl"
 SWEP.ViewModelFOV			= 70
 
 SWEP.Primary.ClipSize		= 30
-SWEP.Primary.Ammo			= "smg1"
+SWEP.Primary.Ammo			= "pistol"
 SWEP.Primary.Sound			= ")weapons/iw3/mp5/fire.wav"
 
 SWEP.DamageNear				= 24
@@ -29,14 +29,14 @@ SWEP.RangeFar				= 40
 --
 -- Recoil
 --
-SWEP.RecoilUp							= 0.6 -- degrees punched
-SWEP.RecoilUpDecay						= 20 -- how much recoil to remove per second
-SWEP.RecoilSide							= 0.4 -- degrees punched, in either direction (-100% to 100%)
-SWEP.RecoilSideDecay					= 20 -- how much recoil to remove per second
+SWEP.RecoilUp							= 1.7 -- degrees punched
+SWEP.RecoilUpDecay						= 25 -- how much recoil to remove per second
+SWEP.RecoilSide							= 0.6 -- degrees punched, in either direction (-100% to 100%)
+SWEP.RecoilSideDecay					= 25 -- how much recoil to remove per second
 SWEP.RecoilUpDrift						= 0.5 -- how much will be smooth recoil
 SWEP.RecoilSideDrift					= 0.5 -- how much will be smooth recoil
 SWEP.RecoilFlipChance					= ( 2 / 3 ) -- chance to flip recoil direction
-SWEP.RecoilADSMult						= ( 1 / 5 ) -- multiply shot recoil by this amount when ads'd
+SWEP.RecoilADSMult						= ( 3 / 4 ) -- multiply shot recoil by this amount when ads'd
 
 SWEP.Dispersion				= 0.8
 SWEP.Dispersion_Move		= 2 -- at 200 hu/s

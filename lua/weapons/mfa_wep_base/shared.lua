@@ -43,8 +43,8 @@ SWEP.RecoilADSMult						= ( 1 / 3 ) -- multiply shot recoil by this amount when 
 -- after the fact
 SWEP.Recoil2UpDrift						= 0.5 -- how much to return to the original pos
 SWEP.Recoil2SideDrift					= 0.5
-SWEP.Recoil2UpDecay						= 30 -- how much recoil to remove per second
-SWEP.Recoil2SideDecay					= 30 
+SWEP.Recoil2UpDecay						= 20 -- how much recoil to remove per second
+SWEP.Recoil2SideDecay					= 20 
 
 
 SWEP.Dispersion							= 1
@@ -135,6 +135,11 @@ function SWEP:SetupDataTables()
 	self:SetFiremode(1)
 	self:SetNextMechFire(0)
 	self:SetRecoilFlip( util.SharedRandom( "recoilflipinit", 0, 1, CurTime() ) < 0.5 and true or false )
+	self.Primary.DefaultClip = self.Primary.ClipSize * 1
+
+end
+
+function SWEP:Initialize()
 end
 
 -- Firemodes
@@ -181,6 +186,10 @@ function SWEP:PrimaryAttack()
 	end
 
 	if self:GetReloadingTime() > CurTime() then
+		return false
+	end
+
+	if self:GetSprintDelta() > 0.2 then
 		return false
 	end
 
@@ -390,17 +399,17 @@ CreateClientConVar( "ttt_a_toggleads", 0, true, true )
 
 -- Thinking
 function SWEP:Think()
-	-- local runoff = self:GetFiremodeTable().Runoff
-	-- if runoff and self:GetBurstCount() != 0 then
-	-- 	if ( (game.SinglePlayer() and SERVER) or !game.SinglePlayer() ) then
-	-- 		self:PrimaryAttack()
-	-- 	end
-	-- end
+	local runoff = self:GetFiremodeTable().Runoff
+	if runoff and self:GetBurstCount() != 0 then
+		if ( (game.SinglePlayer() and SERVER) or !game.SinglePlayer() ) then
+			self:PrimaryAttack()
+		end
+	end
 	if self:GetBurstCount() >= self:GetFiremodeTable().Count then
 		self:SetBurstCount( 0 )
 		self:SetNextMechFire( CurTime() + (self:GetFiremodeTable().PostBurstDelay or 0) ) -- Can feel uncomfortable.
 		self:SetFiredLastShot( true )
-	elseif !self:GetOwner():KeyDown(IN_ATTACK) and self:GetBurstCount() != 0 then
+	elseif !(runoff or self:GetOwner():KeyDown(IN_ATTACK)) and self:GetBurstCount() != 0 then
 		self:SetBurstCount( 0 )
 		self:SetNextMechFire( CurTime() + (self:GetFiremodeTable().PostBurstDelay or 0) ) -- Can feel uncomfortable.
 	end
@@ -448,7 +457,7 @@ function SWEP:Think()
 		if ry != 0 then
 			local remove = ry - math.Approach( ry, 0, FrameTime() * self.RecoilSideDecay )
 			if CLIENT and IsFirstTimePredicted() then p:SetEyeAngles( p:EyeAngles() - ( Angle( 0, remove ) ) ) end
-			self:SetRecoilY( math.Approach( ry2, ry2 - remove, math.huge ) )
+			self:SetRecoilY( math.Approach( ry, ry - remove, math.huge ) )
 		else
 			local remove = ry2 - math.Approach( ry2, 0, FrameTime() * self.Recoil2SideDecay )
 			if CLIENT and IsFirstTimePredicted() then p:SetEyeAngles( p:EyeAngles() + ( Angle( 0, remove ) ) ) end
@@ -654,11 +663,12 @@ function SWEP:GetViewModelPosition(pos, ang)
 	do -- ironsighting
 		local b_pos, b_ang = Vector(), Angle()
 		local si = self:GetSightDelta()
+		local ss_si = math.ease.InOutSine( si )
 
 		b_pos:Add( self.IronsightPos.Pos )
 		b_ang:Add( self.IronsightPos.Ang )
-		b_pos:Mul( math.ease.InOutSine( si ) )
-		b_ang:Mul( math.ease.InOutSine( si ) )
+		b_pos:Mul( ss_si )
+		b_ang:Mul( ss_si )
 		opos:Add( b_pos )
 		oang:Add( b_ang )
 		
@@ -670,11 +680,12 @@ function SWEP:GetViewModelPosition(pos, ang)
 			xi = 0.5 - xi
 		end
 		xi = xi * 2
+		local ss_xi = math.ease.InOutSine( xi )
 
-		b_pos:Add( Vector( -0.5, -2, -0 ) )
-		b_pos:Mul( math.ease.InOutSine( xi ) )
+		b_pos:Add( Vector( -0.5, 2, -0.2 ) )
 		b_ang:Add( Angle( -4, 0, -5 ) )
-		b_ang:Mul( math.ease.InOutSine( xi ) )
+		b_pos:Mul( ss_xi )
+		b_ang:Mul( ss_xi )
 
 		opos:Add( b_pos )
 		oang:Add( b_ang )
@@ -797,7 +808,7 @@ function SWEP:DoDrawCrosshair()
 
 	if true then
 		reloadclock = math.Approach( reloadclock, (self:GetReloadingTime() > CurTime()) and 1 or 0, FrameTime() / 0.4 )
-		local clock = Lerp( math.max( self:GetSightDelta(), reloadclock ), 1, 0 )
+		local clock = Lerp( math.max( self:GetSightDelta(), self:GetSprintDelta(), reloadclock ), 1, 0 )
 		CHR_F.a = clock * 255
 		CHR_B.a = clock * 100
 		gap = gap / (clock)

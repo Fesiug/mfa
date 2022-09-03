@@ -1,0 +1,18 @@
+"SurfaceGGX"
+{
+	"$basetexture" "models\weapons\ins2_sandstorm\hands\T_CH_1P_SH_ARMS_Bare_ML_BC"
+	"$bumpmap" "models\weapons\ins2_sandstorm\hands\T_CH_1P_SH_ARMS_Bare_ML_N"
+	"$phongexponenttexture" "models\weapons\ins2_sandstorm\hands\T_CH_1P_SH_ARMS_Bare_ML_M"
+	
+	"$metal" "1"
+	"$roughnessmultiplier" "1.5"
+	
+	"$fuzz" "1"
+	"$fuzzmultiplier" "3.5"
+	
+	"$envmap" "models\weapons\ins2_sandstorm\envmap_unfuck"
+
+	"$subsurfacescattering" "1"
+	
+	"$diffusionweights" "[.75 .5 .5 0]"
+}
