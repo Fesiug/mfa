@@ -1,0 +1,17 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "mfa/models/weapons/g36/bullet_col"
+	"$bumpmap" "mfa/models/weapons/g36/bullet_norm"
+	
+	"$phong"  				"1"
+	"$phongexponent" 		"80"
+	"$phongboost" 			"0.8"
+	"$phongfresnelranges" 	"[2 4 6]"
+	"$phongtint" 			"[0.6 0.8 1]"
+	"$phongalbedotint" 		"1"	
+	
+	"$envmap" 					 	"env_cubemap"
+	"$halflambert" 					"1"
+	"$normalmapalphaenvmapmask" 	"1"
+	"$envmaptint"				 	"[0.1 0.1 0.1]"	
+}

@@ -1,0 +1,18 @@
+"VertexlitGeneric"
+{
+	$basetexture 						"mfa/models\weapons\G3\g3a4_furniture_d"
+	$bumpmap 							"mfa/models\weapons\G3\g3a4_furniture_n"
+	$phongexponenttexture				"mfa/models/weapons/g3/g3a4_furniture_m"
+
+	$basemapalphaenvmapmask				1
+	$normalmapalphaphongmask			1
+	
+	$envmap								env_cubemap
+	$envmaptint							"[0.01 0.01 0.017]"
+	$envmapfresnel						1
+	
+	$phong								1
+	$phongboost							5.2
+	$phongfresnelranges					"[0.05 0.5 1]"
+	$phongtint							"[ 1 1 1 ]"
+}
