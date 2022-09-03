@@ -1,4 +1,40 @@
 
+local terminaltest = [[
+Cycledroft Corporation (c) 1982-1983. All rights reserved. test test test
+Booter [Version 25.12.1983]
+
+SYSTEM TESTING
+- 1024 System RAM Ready
+
+- Diskette A
+	- not found
+- Diskette B
+	- not found
+- Hard disk C
+	- storage 8192
+	- Benson Nco Macrocomputing
+- Hard disk D
+	- not found
+
+- Display
+	- 24 rows 18 columns
+	- high resolution incapable
+	- no high resolution capable graphics device installed
+
+- Keyboard detected
+
+>CHANGEDISK C
+>COMMAND.COM
+>CLEAR
+]]
+terminaltest = [[
+Cycledroft Corporation (c) 1982-1983. All rights reserved.
+Command Interpreter [Version 02.11.1983]
+Type HELP for help.
+
+C:/>abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_
+]]
+
 CreateClientConVar("mfa_hud", 1)
 
 local hide = {
@@ -27,6 +63,11 @@ surface.CreateFont("MFA_HUD_48", {
 surface.CreateFont("MFA_HUD_20", {
 	font = "Carbon Plus Bold",
 	size = MHAS(30),
+	weight = 0,
+})
+surface.CreateFont("MFA_Terminal", {
+	font = "Carbon Plus Bold",
+	size = 24,
 	weight = 0,
 })
 
@@ -113,6 +154,7 @@ hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 			surface.SetMaterial( mat_bubd )
 			surface.DrawTexturedRect( -(c*40) + lool1, h - (c*430) + lool2, (c*350)*ss_tscale, (c*350)*ss_tscale )
 
+			if false then
 			-- radar / terminal / teamhealth
 			surface.SetDrawColor( CLR_B )
 			surface.DrawRect( (c*20), (c*20), (c*20*24), (c*20*18)+(c*10) )
@@ -138,7 +180,56 @@ hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 			ftext( "C1: TUR#1 power failure - 2%", "MFA_HUD_20", tx, ty+(c*25*ix), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP ) ix = ix + 1
 			ix = ix + 1
 			ftext( "TERM> " .. "C1 sudo rm rf /" .. (CurTime() % 1 > 0.5 and "_" or ""), "MFA_HUD_20", tx, ty+(c*25*ix), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP ) ix = ix + 1
+			end
+
+			if false then
+
+			surface.SetDrawColor( Color(50, 50, 50) )
+			surface.DrawRect( 0, 0, 640, 480 )
+
+			local screenbuffer = terminaltest
+			local stronk = string.Explode("\n", screenbuffer)
+			for i, v in ipairs(stronk) do
+				while #stronk < 24 do--for a=1, 24 do
+					table.insert(stronk, " ")
+				end
+			end
+			for i, v in ipairs(stronk) do
+				for a=1, (64-#v) do
+					stronk[i] = stronk[i] .. " "
+				end
+			end
+			--PrintTable(stronk)
+			local max_w = 64
+			local max_h = 24
+			for i, v in ipairs(stronk) do
+				--print(i, v)
+				local coc = string.Explode("", v)
+				for h, x in ipairs(coc) do
+					if h > max_w then continue end
+					if i > max_h then continue end
+					--if h == max_w and (CurTime() % 2 > 1) and x != " " then x = ">" end
+					--if i == max_h and (CurTime() % 2 > 1) and x != " " then x = "v" end
+					local wh = h - Lerp( h/max_w, 0, 1 )
+					local wi = i - Lerp( i/max_h, 0, 1 )
+					surface.SetDrawColor( Color(0, 0, 0) )
+					surface.DrawRect( Lerp( wh/max_w, 0, 640 ) - (Lerp( 1/max_w, 0, 640 )*0.5), Lerp( wi/max_h, 0, 480 ) - (Lerp( 1/max_h, 0, 480 )*0.5), Lerp( 1/max_w, 0, 640 ), Lerp( 1/max_h, 0, 480 ) )
+				end
+				for h, x in ipairs(coc) do
+					if h > max_w then continue end
+					if i > max_h then continue end
+					--if h == max_w and (CurTime() % 2 > 1) and x != " " then x = ">" end
+					--if i == max_h and (CurTime() % 2 > 1) and x != " " then x = "v" end
+					local wh = h - Lerp( h/max_w, 0, 1 )
+					local wi = i - Lerp( i/max_h, 0, 1 )
+					ftext( x, "MFA_Terminal", Lerp( wh/max_w, 0, 640 ), Lerp( wi/max_h, 0, 480 ), CLR_W, CLR_B, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+				end
+			end
+
 		end
+
+		end
+		
 
 		local wep = p:GetActiveWeapon()
 		if !IsValid(wep) then wep = false end
