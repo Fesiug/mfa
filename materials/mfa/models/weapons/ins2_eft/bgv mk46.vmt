@@ -1,0 +1,15 @@
+"SurfaceGGX"
+{
+	"$basetexture" "models\weapons\ins2_eft\mp9n\BGV MK46 Diffuse FDE"
+	"$bumpmap" "models\weapons\ins2_eft\mp9n\BGV MK46 Normal"
+	"$phongexponenttexture" "models\weapons\ins2_eft\mp9n\BGV MK46 Masks FDE"
+	
+	"$metal" "1"
+	"$roughnessmultiplier" "1"
+	
+	"$fuzz" "0"
+	"$fuzzmultiplier" ".2"
+	
+	"$envmap" "models\weapons\ins2_eft\envmap_unfuck"
+	"$srgbtint" "[1.5 1.5 1.25]"
+}

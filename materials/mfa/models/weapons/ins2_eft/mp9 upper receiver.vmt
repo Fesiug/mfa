@@ -1,0 +1,15 @@
+"SurfaceGGX"
+{
+	"$basetexture" "mfa/models\weapons\ins2_eft\mp9n\MP9 Upper Receiver Diffuse"
+	"$bumpmap" "mfa/models\weapons\ins2_eft\mp9n\MP9 Upper Receiver Normal"
+	"$phongexponenttexture" "mfa/models\weapons\ins2_eft\mp9n\MP9 Upper Receiver Masks"
+	
+	"$metal" "1"
+	"$roughnessmultiplier" "1"
+	
+	"$fuzz" "0"
+	"$fuzzmultiplier" ".2"
+	
+	"$envmap" "models\weapons\ins2_eft\envmap_unfuck"
+	"$srgbtint" "[2 2 2]"
+}
