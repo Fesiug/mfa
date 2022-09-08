@@ -205,11 +205,21 @@ function SWEP:PrimaryAttack()
 	end
 
 	self:TakePrimaryAmmo( ammototake )
-	self:SetNextPrimaryFire( CurTime() + self:GetFiremodeTable().Delay )
 	self:SetBurstCount( self:GetBurstCount() + 1 )
 	self:EmitSound( self.Primary.Sound, self.Primary.SoundLevel )
 
 	self:SendAnim( (self:GetSightDelta() > 0.5 and "fire_ads") or "fire" )
+
+	-- Jane's fix
+	local curtime = CurTime()
+	local curatt = self:GetNextPrimaryFire()
+	local diff = curtime - curatt
+
+	if diff > engine.TickInterval() or diff < 0 then
+		curatt = curtime
+	end
+
+	self:SetNextPrimaryFire(curatt + self:GetFiremodeTable().Delay)
 
 	-- Bullets
 	local bullet = {
@@ -784,10 +794,10 @@ function SWEP:GetViewModelPosition(pos, ang)
 		b_ang.y = ox*0.05*Lerp(sii, 1, 0.05)
 		b_pos.x = ox*0.033*Lerp(sii, 1, 0.05)
 
-		b_ang.x = oy*-0.1*Lerp(sii, 1, 0.1)
-		b_pos.z = oy*0.04*Lerp(sii, 1, 0.1)
+		b_ang.x = oy*0.1*Lerp(sii, 1, 0.05)
+		b_pos.z = oy*-0.04*Lerp(sii, 1, 0.05)
 
-		b_ang.z = (b_ang.z + (oy*-0.07) + (ox*-0.02))*Lerp(sii, 1, 0.1)
+		b_ang.z = (b_ang.z + (oy*-0.1) + (ox*-0.02))*Lerp(sii, 1, 0.1)
 
 		b_ang:Normalize()
 

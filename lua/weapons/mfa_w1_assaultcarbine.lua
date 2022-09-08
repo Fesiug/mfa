@@ -38,6 +38,12 @@ SWEP.RecoilSideDrift					= 0.5 -- how much will be smooth recoil
 SWEP.RecoilFlipChance					= ( 1 / 3 ) -- chance to flip recoil direction
 SWEP.RecoilADSMult						= ( 3 / 4 ) -- multiply shot recoil by this amount when ads'd
 
+-- after the fact
+SWEP.Recoil2UpDrift						= 0.4 -- how much to return to the original pos
+SWEP.Recoil2SideDrift					= 0.4
+SWEP.Recoil2UpDecay						= 23 -- how much recoil to remove per second
+SWEP.Recoil2SideDecay					= 23 
+
 
 SWEP.Dispersion				= 0.7
 SWEP.Dispersion_Move		= 3 -- at 200 hu/s
@@ -56,7 +62,7 @@ SWEP.Firemodes = {
 	},
 	{
 		Count = 1,
-		Delay = 0.085,
+		Delay = ( 60 / 1200 )
 	}
 }
 

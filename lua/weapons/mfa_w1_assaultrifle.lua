@@ -58,12 +58,12 @@ SWEP.Firemodes = {
 	{
 		Count = 3,
 		Delay = 0.07,
-		PostBurstDelay = 0.2,
+		PostBurstDelay = 0.02,
 		Runoff = true,
 	},
 	{
 		Count = 1,
-		Delay = 0.07,
+		Delay = ( 60 / 1200 ),
 	}
 }
 
@@ -98,10 +98,14 @@ SWEP.Animations = {
 	["reload"] = {
 		Source = "base_reload",
 		Events = {
-			{ t = 0, s = "weapons/iw3/m4a1/lift.wav" },
-			{ t = 0.5, s = "weapons/iw3/m4a1/out.wav" },
-			{ t = 1.8, s = "weapons/iw3/m4a1/in.wav" },
-			{ t = 2.4, s = "weapons/iw3/m4a1/hit.wav" },
+			{ t = 0, s = "mfa/zenith/ogg/raise.ogg" },
+			{ t = 0.5, s = "mfa/wep/ogg/Reload_1P_M16_Magout_Wave 0 0 0.ogg" },
+			{ t = 1.1, s = "mfa/wep/zenith/ogg/cloth_soft_3.ogg", v = 0.2 },
+			{ t = 1.2, s = "mfa/wep/zenith/ogg/magpouch.ogg" },
+			{ t = 1.7, s = "mfa/wep/ogg/Reload_1P_M16_Magin_Wave 0 0 0.ogg" },
+			{ t = 2.4, s = "mfa/zenith/ogg/cloth_soft_1.ogg", v = 0.5 },
+			{ t = 2.55, s = "mfa/wep/ogg/Reload_1P_M16_Magin_Metal_Wave 0 0 0.ogg" },
+			{ t = 3.05, s = "mfa/zenith/ogg/magimpact.ogg" },
 		},
 		Time = 4.0,
 		LoadIn = 2.5,
@@ -109,10 +113,14 @@ SWEP.Animations = {
 	["reload_empty"] = {
 		Source = "base_reloadempty",
 		Events = {
-			{ t = 0, s = "weapons/iw3/m4a1/lift.wav" },
-			{ t = 0.5, s = "weapons/iw3/m4a1/out.wav" },
-			{ t = 1.8, s = "weapons/iw3/m4a1/in.wav" },
-			{ t = 2.9, s = "weapons/iw3/m4a1/hit.wav" },
+			{ t = 0, s = "mfa/zenith/ogg/raise.ogg" },
+			{ t = 0.5, s = "mfa/wep/ogg/Reload_1P_M16_Magout_Wave 1 0 0.ogg" },
+			{ t = 1.1, s = "mfa/zenith/ogg/cloth_soft_3.ogg", v = 0.2 },
+			{ t = 1.2, s = "mfa/zenith/ogg/magpouch.ogg" },
+			{ t = 1.7, s = "mfa/wep/ogg/Reload_1P_M16_Magin_Wave 0 0 0.ogg" },
+			{ t = 2.4, s = "mfa/zenith/ogg/cloth_soft_1.ogg", v = 0.5 },
+			{ t = 3.12, s = "mfa/wep/ogg/Reload_1P_M16_Bolt_Wave 0 0 0.ogg" },
+			{ t = 3.2, s = "mfa/zenith/ogg/rattle.ogg" },
 		},
 		Time = 4.6,
 		LoadIn = 3.5,

@@ -52,7 +52,7 @@ SWEP.Dispersion_FireDecay	= 5
 SWEP.Firemodes = {
 	{
 		Count = 1,
-		Delay = 0.12,
+		Delay = ( 60 / 500 )
 	}
 }
 

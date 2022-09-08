@@ -59,7 +59,7 @@ SWEP.Firemodes = {
 	},
 	{
 		Count = 1,
-		Delay = ( 60 / 700 ),
+		Delay = ( 60 / 1200 ),
 	}
 }
 
