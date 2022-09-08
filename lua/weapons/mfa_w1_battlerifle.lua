@@ -1,7 +1,7 @@
 
 -- Fesiug, 2022
 
-SWEP.Base					= "mfa_wep_base"
+SWEP.Base					= "mfa_base_wep"
 SWEP.Spawnable				= true
 
 SWEP.Slot					= 2
