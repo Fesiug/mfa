@@ -93,6 +93,11 @@ SWEP.Animations = {
 	},
 	["reload"] = {
 		Source = "base_reload",
+		Events = {
+			{ t = 0, s = "weapons/iw3/usp/lift.wav" },
+			{ t = 0.5, s = "weapons/iw3/beretta/out.wav" },
+			{ t = 2.1, s = "weapons/iw3/beretta/in.wav" },
+		},
 		Time = 3.2,
 		LoadIn = 2.1,
 		ReloadingTime = 3.0,
@@ -100,6 +105,12 @@ SWEP.Animations = {
 	},
 	["reload_empty"] = {
 		Source = "base_reloadempty",
+		Events = {
+			{ t = 0, s = "weapons/iw3/usp/lift.wav" },
+			{ t = 0.5, s = "weapons/iw3/beretta/out.wav" },
+			{ t = 2.0, s = "weapons/iw3/beretta/in.wav" },
+			{ t = 2.8, s = "weapons/iw3/beretta/slide.wav" },
+		},
 		Time = 3.4,
 		LoadIn = 2.3,
 		ReloadingTime = 3.1,

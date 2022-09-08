@@ -31,6 +31,7 @@ SWEP.Firemodes = {
 		Count = 3,
 		Delay = 0.07,
 		PostBurstDelay = 0.2,
+		Runoff = true,
 	},
 	{
 		Count = 1,
@@ -68,12 +69,24 @@ SWEP.Animations = {
 	},
 	["reload"] = {
 		Source = "base_reload",
-		Time = 4.3,
+		Events = {
+			{ t = 0, s = "weapons/iw3/m4a1/lift.wav" },
+			{ t = 0.5, s = "weapons/iw3/m4a1/out.wav" },
+			{ t = 1.8, s = "weapons/iw3/m4a1/in.wav" },
+			{ t = 2.4, s = "weapons/iw3/m4a1/hit.wav" },
+		},
+		Time = 4.0,
 		LoadIn = 2.5,
 	},
 	["reload_empty"] = {
 		Source = "base_reloadempty",
-		Time = 4.8,
+		Events = {
+			{ t = 0, s = "weapons/iw3/m4a1/lift.wav" },
+			{ t = 0.5, s = "weapons/iw3/m4a1/out.wav" },
+			{ t = 1.8, s = "weapons/iw3/m4a1/in.wav" },
+			{ t = 2.9, s = "weapons/iw3/m4a1/hit.wav" },
+		},
+		Time = 4.6,
 		LoadIn = 3.5,
 	}
 }

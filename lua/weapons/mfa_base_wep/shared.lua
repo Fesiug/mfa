@@ -501,6 +501,60 @@ function SWEP:Think()
 			self:SetIdleIn( -1 )
 		end
 	end
+	
+	for i, v in ipairs(self.EventTable) do
+		for ed, bz in pairs(v) do
+			if ed <= CurTime() then
+				self:PlayEvent(bz)
+				self.EventTable[i][ed] = nil
+				if table.IsEmpty(v) and i != 1 then self.EventTable[i] = nil end
+			end
+		end
+	end
+end
+
+function SWEP:PlayEvent(v)
+	if !v or !istable(v) then error("no event to play") end
+
+	if v.s then
+		if v.s_km then
+			self:StopSound(v.s)
+		end
+		self:EmitSound(v.s, v.l, v.p, v.v, v.c or CHAN_AUTO)
+	end
+end
+
+SWEP.EventTable = { [1] = {} }
+function SWEP:PlaySoundTable(soundtable, mult)
+	local owner = self:GetOwner()
+
+	mult = 1 / (mult or 1)
+
+	for _, v in pairs(soundtable) do
+		if table.IsEmpty(v) then continue end
+
+		local ttime
+		if v.t then
+			ttime = (v.t * mult)
+		else
+			continue
+		end
+		if ttime < 0 then continue end
+		if !(IsValid(self) and IsValid(owner)) then continue end
+
+		local jhon = CurTime() + ttime
+
+		if !self.EventTable[1] then self.EventTable[1] = {} end
+
+		for i, de in ipairs(self.EventTable) do
+			if de[jhon] then
+				if !self.EventTable[i+1] then self.EventTable[i+1] = {} continue end
+			else
+				self.EventTable[i][jhon] = v
+			end
+		end
+
+	end
 end
 
 -- Animating
@@ -567,6 +621,7 @@ function SWEP:SendAnim( act, hold )
 		self:SetSuppressIn( CurTime() + (anim.SuppressTime or seqdur) )
 	end
 
+	if anim.Events then table.Empty(self.EventTable) self:PlaySoundTable( anim.Events, 1 / mult ) end
 end
 
 -- Aiming
@@ -725,13 +780,14 @@ function SWEP:GetViewModelPosition(pos, ang)
 		oy = math.Approach(oy, oy*0.99, FrameTime()*1000)
 		LASTAIM:Set(p:EyeAngles())
 
-		b_ang.y = ox*0.05
-		b_pos.x = ox*0.005
+		local sii = self:GetSightDelta()
+		b_ang.y = ox*0.05*Lerp(sii, 1, 0.05)
+		b_pos.x = ox*0.033*Lerp(sii, 1, 0.05)
 
-		b_ang.x = oy*-0.1
-		b_pos.z = oy*0.01
+		b_ang.x = oy*-0.1*Lerp(sii, 1, 0.1)
+		b_pos.z = oy*0.04*Lerp(sii, 1, 0.1)
 
-		b_ang.z = b_ang.z + (oy*-0.07) + (ox*-0.02)
+		b_ang.z = (b_ang.z + (oy*-0.07) + (ox*-0.02))*Lerp(sii, 1, 0.1)
 
 		b_ang:Normalize()
 
