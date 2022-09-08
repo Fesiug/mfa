@@ -107,7 +107,7 @@ hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 		local s1, s2 = (c*2), (c*3)
 		local w, h = ScrW(), ScrH()
 
-		if p:Health() > 0 then -- heealth
+		if IsValid(p) and p:Health() > 0 then -- heealth
 			surface.SetMaterial( mat_glow )
 			surface.SetDrawColor( Color( 0, 0, 0, 255 ) )
 			surface.DrawTexturedRect( w - (c*500), h - (c*250), (c*500), (c*250) )
@@ -126,7 +126,7 @@ hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 			end
 			local ss_tscale = math.ease.InCirc( tscale ) -- it looks funnier linear 
 			fbar( 0, h - (c*82), (c*320), (c*6), CLR_W, CLR_B )
-			ftext( "Fesiug", "MFA_HUD_48", (c*28), h - (c*62), CLR_W, CLR_B, TEXT_ALIGN_TOP, TEXT_ALIGN_TOP )
+			ftext( p:Nick(), "MFA_HUD_48", (c*28), h - (c*62), CLR_W, CLR_B, TEXT_ALIGN_TOP, TEXT_ALIGN_TOP )
 			ftext( math.Round((p:Health()/p:GetMaxHealth())*100) .. "%", "MFA_HUD_48", (c*28), h - (c*Lerp(1-ss_tscale, 420, 80)), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_BOTTOM )
 
 			local icos = (c*350)
