@@ -87,12 +87,23 @@ SWEP.Animations = {
 	},
 	["reload"] = {
 		Source = "base_reload",
+		Events = {
+			{ t = 0, s = "weapons/iw4/tmp/lift.wav" },
+			{ t = 0.4, s = "weapons/iw4/tmp/out.wav" },
+			{ t = 1.4, s = "weapons/iw4/tmp/in.wav" },
+		},
 		Time = 2.8,
 		LoadIn = 1.8,
 		StopSightTime = 2.0,
 	},
 	["reload_empty"] = {
 		Source = "base_reloadempty",
+		Events = {
+			{ t = 0, s = "weapons/iw4/tmp/lift.wav" },
+			{ t = 0.4, s = "weapons/iw4/tmp/out.wav" },
+			{ t = 1.4, s = "weapons/iw4/tmp/in.wav" },
+			{ t = 1.9, s = "weapons/iw4/p90/hit.wav" },
+		},
 		Time = 3.5,
 		LoadIn = 2.5,
 		StopSightTime = 2.8,
