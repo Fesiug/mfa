@@ -217,7 +217,7 @@ function SWEP:PrimaryAttack()
 
 	if self.Sound_Fire then
 		for index, volume in ipairs(self.Sound_Fire) do
-			self:EmitSound( quickie(volume.s), volume.sl, math.random( volume.p, volume.pm or volume.p ), volume.v, volume.c )
+			self:EmitSound( quickie(volume.s), volume.sl, math.Rand( volume.p, volume.pm or volume.p ), volume.v, volume.c )
 		end
 	else
 		self:EmitSound( self.Primary.Sound, 140 )

@@ -19,7 +19,65 @@ SWEP.ViewModelFOV			= 70
 
 SWEP.Primary.ClipSize		= 20
 SWEP.Primary.Ammo			= "pistol"
-SWEP.Primary.Sound			= ")weapons/iw4/tmp/fire.wav"
+SWEP.Sound_Fire				= {
+	{
+		s = {
+			")mfa/wep/mp40/MP40_Shot_Body_FPP_2-001.ogg",
+			")mfa/wep/mp40/MP40_Shot_Body_FPP_2-002.ogg",
+			")mfa/wep/mp40/MP40_Shot_Body_FPP_2-003.ogg",
+			")mfa/wep/mp40/MP40_Shot_Body_FPP_2-004.ogg",
+			")mfa/wep/mp40/MP40_Shot_Body_FPP_2-005.ogg",
+			")mfa/wep/mp40/MP40_Shot_Body_FPP_2-006.ogg",
+			")mfa/wep/mp40/MP40_Shot_Body_FPP_2-007.ogg",
+			")mfa/wep/mp40/MP40_Shot_Body_FPP_2-008.ogg",
+			")mfa/wep/mp40/MP40_Shot_Body_FPP_2-009.ogg",
+			")mfa/wep/mp40/MP40_Shot_Body_FPP_2-010.ogg",
+		},
+		sl = 90,
+		v = 1,
+		p = 110,
+		pm = 130,
+		c = CHAN_STATIC,
+	},
+	{
+		s = {
+			")mfa/wep/mp40/MP40_Shot_Core_FPP-001.ogg",
+			")mfa/wep/mp40/MP40_Shot_Core_FPP-002.ogg",
+			")mfa/wep/mp40/MP40_Shot_Core_FPP-003.ogg",
+			")mfa/wep/mp40/MP40_Shot_Core_FPP-004.ogg",
+			")mfa/wep/mp40/MP40_Shot_Core_FPP-005.ogg",
+			")mfa/wep/mp40/MP40_Shot_Core_FPP-006.ogg",
+			")mfa/wep/mp40/MP40_Shot_Core_FPP-007.ogg",
+			")mfa/wep/mp40/MP40_Shot_Core_FPP-008.ogg",
+			")mfa/wep/mp40/MP40_Shot_Core_FPP-009.ogg",
+			")mfa/wep/mp40/MP40_Shot_Core_FPP-010.ogg",
+		},
+		sl = 140,
+		v = 1,
+		p = 110,
+		pm = 130,
+		c = CHAN_STATIC,
+	},
+	{
+		s = {
+			")mfa/wep/mp40/MP40_Shot_HiFi_FPP-001.ogg",
+			")mfa/wep/mp40/MP40_Shot_HiFi_FPP-002.ogg",
+			")mfa/wep/mp40/MP40_Shot_HiFi_FPP-003.ogg",
+			")mfa/wep/mp40/MP40_Shot_HiFi_FPP-004.ogg",
+			")mfa/wep/mp40/MP40_Shot_HiFi_FPP-005.ogg",
+			")mfa/wep/mp40/MP40_Shot_HiFi_FPP-006.ogg",
+			")mfa/wep/mp40/MP40_Shot_HiFi_FPP-007.ogg",
+			")mfa/wep/mp40/MP40_Shot_HiFi_FPP-008.ogg",
+			")mfa/wep/mp40/MP40_Shot_HiFi_FPP-009.ogg",
+			")mfa/wep/mp40/MP40_Shot_HiFi_FPP-010.ogg",
+		},
+		sl = 70,
+		v = 1,
+		p = 110,
+		pm = 130,
+		c = CHAN_STATIC,
+	},
+}
 
 SWEP.DamageNear				= 24
 SWEP.DamageFar				= 16
