@@ -19,7 +19,7 @@ SWEP.ViewModelFOV			= 70
 
 SWEP.Primary.ClipSize		= 25
 SWEP.Primary.Ammo			= "pistol"
-SWEP.Primary.Sound			= ")weapons/iw3/mp5/fire.wav"
+SWEP.Primary.Sound			= ")weapons/iw4/ump45/fire.wav"
 
 SWEP.DamageNear				= 26
 SWEP.DamageFar				= 17

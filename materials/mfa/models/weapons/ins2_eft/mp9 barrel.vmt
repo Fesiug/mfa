@@ -1,15 +1,9 @@
-"SurfaceGGX"
+"VertexLitGeneric"
 {
-	"$basetexture" "models\weapons\ins2_eft\mp9n\MP9 Barrel Diffuse"
-	"$bumpmap" "models\weapons\ins2_eft\mp9n\MP9 Barrel Normal"
-	"$phongexponenttexture" "models\weapons\ins2_eft\mp9n\MP9 Barrel Masks"
+	"$basetexture" "mfa/models\weapons\ins2_eft\mp9n\MP9 Barrel Diffuse"
+	"$bumpmap" "mfa/models\weapons\ins2_eft\mp9n\MP9 Barrel Normal"
+	"$phongexponenttexture" "mfa/models\weapons\ins2_eft\mp9n\MP9 Barrel Masks"
 	
-	"$metal" "1"
-	"$roughnessmultiplier" ".75"
-	
-	"$fuzz" "0"
-	"$fuzzmultiplier" ".2"
-	
-	"$envmap" "models\weapons\ins2_eft\envmap_unfuck"
-	"$srgbtint" "[1 1 1]"
+	"$envmap" env_cubemap
+	"$envmaptint" "[0.1 0.1 0.1]"
 }

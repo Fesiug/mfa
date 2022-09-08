@@ -1,0 +1,9 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "mfa/models\weapons\ins2_sandstorm\m1911\T_1P_M1911_D"
+	"$bumpmap" "mfa/models\weapons\ins2_sandstorm\m1911\T_1P_M1911_N"
+	"$phongexponenttexture" "mfa/models\weapons\ins2_sandstorm\m1911\T_1P_M1911_M"
+	
+	"$envmap" env_cubemap
+	"$envmaptint" "[0.2 0.2 0.2]"
+}

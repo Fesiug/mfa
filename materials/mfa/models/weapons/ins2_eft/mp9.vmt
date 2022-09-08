@@ -1,15 +1,9 @@
-"SurfaceGGX"
+"VertexLitGeneric"
 {
 	"$basetexture" "mfa/models\weapons\ins2_eft\mp9n\MP9 Diffuse"
 	"$bumpmap" "mfa/models\weapons\ins2_eft\mp9n\MP9 Normal"
 	"$phongexponenttexture" "mfa/models\weapons\ins2_eft\mp9n\MP9 Masks"
 	
-	"$metal" "1"
-	"$roughnessmultiplier" "1"
-	
-	"$fuzz" "0"
-	"$fuzzmultiplier" ".2"
-	
-	"$envmap" "models\weapons\ins2_eft\envmap_unfuck"
-	"$srgbtint" "[2 2 2]"
+	"$envmap" env_cubemap
+	"$envmaptint" "[0.1 0.1 0.1]"
 }
