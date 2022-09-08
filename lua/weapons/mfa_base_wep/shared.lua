@@ -80,6 +80,19 @@ SWEP.RunPose = {
 	Ang = Angle(-12, 12, -12),
 }
 
+SWEP.MuzzleEffect						= "muzzleflash_4"
+SWEP.QCA_Muzzle							= 1
+SWEP.QCA_Case							= 2
+
+SWEP.ShellModel							= "models/shells/shell_556.mdl"
+SWEP.ShellScale							= 1
+
+SWEP.ShellPhysScale						= 1
+SWEP.ShellPitch							= 100
+SWEP.ShellRotate						= 0
+SWEP.ShellMaterial						= nil
+SWEP.ShellSounds						= "autocheck"--ArcCW.ShellSoundsTable
+
 --
 -- Useless shit that you should NEVER touch
 --
@@ -244,6 +257,7 @@ function SWEP:PrimaryAttack()
 		DamageFar = self.DamageFar,
 	}
 	self:FireBullet(bullet)
+	self:DoEffects()
 
 	-- Recoil
 	local p = self:GetOwner()
@@ -323,8 +337,55 @@ function SWEP:FireBullet(bullet)
 	end
 end
 
-function SWEP:GetHeadshotMultiplier(victim, dmginfo)
-	return 1
+function SWEP:DoEffects(att)
+	if !game.SinglePlayer() and !IsFirstTimePredicted() then return end
+
+	local ed = EffectData()
+	ed:SetStart(self:GetOwner():GetAimVector())
+	ed:SetOrigin(self:GetOwner():GetAimVector())
+	ed:SetScale(1)
+	ed:SetEntity(self)
+	ed:SetAttachment(self.QCA_Muzzle or 1)
+
+	local efov = {}
+	efov.eff = "mfa_wep_muzzleeffect"
+	efov.fx  = ed
+
+	util.Effect("mfa_wep_muzzleeffect", ed)
+end
+
+function SWEP:DoShellEject(atti)
+	if !game.SinglePlayer() and !IsFirstTimePredicted() then return end
+
+	local eff = "mfa_wep_shelleffect"
+
+	local owner = self:GetOwner()
+	if !IsValid(owner) then return end
+
+	local vm = self
+
+	if !owner:IsNPC() then owner:GetViewModel() end
+
+	local att = vm:GetAttachment(self.QCA_Case or 2)
+
+	if !att then return end
+
+	local pos, ang = att.Pos, att.Ang
+
+	local ed = EffectData()
+	ed:SetOrigin(pos)
+	ed:SetAngles(ang)
+	ed:SetAttachment(self.QCA_Case or 2)
+	ed:SetScale(1)
+	ed:SetEntity(self)
+	ed:SetNormal(ang:Forward())
+	ed:SetMagnitude(100)
+
+	local efov = {}
+	efov.eff = eff
+	efov.fx  = ed
+
+	util.Effect(eff, ed)
 end
 
 function SWEP:DrawHUD()
@@ -565,6 +626,9 @@ function SWEP:PlayEvent(v)
 			self:StopSound(v.s)
 		end
 		self:EmitSound(quickie(v.s), v.l or 50, v.p or 100, v.v or 1, v.c or CHAN_STATIC)
+	end
+	if v.shell then
+		self:DoShellEject()
 	end
 end
 
