@@ -100,8 +100,8 @@ SWEP.Animations = {
 		Events = {
 			{ t = 0, s = "mfa/zenith/ogg/raise.ogg" },
 			{ t = 0.5, s = "mfa/wep/ogg/Reload_1P_M16_Magout_Wave 0 0 0.ogg" },
-			{ t = 1.1, s = "mfa/wep/zenith/ogg/cloth_soft_3.ogg", v = 0.2 },
-			{ t = 1.2, s = "mfa/wep/zenith/ogg/magpouch.ogg" },
+			{ t = 1.1, s = "mfa/zenith/ogg/cloth_soft_3.ogg", v = 0.2 },
+			{ t = 1.2, s = "mfa/zenith/ogg/magpouch.ogg" },
 			{ t = 1.7, s = "mfa/wep/ogg/Reload_1P_M16_Magin_Wave 0 0 0.ogg" },
 			{ t = 2.4, s = "mfa/zenith/ogg/cloth_soft_1.ogg", v = 0.5 },
 			{ t = 2.55, s = "mfa/wep/ogg/Reload_1P_M16_Magin_Metal_Wave 0 0 0.ogg" },

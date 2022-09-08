@@ -407,6 +407,26 @@ end
 
 CreateClientConVar( "ttt_a_toggleads", 0, true, true )
 
+-- sprint check
+function SWEP:SprCheck( ent )
+	if !ent then ent = self:GetOwner() end
+
+	if !IsValid(ent) then
+		return false
+	end
+
+	if !ent:IsSprinting() then
+		return false
+	end
+
+	print(ent:GetAbsVelocity():Length2DSqr())
+	if ent:GetAbsVelocity():Length2DSqr() < 8000 then
+		return false
+	end
+
+	return true
+end
+
 -- Thinking
 function SWEP:Think()
 	local runoff = self:GetFiremodeTable().Runoff
@@ -439,9 +459,9 @@ function SWEP:Think()
 			self:SetUserSight( !self:GetUserSight() )
 		end
 	end
-	local capableofads = self:GetStopSightTime() <= CurTime() and !self:GetOwner():IsSprinting() and self:GetOwner():OnGround() -- replace with GetReloading
+	local capableofads = self:GetStopSightTime() <= CurTime() and !self:SprCheck(self:GetOwner()) and self:GetOwner():OnGround() -- replace with GetReloading
 	self:SetSightDelta( math.Approach( self:GetSightDelta(), (capableofads and self:GetUserSight() and 1 or 0), FrameTime() / 0.4 ) )
-	self:SetSprintDelta( math.Approach( self:GetSprintDelta(), (self:GetOwner():IsSprinting() and 1 or 0), FrameTime() / 0.4 ) )
+	self:SetSprintDelta( math.Approach( self:GetSprintDelta(), (self:SprCheck(self:GetOwner())	 and 1 or 0), FrameTime() / 0.4 ) )
 
 	if self:GetLoadIn() > 0 and self:GetLoadIn() <= CurTime() then
 		self:Refill(self:Clip1())
@@ -530,7 +550,7 @@ function SWEP:PlayEvent(v)
 		if v.s_km then
 			self:StopSound(v.s)
 		end
-		self:EmitSound(v.s, v.l, v.p, v.v, v.c or CHAN_AUTO)
+		self:EmitSound(v.s, v.l, v.p, v.v, v.c or CHAN_STATIC)
 	end
 end
 
@@ -791,13 +811,15 @@ function SWEP:GetViewModelPosition(pos, ang)
 		LASTAIM:Set(p:EyeAngles())
 
 		local sii = self:GetSightDelta()
-		b_ang.y = ox*0.05*Lerp(sii, 1, 0.05)
-		b_pos.x = ox*0.033*Lerp(sii, 1, 0.05)
+		b_ang.y = b_ang.y + ox*0.05*Lerp(sii, 1, 0.05)
+		b_pos.x = b_pos.x + ox*0.033*Lerp(sii, 1, 0.05)
 
-		b_ang.x = oy*0.1*Lerp(sii, 1, 0.05)
-		b_pos.z = oy*-0.04*Lerp(sii, 1, 0.05)
+		b_pos.x = b_pos.x + ox*-0.01*Lerp(sii, 1, 0)
 
-		b_ang.z = (b_ang.z + (oy*-0.1) + (ox*-0.02))*Lerp(sii, 1, 0.1)
+		b_ang.x = b_ang.x + oy*0.1*Lerp(sii, 1, 0.05)
+		b_pos.z = b_pos.z + oy*-0.04*Lerp(sii, 1, 0.05)
+
+		b_ang.z = b_ang.z + ((oy*-0.1) + (ox*-0.02))*Lerp(sii, 1, 0.1)
 
 		b_ang:Normalize()
 
