@@ -88,24 +88,28 @@ SWEP.Animations = {
 	["reload"] = {
 		Source = "base_reload",
 		Events = {
-			{ t = 0, s = "weapons/iw4/tmp/lift.wav" },
-			{ t = 0.4, s = "weapons/iw4/tmp/out.wav" },
-			{ t = 1.4, s = "weapons/iw4/tmp/in.wav" },
+			{ t = 0, s = "mfa/wep/ogg/Reload_1P_QBB95_Grab_Wave 0 0 0.ogg" },
+			{ t = 0.1, s = "mfa/wep/ogg/Reload_1P_RFB_Magout_Wave 0 0 0.ogg" },
+			{ t = 0.6, s = "mfa/zenith/ogg/cloth_soft_3.ogg", v = 0.2 },
+			{ t = 1.3, s = "mfa/wep/ogg/Reload_1P_RFB_Magin_Wave 0 0 0.ogg" },
+			{ t = 1.8, s = "mfa/zenith/ogg/rattle.ogg" },
 		},
-		Time = 2.8,
-		LoadIn = 1.8,
+		Time = 3.0,
+		LoadIn = 2.0,
 		StopSightTime = 2.0,
 	},
 	["reload_empty"] = {
 		Source = "base_reloadempty",
 		Events = {
-			{ t = 0, s = "weapons/iw4/tmp/lift.wav" },
-			{ t = 0.4, s = "weapons/iw4/tmp/out.wav" },
-			{ t = 1.4, s = "weapons/iw4/tmp/in.wav" },
-			{ t = 1.9, s = "weapons/iw4/p90/hit.wav" },
+			{ t = 0, s = "mfa/wep/ogg/Reload_1P_QBB95_Grab_Wave 0 0 0.ogg" },
+			{ t = 0.1, s = "mfa/wep/ogg/Reload_1P_RFB_Magout_Wave 0 0 0.ogg" },
+			{ t = 0.6, s = "mfa/zenith/ogg/cloth_soft_3.ogg", v = 0.2 },
+			{ t = 1.3, s = "mfa/wep/ogg/Reload_1P_RFB_Magin_Wave 0 0 0.ogg" },
+			{ t = 1.85, s = "mfa/wep/ogg/Reload_1P_RFB_Bolt_Wave 0 0 0.ogg" },
+			{ t = 2.2, s = "mfa/zenith/ogg/rattle.ogg" },
 		},
 		Time = 3.5,
-		LoadIn = 2.5,
+		LoadIn = 2.6,
 		StopSightTime = 2.8,
 	}
 }

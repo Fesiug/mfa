@@ -58,7 +58,7 @@ SWEP.Dispersion_FireDecay	= 3
 SWEP.Firemodes = {
 	{
 		Count = math.huge,
-		Delay = 0.05,
+		Delay = ( 60 / 750 ),
 	},
 	{
 		Count = 1,
@@ -98,10 +98,10 @@ SWEP.Animations = {
 		Source = "base_reload",
 		Events = {
 			{ t = 0, s = "mfa/zenith/ogg/raise.ogg" },
-			{ t = 0.5, s = "mfa/wep/ogg/Reload_1P_ACR_Magout_Wave 0 0 0.ogg" },
+			{ t = 0.3, s = "mfa/wep/ogg/Reload_1P_SG553_Magout_Wave 0 0 0.ogg" },
 			{ t = 1.3, s = "mfa/zenith/ogg/cloth_soft_3.ogg", v = 0.2 },
 			{ t = 1.5, s = "mfa/zenith/ogg/magpouch.ogg" },
-			{ t = 2.4, s = "mfa/wep/ogg/Reload_1P_ACR_Magin_Wave 0 0 0.ogg" },
+			{ t = 2.2, s = "mfa/wep/ogg/Reload_1P_SG553_Magin_Wave 0 0 0.ogg" },
 			{ t = 2.6, s = "mfa/zenith/ogg/cloth_soft_1.ogg", v = 0.5 },
 			{ t = 2.9, s = "mfa/zenith/ogg/magimpact.ogg" },
 		},
@@ -111,10 +111,10 @@ SWEP.Animations = {
 	["reload_empty"] = {
 		Source = "base_reloadempty",
 		Events = {
-			{ t = 0.5, s = "mfa/wep/ogg/Reload_1P_ACR_Magout_Wave 0 0 0.ogg" },
+			{ t = 0.3, s = "mfa/wep/ogg/Reload_1P_SG553_Magout_Wave 0 0 0.ogg" },
 			{ t = 1.3, s = "mfa/zenith/ogg/cloth_soft_3.ogg", v = 0.2 },
 			{ t = 1.5, s = "mfa/zenith/ogg/magpouch.ogg" },
-			{ t = 2.3, s = "mfa/wep/ogg/Reload_1P_ACR_Magin_Wave 0 0 0.ogg" },
+			{ t = 2.2, s = "mfa/wep/ogg/Reload_1P_SG553_Magin_Wave 0 0 0.ogg" },
 			{ t = 2.6, s = "mfa/wep/ogg/Reload_1P_AEK971_Bolt_Wave 0 0 0.ogg" },
 			{ t = 2.8, s = "mfa/zenith/ogg/cloth_soft_1.ogg", v = 0.5 },
 			{ t = 3.0, s = "mfa/zenith/ogg/magimpact.ogg" },

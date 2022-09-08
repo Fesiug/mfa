@@ -171,6 +171,14 @@ end
 -- Globally define the best number
 HUToM = 0.0254
 
+local function quickie(en)
+	if istable(en) then
+		return table.Random(en)
+	else
+		return en
+	end
+end
+
 --
 -- Firing function
 --
@@ -206,7 +214,14 @@ function SWEP:PrimaryAttack()
 
 	self:TakePrimaryAmmo( ammototake )
 	self:SetBurstCount( self:GetBurstCount() + 1 )
-	self:EmitSound( self.Primary.Sound, self.Primary.SoundLevel )
+
+	if self.Sound_Fire then
+		for index, volume in ipairs(self.Sound_Fire) do
+			self:EmitSound( quickie(volume.s), volume.sl, math.random( volume.p, volume.pm or volume.p ), volume.v, volume.c )
+		end
+	else
+		self:EmitSound( self.Primary.Sound, 140 )
+	end
 
 	self:SendAnim( (self:GetSightDelta() > 0.5 and "fire_ads") or "fire" )
 
@@ -460,7 +475,7 @@ function SWEP:Think()
 	end
 	local capableofads = self:GetStopSightTime() <= CurTime() and !self:SprCheck(self:GetOwner()) and self:GetOwner():OnGround() -- replace with GetReloading
 	self:SetSightDelta( math.Approach( self:GetSightDelta(), (capableofads and self:GetUserSight() and 1 or 0), FrameTime() / 0.4 ) )
-	self:SetSprintDelta( math.Approach( self:GetSprintDelta(), (self:SprCheck(self:GetOwner())	 and 1 or 0), FrameTime() / 0.4 ) )
+	self:SetSprintDelta( math.Approach( self:GetSprintDelta(), (self:SprCheck(self:GetOwner()) and 1 or 0), FrameTime() / 0.4 ) )
 
 	if self:GetLoadIn() > 0 and self:GetLoadIn() <= CurTime() then
 		self:Refill(self:Clip1())
@@ -549,7 +564,7 @@ function SWEP:PlayEvent(v)
 		if v.s_km then
 			self:StopSound(v.s)
 		end
-		self:EmitSound(v.s, v.l, v.p, v.v, v.c or CHAN_STATIC)
+		self:EmitSound(quickie(v.s), v.l or 50, v.p or 100, v.v or 1, v.c or CHAN_STATIC)
 	end
 end
 

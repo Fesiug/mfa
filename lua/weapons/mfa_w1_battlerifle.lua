@@ -19,7 +19,65 @@ SWEP.ViewModelFOV			= 70
 
 SWEP.Primary.ClipSize		= 20
 SWEP.Primary.Ammo			= "ar2"
-SWEP.Primary.Sound			= ")weapons/iw3/g3/fire.wav"
+SWEP.Sound_Fire				= {
+	{
+		s = {
+			")mfa/wep/fg42/FG42_Shot_Body-001.ogg",
+			")mfa/wep/fg42/FG42_Shot_Body-002.ogg",
+			")mfa/wep/fg42/FG42_Shot_Body-003.ogg",
+			")mfa/wep/fg42/FG42_Shot_Body-004.ogg",
+			")mfa/wep/fg42/FG42_Shot_Body-005.ogg",
+			")mfa/wep/fg42/FG42_Shot_Body-006.ogg",
+			")mfa/wep/fg42/FG42_Shot_Body-007.ogg",
+			")mfa/wep/fg42/FG42_Shot_Body-008.ogg",
+			")mfa/wep/fg42/FG42_Shot_Body-009.ogg",
+			")mfa/wep/fg42/FG42_Shot_Body-010.ogg",
+		},
+		sl = 90,
+		v = 1,
+		p = 90,
+		pm = 110,
+		c = CHAN_STATIC,
+	},
+	{
+		s = {
+			")mfa/wep/fg42/FG42_Shot_Core-001.ogg",
+			")mfa/wep/fg42/FG42_Shot_Core-002.ogg",
+			")mfa/wep/fg42/FG42_Shot_Core-003.ogg",
+			")mfa/wep/fg42/FG42_Shot_Core-004.ogg",
+			")mfa/wep/fg42/FG42_Shot_Core-005.ogg",
+			")mfa/wep/fg42/FG42_Shot_Core-006.ogg",
+			")mfa/wep/fg42/FG42_Shot_Core-007.ogg",
+			")mfa/wep/fg42/FG42_Shot_Core-008.ogg",
+			")mfa/wep/fg42/FG42_Shot_Core-009.ogg",
+			")mfa/wep/fg42/FG42_Shot_Core-010.ogg",
+		},
+		sl = 140,
+		v = 1,
+		p = 90,
+		pm = 110,
+		c = CHAN_STATIC,
+	},
+	{
+		s = {
+			")mfa/wep/fg42/FG42_Shot_HiFi-001.ogg",
+			")mfa/wep/fg42/FG42_Shot_HiFi-002.ogg",
+			")mfa/wep/fg42/FG42_Shot_HiFi-003.ogg",
+			")mfa/wep/fg42/FG42_Shot_HiFi-004.ogg",
+			")mfa/wep/fg42/FG42_Shot_HiFi-005.ogg",
+			")mfa/wep/fg42/FG42_Shot_HiFi-006.ogg",
+			")mfa/wep/fg42/FG42_Shot_HiFi-007.ogg",
+			")mfa/wep/fg42/FG42_Shot_HiFi-008.ogg",
+			")mfa/wep/fg42/FG42_Shot_HiFi-009.ogg",
+			")mfa/wep/fg42/FG42_Shot_HiFi-010.ogg",
+		},
+		sl = 70,
+		v = 1,
+		p = 90,
+		pm = 110,
+		c = CHAN_STATIC,
+	},
+}
 
 SWEP.DamageNear				= 34
 SWEP.DamageFar				= 30
@@ -29,14 +87,20 @@ SWEP.RangeFar				= 80
 --
 -- Recoil
 --
-SWEP.RecoilUp							= 1.5 -- degrees punched
-SWEP.RecoilUpDecay						= 30 -- how much recoil to remove per second
+SWEP.RecoilUp							= 4.5 -- degrees punched
+SWEP.RecoilUpDecay						= 40 -- how much recoil to remove per second
 SWEP.RecoilSide							= 0.5 -- degrees punched, in either direction (-100% to 100%)
 SWEP.RecoilSideDecay					= 30 -- how much recoil to remove per second
 SWEP.RecoilUpDrift						= 0.5 -- how much will be smooth recoil
 SWEP.RecoilSideDrift					= 0.5 -- how much will be smooth recoil
 SWEP.RecoilFlipChance					= ( 2 / 3 ) -- chance to flip recoil direction
 SWEP.RecoilADSMult						= ( 1 / 3 ) -- multiply shot recoil by this amount when ads'd
+
+-- after the fact
+SWEP.Recoil2UpDrift						= 0.7 -- how much to return to the original pos
+SWEP.Recoil2SideDrift					= 0.7
+SWEP.Recoil2UpDecay						= 20 -- how much recoil to remove per second
+SWEP.Recoil2SideDecay					= 20 
 
 
 SWEP.Dispersion				= 0.3
@@ -52,6 +116,10 @@ SWEP.Dispersion_FireDecay	= 5
 SWEP.Firemodes = {
 	{
 		Count = 1,
+		Delay = ( 60 / 500 )
+	},
+	{
+		Count = math.huge,
 		Delay = ( 60 / 500 )
 	}
 }
@@ -88,9 +156,12 @@ SWEP.Animations = {
 	["reload"] = {
 		Source = "base_reload",
 		Events = {
-			{ t = 0, s = "weapons/iw3/g3/lift.wav" },
-			{ t = 0.7, s = "weapons/iw3/g3/out.wav" },
-			{ t = 2.8, s = "weapons/iw3/g3/in.wav" },
+			{ t = 0, s = "mfa/zenith/ogg/raise.ogg" },
+			{ t = 0.3, s = "mfa/wep/ogg/Reload_1P_AK12_Grab_Wave 0 0 0.ogg" },
+			{ t = 0.5, s = "mfa/wep/ogg/Reload_1P_AK12_Magout_Wave 0 0 0.ogg" },
+			{ t = 2.0, s = "mfa/zenith/ogg/magpouch.ogg" },
+			{ t = 2.7, s = "mfa/wep/ogg/Reload_1P_AK12_Magin_Wave 0 0 0.ogg" },
+			{ t = 2.9, s = "mfa/zenith/ogg/cloth_soft_1.ogg", v = 0.5 },
 		},
 		Time = 3.7,
 		LoadIn = 2.9,
@@ -98,11 +169,14 @@ SWEP.Animations = {
 	["reload_empty"] = {
 		Source = "base_reloadempty",
 		Events = {
-			{ t = 0, s = "weapons/iw3/g3/lift.wav" },
-			{ t = 0.5, s = "weapons/iw3/g3/chamber.wav" },
-			{ t = 1.8, s = "weapons/iw3/g3/out.wav" },
-			{ t = 3.4, s = "weapons/iw3/g3/in.wav" },
-			{ t = 4.6, s = "weapons/iw3/g3/chamber.wav" },
+			{ t = 0, s = "mfa/zenith/ogg/raise.ogg" },
+			{ t = 0.2, s = "mfa/wep/ogg/Reload_1P_CZ805_Bolt_Wave 0 0 0.ogg" },
+			{ t = 1.3, s = "mfa/wep/ogg/Reload_1P_AK12_Grab_Wave 0 0 0.ogg" },
+			{ t = 1.5, s = "mfa/wep/ogg/Reload_1P_AK12_Magout_Wave 0 0 0.ogg" },
+			{ t = 2.7, s = "mfa/zenith/ogg/magpouch.ogg" },
+			{ t = 3.3, s = "mfa/wep/ogg/Reload_1P_AK12_Magin_Wave 0 0 0.ogg" },
+			{ t = 4.5, s = "mfa/wep/ogg/Reload_1P_AK12_Bolt_Wave 0 0 0.ogg" },
+			{ t = 4.7, s = "mfa/zenith/ogg/cloth_soft_1.ogg", v = 0.5 },
 		},
 		Time = 4.9,
 		LoadIn = 3.9,
