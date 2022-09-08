@@ -419,7 +419,6 @@ function SWEP:SprCheck( ent )
 		return false
 	end
 
-	print(ent:GetAbsVelocity():Length2DSqr())
 	if ent:GetAbsVelocity():Length2DSqr() < 8000 then
 		return false
 	end
