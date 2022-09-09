@@ -19,7 +19,53 @@ SWEP.ViewModelFOV			= 70
 
 SWEP.Primary.ClipSize		= 8
 SWEP.Primary.Ammo			= "pistol"
-SWEP.Primary.Sound			= ")weapons/iw3/colt45/fire.wav"
+SWEP.Sound_Fire				= {
+	{
+		s = {
+			")mfa/wep/colt/M1911_Colt_Shot_Body_FPP-001.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_Body_FPP-002.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_Body_FPP-003.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_Body_FPP-004.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_Body_FPP-005.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_Body_FPP-006.ogg",
+		},
+		sl = 90,
+		v = 1,
+		p = 90,
+		pm = 110,
+		c = CHAN_STATIC,
+	},
+	{
+		s = {
+			")mfa/wep/colt/M1911_Colt_Shot_CoreBass_FPP-001.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_CoreBass_FPP-002.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_CoreBass_FPP-003.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_CoreBass_FPP-004.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_CoreBass_FPP-005.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_CoreBass_FPP-006.ogg",
+		},
+		sl = 140,
+		v = 1,
+		p = 90,
+		pm = 110,
+		c = CHAN_STATIC,
+	},
+	{
+		s = {
+			")mfa/wep/colt/M1911_Colt_Shot_HiFi_FPP-001.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_HiFi_FPP-002.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_HiFi_FPP-003.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_HiFi_FPP-004.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_HiFi_FPP-005.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_HiFi_FPP-006.ogg",
+		},
+		sl = 70,
+		v = 1,
+		p = 90,
+		pm = 110,
+		c = CHAN_STATIC,
+	},
+}
 SWEP.Sound_Dry = { s = "mfa/wep/dry/pistol_high.ogg", sl = 50, v = 0.5, p = 100 }
 
 SWEP.DamageNear				= 36
@@ -34,16 +80,16 @@ SWEP.RecoilUp							= 3.5 -- degrees punched
 SWEP.RecoilUpDecay						= 35 -- how much recoil to remove per second
 SWEP.RecoilSide							= 1.8 -- degrees punched, in either direction (-100% to 100%)
 SWEP.RecoilSideDecay					= 35 -- how much recoil to remove per second
-SWEP.RecoilUpDrift						= 0.3 -- how much will be smooth recoil
-SWEP.RecoilSideDrift					= 0.3 -- how much will be smooth recoil
+SWEP.RecoilUpDrift						= 0.5 -- how much will be smooth recoil
+SWEP.RecoilSideDrift					= 0.5 -- how much will be smooth recoil
 SWEP.RecoilFlipChance					= ( 2 / 3 ) -- chance to flip recoil direction
 SWEP.RecoilADSMult						= ( 3 / 4 ) -- multiply shot recoil by this amount when ads'd
 
 -- after the fact
-SWEP.Recoil2UpDrift						= 0.9 -- how much to return to the original pos
-SWEP.Recoil2SideDrift					= 0.9
-SWEP.Recoil2UpDecay						= 11 -- how much recoil to remove per second
-SWEP.Recoil2SideDecay					= 11 
+SWEP.Recoil2UpDrift						= 0.6 -- how much to return to the original pos
+SWEP.Recoil2SideDrift					= 0.6
+SWEP.Recoil2UpDecay						= 16 -- how much recoil to remove per second
+SWEP.Recoil2SideDecay					= 16 
 
 
 SWEP.Dispersion				= 0.5
@@ -95,9 +141,14 @@ SWEP.Animations = {
 	["reload"] = {
 		Source = "base_reload",
 		Events = {
-			{ t = 0, s = "weapons/iw3/colt45/lift.wav" },
-			{ t = 0.5, s = "weapons/iw3/colt45/out.wav" },
-			{ t = 2.0, s = "weapons/iw3/colt45/in.wav" },
+			{ t = 0, s = "mfa/zenith/ogg/cloth_sharp_impact_soft_new.ogg" },
+			{ t = 0.2, s = "mfa/wep/ogg/Reload_1P_MagpulPDR_Magout_Wave 0 0 0.ogg" },
+			{ t = 0.8, s = "mfa/zenith/ogg/rattle_weapon_3.ogg" },
+			{ t = 1.4, s = "mfa/zenith/ogg/holster_replace.ogg" },
+			{ t = 1.6, s = "mfa/zenith/ogg/pistol_rattle_4.ogg" },
+			{ t = 1.7, s = "mfa/wep/ogg/Reload_1P_MagpulPDR_Magin_Wave 0 0 0.ogg" },
+			{ t = 2.1, s = "mfa/zenith/ogg/rattle.ogg" },
+			{ t = 2.9, s = "mfa/zenith/ogg/rattle_weapon_2.ogg" },
 		},
 		Time = 3.2,
 		LoadIn = 2.1,
@@ -107,10 +158,17 @@ SWEP.Animations = {
 	["reload_empty"] = {
 		Source = "base_reloadempty",
 		Events = {
-			{ t = 0, s = "weapons/iw3/colt45/lift.wav" },
-			{ t = 0.5, s = "weapons/iw3/colt45/out.wav" },
-			{ t = 1.7, s = "weapons/iw3/colt45/in.wav" },
-			{ t = 2.3, s = "weapons/iw3/colt45/slide.wav" },
+			{ t = 0, s = "mfa/zenith/ogg/cloth_sharp_impact_soft_new.ogg" },
+			{ t = 0.1, s = "mfa/wep/ogg/Reload_1P_MagpulPDR_Magout_Wave 0 0 0.ogg" },
+			{ t = 0.8, s = "mfa/zenith/ogg/rattle_weapon_3.ogg" },
+			{ t = 1.0, s = "mfa/zenith/ogg/holster_replace.ogg" },
+			{ t = 1.1, s = "mfa/zenith/ogg/pistol_rattle_4.ogg" },
+			{ t = 1.2, s = "mfa/wep/ogg/Reload_1P_MagpulPDR_Magin_Wave 0 0 0.ogg" },
+			{ t = 1.9, s = "mfa/zenith/ogg/pistol_rattle_3.ogg" },
+			{ t = 2.3, s = "mfa/wep/ogg/Reload_1P_AK5_BoltClose_Wave 1 1 0.ogg" },
+			{ t = 2.6, s = "mfa/zenith/ogg/rattle_weapon_1.ogg" },
+			{ t = 2.9, s = "mfa/zenith/ogg/rattle.ogg" },
+			{ t = 3.1, s = "mfa/zenith/ogg/rattle_weapon_2.ogg" },
 		},
 		Time = 3.4,
 		LoadIn = 2.3,
