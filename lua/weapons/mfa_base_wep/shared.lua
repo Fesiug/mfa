@@ -907,6 +907,33 @@ function SWEP:GetViewModelPosition(pos, ang)
 		oang:Add(b_ang)
 	end
 
+	if true then -- bobbing
+		local b_pos, b_ang = Vector(), Angle()
+
+		local l_down	= math.Clamp( math.TimeFraction( 5, 88, p:EyeAngles().x ), 0, 1 )
+		local l_up		= math.Clamp( math.TimeFraction( -5, -88, p:EyeAngles().x ), 0, 1 )
+		l_down	= math.ease.InSine( l_down )
+		l_up	= math.ease.InCubic( l_up )
+
+		print( l_down, l_up )
+
+		b_pos.x = b_pos.x + -1.5 * l_down
+		b_pos.z = b_pos.z + -1 * l_down
+		b_pos.y = b_pos.y + 0.5 * l_down
+		b_ang.z = b_ang.z + -5 * l_down
+
+		b_pos.x = b_pos.x + -1 * l_up
+		b_pos.z = b_pos.z + -0.5 * l_up
+		b_pos.y = b_pos.y + -1 * l_up
+		b_ang.z = b_ang.z + 2 * l_up
+
+		b_pos:Mul( 1 )
+		b_ang:Mul( 1 )
+
+		opos:Add(b_pos)
+		oang:Add(b_ang)
+	end
+
 	end
 	
 	ang:RotateAroundAxis( ang:Right(),		oang.x )

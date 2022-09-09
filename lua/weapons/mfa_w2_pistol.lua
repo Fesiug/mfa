@@ -67,7 +67,7 @@ SWEP.ActivePos = {
 }
 
 SWEP.IronsightPos = {
-	Pos = Vector(-2.44, -3, 1.26),
+	Pos = Vector(-2.44, -3, 0.89),
 	Ang = Angle(0.5, 0, 0),
 }
 
@@ -85,7 +85,7 @@ SWEP.Animations = {
 		Source = "base_holster",
 	},
 	["fire"] = {
-		Source = "base_fire",
+		Source = "base_fire2",
 		Time = 1.5,
 	},
 	["fire_ads"] = {
