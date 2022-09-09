@@ -467,7 +467,7 @@ function SWEP:Reload()
 			self:SendAnimChoose( "sgreload_start", "reload_start" )
 			self:SetShotgunReloading( ATTTSG_START )
 		else
-			self:SendAnimChoose( atu, "reload" )
+			self:SendAnimChoose( "reload", "reload" )
 		end
 	end
 
