@@ -78,6 +78,7 @@ SWEP.Sound_Fire				= {
 		c = CHAN_STATIC,
 	},
 }
+SWEP.Sound_Dry = { s = "mfa/wep/dry/smg.ogg", sl = 50, v = 0.5, p = 100 }
 
 SWEP.DamageNear				= 24
 SWEP.DamageFar				= 16

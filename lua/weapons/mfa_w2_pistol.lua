@@ -17,9 +17,59 @@ SWEP.ViewModel				= "models/mfa/weapons/browninghp.mdl"
 SWEP.WorldModel				= "models/mfa/weapons/browninghp.mdl"
 SWEP.ViewModelFOV			= 70
 
-SWEP.Primary.ClipSize		= 12
+SWEP.Primary.ClipSize		= 1
 SWEP.Primary.Ammo			= "pistol"
-SWEP.Primary.Sound			= ")weapons/iw3/beretta/fire.wav"
+SWEP.Sound_Fire				= {
+	{
+		s = {
+			")mfa/wep/luger/Luger_P08_Shot_Body_FPP-001.ogg",
+			")mfa/wep/luger/Luger_P08_Shot_Body_FPP-002.ogg",
+			")mfa/wep/luger/Luger_P08_Shot_Body_FPP-003.ogg",
+			")mfa/wep/luger/Luger_P08_Shot_Body_FPP-004.ogg",
+			")mfa/wep/luger/Luger_P08_Shot_Body_FPP-005.ogg",
+			")mfa/wep/luger/Luger_P08_Shot_Body_FPP-006.ogg",
+			")mfa/wep/luger/Luger_P08_Shot_Body_FPP-007.ogg",
+		},
+		sl = 90,
+		v = 1,
+		p = 90,
+		pm = 110,
+		c = CHAN_STATIC,
+	},
+	{
+		s = {
+			")mfa/wep/luger/Luger_P08_Shot_CoreBass_FPP-001.ogg",
+			")mfa/wep/luger/Luger_P08_Shot_CoreBass_FPP-002.ogg",
+			")mfa/wep/luger/Luger_P08_Shot_CoreBass_FPP-003.ogg",
+			")mfa/wep/luger/Luger_P08_Shot_CoreBass_FPP-004.ogg",
+			")mfa/wep/luger/Luger_P08_Shot_CoreBass_FPP-005.ogg",
+			")mfa/wep/luger/Luger_P08_Shot_CoreBass_FPP-006.ogg",
+			")mfa/wep/luger/Luger_P08_Shot_CoreBass_FPP-007.ogg",
+		},
+		sl = 140,
+		v = 1,
+		p = 90,
+		pm = 110,
+		c = CHAN_STATIC,
+	},
+	{
+		s = {
+			")mfa/wep/luger/Luger_P08_Shot_HiFi_FPP-001.ogg",
+			")mfa/wep/luger/Luger_P08_Shot_HiFi_FPP-002.ogg",
+			")mfa/wep/luger/Luger_P08_Shot_HiFi_FPP-003.ogg",
+			")mfa/wep/luger/Luger_P08_Shot_HiFi_FPP-004.ogg",
+			")mfa/wep/luger/Luger_P08_Shot_HiFi_FPP-005.ogg",
+			")mfa/wep/luger/Luger_P08_Shot_HiFi_FPP-006.ogg",
+			")mfa/wep/luger/Luger_P08_Shot_HiFi_FPP-007.ogg",
+		},
+		sl = 70,
+		v = 1,
+		p = 90,
+		pm = 110,
+		c = CHAN_STATIC,
+	},
+}
+SWEP.Sound_Dry = { s = "mfa/wep/dry/pistol.ogg", sl = 50, v = 0.5, p = 100 }
 
 SWEP.DamageNear				= 30
 SWEP.DamageFar				= 26
@@ -94,26 +144,40 @@ SWEP.Animations = {
 	["reload"] = {
 		Source = "base_reload",
 		Events = {
-			{ t = 0, s = "weapons/iw3/usp/lift.wav" },
-			{ t = 0.5, s = "weapons/iw3/beretta/out.wav" },
-			{ t = 2.1, s = "weapons/iw3/beretta/in.wav" },
+			{ t = 0, s = "mfa/zenith/ogg/cloth_sharp_impact_soft_new.ogg" },
+			{ t = 0.3, s = "mfa/zenith/ogg/draw.ogg" },
+			{ t = 0.4, s = "mfa/wep/ogg/Reload_1P_SV98_Magout_Wave 0 0 0.ogg" },
+			{ t = 0.8, s = "mfa/zenith/ogg/rattle_weapon_3.ogg" },
+			{ t = 1.1, s = "mfa/zenith/ogg/holster_replace.ogg" },
+			{ t = 1.3, s = "mfa/zenith/ogg/rattle_weapon_4.ogg" },
+			{ t = 1.6, s = "mfa/zenith/ogg/pistol_rattle_4.ogg" },
+			{ t = 1.8, s = "mfa/wep/ogg/Reload_1P_SV98_Magin_Wave 0 0 0.ogg" },
 		},
-		Time = 3.2,
+		Time = 3.0,
 		LoadIn = 2.1,
-		ReloadingTime = 3.0,
+		ReloadingTime = 2.8,
 		StopSightTime = 2.5,
 	},
 	["reload_empty"] = {
 		Source = "base_reloadempty",
 		Events = {
-			{ t = 0, s = "weapons/iw3/usp/lift.wav" },
-			{ t = 0.5, s = "weapons/iw3/beretta/out.wav" },
-			{ t = 2.0, s = "weapons/iw3/beretta/in.wav" },
-			{ t = 2.8, s = "weapons/iw3/beretta/slide.wav" },
+			{ t = 0, s = "mfa/zenith/ogg/cloth_sharp_impact_soft_new.ogg" },
+			{ t = 0.2, s = "mfa/zenith/ogg/draw.ogg" },
+			{ t = 0.3, s = "mfa/wep/ogg/Reload_1P_SV98_Magout_Wave 0 0 0.ogg" },
+			{ t = 0.8, s = "mfa/zenith/ogg/rattle_weapon_3.ogg" },
+			{ t = 1.1, s = "mfa/zenith/ogg/holster_replace.ogg" },
+			{ t = 1.2, s = "mfa/zenith/ogg/rattle_weapon_4.ogg" },
+			{ t = 1.4, s = "mfa/zenith/ogg/pistol_rattle_4.ogg" },
+			{ t = 1.6, s = "mfa/wep/ogg/Reload_1P_SV98_Magin_Wave 0 0 0.ogg" },
+			{ t = 2.43, s = "mfa/wep/ogg/Reload_1P_MP443_SlideClose_Wave 0 0 0.ogg" },
+			{ t = 2.6, s = "mfa/zenith/ogg/rattle.ogg" },
+			{ t = 2.7, s = "mfa/zenith/ogg/rattle_weapon_2.ogg" },
+			{ t = 3.0, s = "mfa/zenith/ogg/rattle_weapon_1.ogg" },
+			{ t = 3.3, s = "mfa/zenith/ogg/rattle_weapon_4.ogg" },
 		},
-		Time = 3.4,
+		Time = 3.2,
 		LoadIn = 2.3,
-		ReloadingTime = 3.1,
+		ReloadingTime = 3.0,
 		StopSightTime = 2.7,
 	}
 }

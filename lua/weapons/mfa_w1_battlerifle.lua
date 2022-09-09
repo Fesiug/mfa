@@ -78,6 +78,7 @@ SWEP.Sound_Fire				= {
 		c = CHAN_STATIC,
 	},
 }
+SWEP.Sound_Dry = { s = "mfa/wep/dry/rifle_high.ogg", sl = 50, v = 0.5, p = 100 }
 
 SWEP.DamageNear				= 34
 SWEP.DamageFar				= 30
@@ -97,8 +98,8 @@ SWEP.RecoilFlipChance					= ( 2 / 3 ) -- chance to flip recoil direction
 SWEP.RecoilADSMult						= ( 1 / 3 ) -- multiply shot recoil by this amount when ads'd
 
 -- after the fact
-SWEP.Recoil2UpDrift						= 0.7 -- how much to return to the original pos
-SWEP.Recoil2SideDrift					= 0.7
+SWEP.Recoil2UpDrift						= 0.3 -- how much to return to the original pos
+SWEP.Recoil2SideDrift					= 0.3
 SWEP.Recoil2UpDecay						= 20 -- how much recoil to remove per second
 SWEP.Recoil2SideDecay					= 20 
 
@@ -179,6 +180,7 @@ SWEP.Animations = {
 		},
 		Time = 3.7,
 		LoadIn = 2.9,
+		StopSightTime = 3.2,
 	},
 	["reload_empty"] = {
 		Source = "base_reloadempty",
@@ -194,5 +196,6 @@ SWEP.Animations = {
 		},
 		Time = 4.9,
 		LoadIn = 3.9,
+		StopSightTime = 4.5,
 	}
 }

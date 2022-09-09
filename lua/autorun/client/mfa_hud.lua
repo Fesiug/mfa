@@ -100,6 +100,14 @@ local tscale = 0
 local tscale_last = CurTime()
 local lasthealth = 100
 
+local ammolookup = {
+	[game.GetAmmoID("pistol")]		= (0.5/30), -- = (0.80285784/100),
+	[game.GetAmmoID("buckshot")]	= (2/8), -- = (2.48114824/100),
+	[game.GetAmmoID("ar2")]			= (0.992/100), -- = (1.07047712/100),
+	[game.GetAmmoID("smg1")]		= ((2/3)/30), -- = (0.676767/100),
+	[game.GetAmmoID("357")]			= ((2/3)/20), -- = (1.48778176/100),
+}
+
 hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 	if GetConVar("mfa_hud"):GetBool() then
 		local p = LocalPlayer()
@@ -154,7 +162,7 @@ hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 			surface.SetMaterial( mat_bubd )
 			surface.DrawTexturedRect( -(c*40) + lool1, h - (c*430) + lool2, (c*350)*ss_tscale, (c*350)*ss_tscale )
 
-			if false then
+			if enableditem == "radiopack" then
 			-- radar / terminal / teamhealth
 			surface.SetDrawColor( CLR_B )
 			surface.DrawRect( (c*20), (c*20), (c*20*24), (c*20*18)+(c*10) )
@@ -182,7 +190,7 @@ hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 			ftext( "TERM> " .. "C1 sudo rm rf /" .. (CurTime() % 1 > 0.5 and "_" or ""), "MFA_HUD_20", tx, ty+(c*25*ix), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP ) ix = ix + 1
 			end
 
-			if false then
+			if enableditem == "radiopack2" then
 
 			surface.SetDrawColor( Color(50, 50, 50) )
 			surface.DrawRect( 0, 0, 640, 480 )
@@ -254,16 +262,17 @@ hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 			local ami = wep:GetPrimaryAmmoType()
 			if ami > 0 then
 				ami = p:GetAmmoCount(ami)
+			else
+				ami = 0
 			end
 			local amiw = ami
-			if amit == game.GetAmmoID("pistol") then
-				amiw = ami * (0.25/30)
-			elseif amit == game.GetAmmoID("ar2") then
-				amiw = ami * (0.75/20)
+			if ammolookup[amit] then
+				amiw = ami * ammolookup[amit]
 			else
-				amiw = ami * (0.5/30)
+				amiw = ami * 1.337
 			end
-			ftext( "(" .. string.format("%.3f", amiw) .. "kg) " .. ami, "MFA_HUD_20", w-(c*30), h - (c*121), CLR_W, CLR_B, TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM )
+			local coolmath = string.format("%.2f", ami / wep:GetMaxClip1())
+			ftext( "(" .. string.format("%.3f", amiw) .. "kg) " .. ami .. " (x" .. coolmath .. ")", "MFA_HUD_20", w-(c*30), h - (c*121), CLR_W, CLR_B, TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM )
 
 			local wa = w - (c*28)
 			for i=1, wep:GetMaxClip1() do
@@ -319,3 +328,23 @@ concommand.Add("mfa_cl_show_inventory", function()
 		end
 	end
 end)
+
+--[[
+
+1 pound = 0.453592 kilo
+
+Caliber			Bullets per lb		lbs per 100		kilo per 100
+.22 LR			175					0.57			0.25,854744
+9 mm			56					1.77			0.80,285784
+.308 Win.		42					2.36			1.07,047712
+.223 Rem.		127					0.78			0.35,380176
+12 Ga.			18					5.47			2.48,114824
+0.45 ACP		30					3.28			1.48,778176
+
+0.38 spec.		53					1.88			0.00
+.30-06			46					2.14			0.00
+.30-30			41					2.42			0.00
+7 mm			38					2.57			0.00
+0.40 S&W		42					2.35			0.00
+
+]]

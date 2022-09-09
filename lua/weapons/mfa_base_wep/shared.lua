@@ -20,9 +20,9 @@ SWEP.WorldModel							= "models/weapons/w_rif_famas.mdl"
 SWEP.ViewModelFOV						= 75
 
 SWEP.Primary.ClipSize					= -1
-SWEP.Primary.DefaultClip				= 0
 SWEP.Primary.Ammo						= "none"
-SWEP.Primary.ClipMax					= -1
+SWEP.Sound_Fire							= {}
+SWEP.Sound_Dry							= { s = "mfa/wep/dry/rifle.ogg", sl = 50, v = 0.5, p = 100 }
 
 SWEP.HoldTypeHip						= "ar2"
 SWEP.HoldTypeSight						= "rpg"
@@ -103,6 +103,7 @@ SWEP.m_WeaponDeploySpeed				= 10
 -- Don't touch this
 SWEP.UseHands							= false
 SWEP.Primary.Automatic					= true -- This should ALWAYS be true.
+SWEP.Primary.DefaultClip				= 0
 SWEP.Secondary.ClipSize					= -1
 SWEP.Secondary.DefaultClip				= 0
 SWEP.Secondary.Automatic				= true
@@ -218,10 +219,11 @@ function SWEP:PrimaryAttack()
 		return false
 	end
 
-	if self:GetAmmoBank() < ammototake then
+	if self:Clip1() < ammototake then
 		self:SetNextPrimaryFire( CurTime() + self:GetFiremodeTable().Delay )
 		self:SetBurstCount( self:GetBurstCount() + 1 )
-		self:EmitSound( "Weapon_Pistol.Empty" )
+		local volume = self.Sound_Dry
+		self:EmitSound( quickie(volume.s), volume.sl, math.Rand( volume.p, volume.pm or volume.p ), volume.v, volume.c )
 		return false
 	end
 
@@ -475,10 +477,6 @@ function SWEP:TakePrimaryAmmo( amount )
 	assert( self:Clip1() - amount >= 0, "Trying to reduce ammo below zero!" )
 
 	self:SetClip1( self:Clip1() - 1 )
-end
-
-function SWEP:GetAmmoBank()
-	return self:Clip1()
 end
 
 CreateClientConVar( "ttt_a_toggleads", 0, true, true )
@@ -925,8 +923,8 @@ function SWEP:GetViewModelPosition(pos, ang)
 		b_pos.y = b_pos.y + -1 * l_up
 		b_ang.z = b_ang.z + 2 * l_up
 
-		b_pos:Mul( 1 )
-		b_ang:Mul( 1 )
+		b_pos:Mul( (1-self:GetSightDelta()) )
+		b_ang:Mul( (1-self:GetSightDelta()) )
 
 		opos:Add(b_pos)
 		oang:Add(b_ang)

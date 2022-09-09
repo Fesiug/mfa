@@ -20,6 +20,7 @@ SWEP.ViewModelFOV			= 70
 SWEP.Primary.ClipSize		= 8
 SWEP.Primary.Ammo			= "pistol"
 SWEP.Primary.Sound			= ")weapons/iw3/colt45/fire.wav"
+SWEP.Sound_Dry = { s = "mfa/wep/dry/pistol_high.ogg", sl = 50, v = 0.5, p = 100 }
 
 SWEP.DamageNear				= 36
 SWEP.DamageFar				= 26
