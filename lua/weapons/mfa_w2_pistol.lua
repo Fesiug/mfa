@@ -17,7 +17,7 @@ SWEP.ViewModel				= "models/mfa/weapons/browninghp.mdl"
 SWEP.WorldModel				= "models/mfa/weapons/browninghp.mdl"
 SWEP.ViewModelFOV			= 70
 
-SWEP.Primary.ClipSize		= 1
+SWEP.Primary.ClipSize		= 12
 SWEP.Primary.Ammo			= "pistol"
 SWEP.Sound_Fire				= {
 	{
@@ -162,8 +162,8 @@ SWEP.Animations = {
 		Source = "base_reloadempty",
 		Events = {
 			{ t = 0, s = "mfa/zenith/ogg/cloth_sharp_impact_soft_new.ogg" },
-			{ t = 0.2, s = "mfa/zenith/ogg/draw.ogg" },
-			{ t = 0.3, s = "mfa/wep/ogg/Reload_1P_SV98_Magout_Wave 0 0 0.ogg" },
+			{ t = 0.1, s = "mfa/zenith/ogg/draw.ogg" },
+			{ t = 0.2, s = "mfa/wep/ogg/Reload_1P_SV98_Magout_Wave 0 0 0.ogg" },
 			{ t = 0.8, s = "mfa/zenith/ogg/rattle_weapon_3.ogg" },
 			{ t = 1.1, s = "mfa/zenith/ogg/holster_replace.ogg" },
 			{ t = 1.2, s = "mfa/zenith/ogg/rattle_weapon_4.ogg" },
