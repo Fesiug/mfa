@@ -149,6 +149,7 @@ function SWEP:SetupDataTables()
 	self:NetworkVar("Float", 12, "SprintDelta")
 	self:NetworkVar("Float", 13, "Recoil2P")
 	self:NetworkVar("Float", 14, "Recoil2Y")
+	self:NetworkVar("Float", 15, "CycleDelayTime")
 	
 	self:SetFiremode(1)
 	self:SetNextMechFire(0)
@@ -212,6 +213,10 @@ function SWEP:PrimaryAttack()
 	end
 
 	if self:GetReloadingTime() > CurTime() then
+		return false
+	end
+
+	if self:GetCycleDelayTime() > CurTime() then
 		return false
 	end
 
@@ -479,8 +484,6 @@ end
 function SWEP:Refill()
 	local refill = self:RefillCount()
 
-	--assert( refill > 0, "Refill is lower than 0!" )
-
 	self:GetOwner():SetAmmo( self:Ammo1() - refill, self:GetPrimaryAmmoType() )
 	self:SetClip1( self:Clip1() + refill )
 end
@@ -597,10 +600,11 @@ function SWEP:Think()
 	if p and self:GetShotgunReloading() > 0 and p:KeyDown( IN_ATTACK ) then
 		self:SetShotgunReloading( ATTTSG_NO )
 		self:SendAnimChoose( "sgreload_finish", "reload_finish" )
+		self:SetLoadIn( 0 )
 	end
 
-	if self:GetReloadingTime() < CurTime() and self.CycleCount > 0 and self:GetCycleCount() >= self.CycleCount then
-		self:SendAnimChoose( "cycle", true )
+	if self:GetCycleDelayTime() < CurTime() and self.CycleCount > 0 and self:GetCycleCount() >= self.CycleCount then
+		self:SendAnimChoose( "cycle", false )
 		self:SetCycleCount( 0 )
 	end
 
@@ -733,6 +737,8 @@ function SWEP:SendAnim( act, hold )
 	local reloadtime = hold
 	local loadin = hold == "reload"
 	local suppresstime = false
+	local cycledelaytime = hold
+	local attacktime = false
 
 	if anim.StopSightTime then
 		stopsight = true
@@ -746,6 +752,12 @@ function SWEP:SendAnim( act, hold )
 	if anim.SuppressTime then
 		suppresstime = true
 	end
+	if anim.CycleDelayTime then
+		cycledelaytime = true
+	end
+	if anim.AttackTime then
+		attacktime = true
+	end
 
 	if reloadtime then
 		self:SetReloadingTime( CurTime() + (anim.ReloadingTime or seqdur) )
@@ -758,6 +770,12 @@ function SWEP:SendAnim( act, hold )
 	end
 	if suppresstime then
 		self:SetSuppressIn( CurTime() + (anim.SuppressTime or seqdur) )
+	end
+	if cycledelaytime then
+		self:SetCycleDelayTime( CurTime() + (anim.CycleDelayTime or seqdur) )
+	end
+	if attacktime then
+		self:SetNextPrimaryFire( CurTime() + (anim.AttackTime or seqdur) )
 	end
 
 	if anim.Events then table.Empty(self.EventTable) self:PlaySoundTable( anim.Events, 1 / mult ) end

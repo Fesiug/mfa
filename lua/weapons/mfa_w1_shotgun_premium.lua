@@ -63,13 +63,15 @@ SWEP.Sound_Fire				= {
 		c = CHAN_STATIC,
 	},
 }
-SWEP.Sound_Dry = { s = "mfa/wep/dry/smg.ogg", sl = 50, v = 0.5, p = 100 }
+SWEP.Sound_Dry = { s = "mfa/wep/dry/shotgun.ogg", sl = 50, v = 0.5, p = 100 }
 
 
-SWEP.DamageNear				= 24
-SWEP.DamageFar				= 16
-SWEP.RangeNear				= 20
-SWEP.RangeFar				= 40
+SWEP.DamageNear = 14
+SWEP.DamageFar = 10
+SWEP.RangeNear = 10
+SWEP.RangeFar = 30
+
+SWEP.Pellets = 10
 
 --
 -- Recoil
@@ -89,11 +91,11 @@ SWEP.Recoil2SideDrift					= 0.3
 SWEP.Recoil2UpDecay						= 18 -- how much recoil to remove per second
 SWEP.Recoil2SideDecay					= 18 
 
-SWEP.Dispersion				= 0.8
-SWEP.Dispersion_Move		= 2 -- at 200 hu/s
-SWEP.Dispersion_Air			= 2
-SWEP.Dispersion_Crouch		= ( 2 / 3 )
-SWEP.Dispersion_Sights		= ( 1 / 3 )
+SWEP.Dispersion				= 4
+SWEP.Dispersion_Move		= 1 -- at 200 hu/s
+SWEP.Dispersion_Air			= 1
+SWEP.Dispersion_Crouch		= ( 3 / 4 )
+SWEP.Dispersion_Sights		= ( 3 / 4 )
 
 SWEP.Dispersion_FireShoot	= 0.4
 SWEP.Dispersion_FireDecay	= 3
@@ -138,34 +140,34 @@ SWEP.Animations = {
 	["fire"] = {
 		Source = "base_fire_1",
 		Time = 0.8,
-		ReloadingTime = 0.3,
+		CycleDelayTime = 0.3,
 		StopSightTime = -math.huge,
 	},
 	["cycle"] = {
 		Source = "base_fire_cock_1",
 		Events = {
-			{ t = 0, shell = true, },
+			{ t = 0.2, shell = true, },
 			{ t = 0, s = "mfa/wep/ogg/Reload_1P_DBV12_Bolt_Wave 0 0 0.ogg" },
 		},
 		Time = 0.7,
-		ReloadingTime = 0.3,
-		StopSightTime = -math.huge,
+		CycleDelayTime = 0.4,
+		AttackTime = 0.3,
 	},
 	["fire_ads"] = {
 		Source = "iron_fire_1",
 		Time = 0.8,
-		ReloadingTime = 0.3,
+		CycleDelayTime = 0.3,
 		StopSightTime = -math.huge,
 	},
 	["cycle_ads"] = {
 		Source = "iron_fire_cock_1",
 		Events = {
-			{ t = 0, shell = true, },
+			{ t = 0.2, shell = true, },
 			{ t = 0, s = "mfa/wep/ogg/Reload_1P_DBV12_Bolt_Wave 0 0 0.ogg" },
 		},
 		Time = 0.7,
-		ReloadingTime = 0.5,
-		StopSightTime = -math.huge,
+		CycleDelayTime = 0.5,
+		AttackTime = 0.4,
 	},
 	["sgreload_start"] = {
 		Source = "base_reload_start",
@@ -174,6 +176,16 @@ SWEP.Animations = {
 		},
 		Time = 0.8,
 		ReloadingTime = 0.7,
+	},
+	["sgreload_start_empty"] = {
+		Source = "base_reload_start_empty",
+		Events = {
+			{ t = 0, s = "mfa/zenith/ogg/pistol_rattle_2.ogg" },
+			{ t = 0.2, s = "mfa/wep/ogg/Reload_1P_SPAS12_InsertFirstShell_Wave 0 0 0.ogg" },
+			{ t = 1.67, s = "mfa/wep/ogg/Reload_1P_SG553_Bolt_Wave 0 0 0.ogg" },
+		},
+		Time = 2.6,
+		LoadIn = 2.2,
 	},
 	["reload"] = {
 		Source = "base_reload_insert",
