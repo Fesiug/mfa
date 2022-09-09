@@ -87,11 +87,8 @@ SWEP.QCA_Case							= 2
 SWEP.ShellModel							= "models/shells/shell_556.mdl"
 SWEP.ShellScale							= 1
 
-SWEP.ShellPhysScale						= 1
-SWEP.ShellPitch							= 100
-SWEP.ShellRotate						= 0
-SWEP.ShellMaterial						= nil
-SWEP.ShellSounds						= "autocheck"--ArcCW.ShellSoundsTable
+SWEP.ShotgunReloading					= false
+SWEP.CycleCount							= 0
 
 --
 -- Useless shit that you should NEVER touch
@@ -109,6 +106,12 @@ SWEP.Secondary.DefaultClip				= 0
 SWEP.Secondary.Automatic				= true
 SWEP.Secondary.Ammo						= "none"
 SWEP.Secondary.ClipMax					= -1
+
+SWEP.ShellPhysScale						= 1
+SWEP.ShellPitch							= 100
+SWEP.ShellRotate						= 0
+SWEP.ShellMaterial						= nil
+SWEP.ShellSounds						= "autocheck"--ArcCW.ShellSoundsTable
 
 function SWEP:Initalize()
 	self.Primary.Automatic = true
@@ -129,6 +132,7 @@ function SWEP:SetupDataTables()
 	self:NetworkVar("Int", 0, "BurstCount")
 	self:NetworkVar("Int", 1, "Firemode")
 	self:NetworkVar("Int", 2, "ShotgunReloading")
+	self:NetworkVar("Int", 3, "CycleCount")
 
 	self:NetworkVar("Float", 0, "IdleIn")
 	self:NetworkVar("Float", 1, "SightDelta")
@@ -219,6 +223,10 @@ function SWEP:PrimaryAttack()
 		return false
 	end
 
+	if self.CycleCount > 0 and self:GetCycleCount() >= self.CycleCount then
+		return false
+	end
+
 	if self:Clip1() < ammototake then
 		self:SetNextPrimaryFire( CurTime() + self:GetFiremodeTable().Delay )
 		self:SetBurstCount( self:GetBurstCount() + 1 )
@@ -238,7 +246,7 @@ function SWEP:PrimaryAttack()
 		self:EmitSound( self.Primary.Sound, 140 )
 	end
 
-	self:SendAnim( (self:GetSightDelta() > 0.5 and "fire_ads") or "fire" )
+	self:SendAnimChoose( "fire" )
 
 	-- Jane's fix
 	local curtime = CurTime()
@@ -250,6 +258,10 @@ function SWEP:PrimaryAttack()
 	end
 
 	self:SetNextPrimaryFire(curatt + self:GetFiremodeTable().Delay)
+
+	if self.CycleCount > 0 then
+		self:SetCycleCount( self:GetCycleCount() + 1 )
+	end
 
 	-- Bullets
 	local bullet = {
@@ -447,10 +459,10 @@ function SWEP:Reload()
 
 	if self:RefillCount() > 0 then
 		if self.ShotgunReloading then
-			self:SendAnim( "sgreload_start", "reload_start" )
+			self:SendAnimChoose( "sgreload_start", "reload_start" )
 			self:SetShotgunReloading( ATTTSG_START )
 		else
-			self:SendAnim( (self:Clip1() == 0 and "reload_empty" or "reload"), "reload" )
+			self:SendAnimChoose( atu, "reload" )
 		end
 	end
 
@@ -584,22 +596,28 @@ function SWEP:Think()
 
 	if p and self:GetShotgunReloading() > 0 and p:KeyDown( IN_ATTACK ) then
 		self:SetShotgunReloading( ATTTSG_NO )
-		self:SendAnim( "sg_reloadfinish", "reload_finish" )
+		self:SendAnimChoose( "sgreload_finish", "reload_finish" )
 	end
+
+	if self:GetReloadingTime() < CurTime() and self.CycleCount > 0 and self:GetCycleCount() >= self.CycleCount then
+		self:SendAnimChoose( "cycle", true )
+		self:SetCycleCount( 0 )
+	end
+
 	if self:GetShotgunReloading() then
 		if self:GetShotgunReloading() == ATTTSG_START and self:GetReloadingTime() < CurTime() then
 			self:SetShotgunReloading( ATTTSG_INSERT )
 		elseif self:GetShotgunReloading() == ATTTSG_INSERT and self:GetReloadingTime() < CurTime() then
 			if self:Clip1() >= self:GetMaxClip1() or (self:Ammo1() <= 0) then
 				self:SetShotgunReloading( ATTTSG_NO )
-				self:SendAnim( "sg_reloadfinish", "reload_finish" )
+				self:SendAnimChoose( "sgreload_finish", "reload_finish" )
 			else
-				self:SendAnim( "reload", "reload" )
+				self:SendAnimChoose( "reload", "reload" )
 			end
 		end
 	else
 		if self:GetIdleIn() > 0 and self:GetIdleIn() <= CurTime() then
-			self:SendAnim( "idle", "idle" )
+			self:SendAnimChoose( "idle", "idle" )
 			self:SetPlaybackRate( 1 )
 			self:SetIdleIn( -1 )
 		end
@@ -664,6 +682,21 @@ function SWEP:PlaySoundTable(soundtable, mult)
 end
 
 -- Animating
+function SWEP:SendAnimChoose( act, hold )
+	assert( self.Animations, "No animations table?!" )
+
+	local retong = act
+
+	if self:GetSightDelta() > 0.5 and self.Animations[act .. "_ads"] then
+		retong = retong .. "_ads"
+	end
+
+	if self:Clip1() == 0 and self.Animations[act .. "_empty"] then
+		retong = retong .. "_empty"
+	end
+	
+	self:SendAnim( retong, hold )
+end
 local fallback = {
 	Mult = 1,
 }
@@ -750,7 +783,7 @@ end
 
 -- Deploy and holster
 function SWEP:Deploy()
-	self:SendAnim( "draw", true )
+	self:SendAnimChoose( "draw", true )
 	return true
 end
 
