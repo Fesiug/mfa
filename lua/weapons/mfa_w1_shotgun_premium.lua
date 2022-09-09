@@ -76,13 +76,13 @@ SWEP.Pellets = 10
 --
 -- Recoil
 --
-SWEP.RecoilUp							= 7 -- degrees punched
+SWEP.RecoilUp							= 8 -- degrees punched
 SWEP.RecoilUpDecay						= 30 -- how much recoil to remove per second
-SWEP.RecoilSide							= 0.6 -- degrees punched, in either direction (-100% to 100%)
-SWEP.RecoilSideDecay					= 25 -- how much recoil to remove per second
+SWEP.RecoilSide							= 3.5 -- degrees punched, in either direction (-100% to 100%)
+SWEP.RecoilSideDecay					= 22 -- how much recoil to remove per second
 SWEP.RecoilUpDrift						= 0.4 -- how much will be smooth recoil
-SWEP.RecoilSideDrift					= 0.4 -- how much will be smooth recoil
-SWEP.RecoilFlipChance					= ( 2 / 3 ) -- chance to flip recoil direction
+SWEP.RecoilSideDrift					= 0.7 -- how much will be smooth recoil
+SWEP.RecoilFlipChance					= ( 3 / 4 ) -- chance to flip recoil direction
 SWEP.RecoilADSMult						= ( 3 / 4 ) -- multiply shot recoil by this amount when ads'd
 
 -- after the fact
@@ -190,11 +190,22 @@ SWEP.Animations = {
 	["reload"] = {
 		Source = "base_reload_insert",
 		Events = {
+			{ t = 0, s = {
+				"mfa/zenith/ogg/rattle1.ogg",
+				"mfa/zenith/ogg/rattle2.ogg",
+				"mfa/zenith/ogg/rattle3.ogg",
+			}, v = 0.5 },
 			{ t = 0.2, s = {
 				"mfa/wep/ogg/Reload_1P_QBS09_InsertShell_Wave 0 0 0.ogg",
 				"mfa/wep/ogg/Reload_1P_QBS09_InsertShell_Wave 0 1 0.ogg",
 				"mfa/wep/ogg/Reload_1P_QBS09_InsertShell_Wave 0 2 0.ogg",
 				"mfa/wep/ogg/Reload_1P_QBS09_InsertShell_Wave 1 0 0.ogg",
+			} },
+			{ t = 0.4, s = {
+				"mfa/zenith/ogg/rattle_weapon_1.ogg",
+				"mfa/zenith/ogg/rattle_weapon_2.ogg",
+				"mfa/zenith/ogg/rattle_weapon_3.ogg",
+				"mfa/zenith/ogg/rattle_weapon_4.ogg",
 			} },
 		},
 		Time = 0.7,

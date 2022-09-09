@@ -121,6 +121,13 @@ SWEP.IronsightPos = {
 	Ang = Angle(0.5, 0, 0),
 }
 
+SWEP.MuzzleEffect						= "muzzleflash_3"
+SWEP.QCA_Muzzle							= 1
+SWEP.QCA_Case							= 3
+
+SWEP.ShellModel							= "models/shells/shell_9mm.mdl"
+SWEP.ShellScale							= 1
+
 SWEP.Animations = {
 	["idle"] = {
 		Source = "base_idle",
@@ -136,10 +143,16 @@ SWEP.Animations = {
 	},
 	["fire"] = {
 		Source = "base_fire2",
+		Events = {
+			{ t = 0, shell = true }
+		},
 		Time = 1.5,
 	},
 	["fire_ads"] = {
 		Source = "iron_fire_1",
+		Events = {
+			{ t = 0, shell = true }
+		},
 	},
 	["reload"] = {
 		Source = "base_reload",

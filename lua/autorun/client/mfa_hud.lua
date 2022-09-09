@@ -96,7 +96,7 @@ function fbar( x, y, w, h, c1, c2 )
 	surface.DrawRect( x, y, w, h )
 end
 
-local tscale = 0
+local tscale = 1
 local tscale_last = CurTime()
 local lasthealth = 100
 
@@ -127,7 +127,7 @@ hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 				lasthealth = p:Health()
 				tscale_last = CurTime()
 			end
-			if tscale_last + 3 > CurTime() then
+			if true or tscale_last + 3 > CurTime() then
 				tscale = math.Approach( tscale, 1, FrameTime() / 0.3 )
 			else
 				tscale = math.Approach( tscale, 0, FrameTime() / 0.3 )
@@ -135,32 +135,36 @@ hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 			local ss_tscale = math.ease.InCirc( tscale ) -- it looks funnier linear 
 			fbar( 0, h - (c*82), (c*320), (c*6), CLR_W, CLR_B )
 			ftext( p:Nick(), "MFA_HUD_48", (c*28), h - (c*62), CLR_W, CLR_B, TEXT_ALIGN_TOP, TEXT_ALIGN_TOP )
-			ftext( math.Round((p:Health()/p:GetMaxHealth())*100) .. "%", "MFA_HUD_48", (c*28), h - (c*Lerp(1-ss_tscale, 420, 80)), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_BOTTOM )
+			ftext( string.format( "%.1f", math.Round((p:Health()/p:GetMaxHealth())*100) ) .. "%", "MFA_HUD_48", (c*170), h - (c*100), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_BOTTOM )
 
-			local icos = (c*350)
+			local icos = (c*250)
 			local lool1 = (1-ss_tscale)*(icos*0.5)
 			local lool2 = (1-ss_tscale)*icos
-
-			surface.SetMaterial( mat_bub )
-			surface.SetDrawColor( CLR_B )
-			surface.DrawTexturedRect( -(c*40)+s1 + lool1, h - (c*430)+s2 + lool2, (c*350)*ss_tscale, (c*350)*ss_tscale )
-			surface.SetDrawColor( CLR_W )
-			surface.DrawTexturedRect( -(c*40) + lool1, h - (c*430) + lool2, (c*350)*ss_tscale, (c*350)*ss_tscale )
 	
 			if p:GetNWBool("MHAshield", false) then
 				surface.SetMaterial( mat_bub4 )
 				surface.SetDrawColor( 255, 255, 255, 100 )
-				surface.DrawTexturedRect( -(c*40), h - (c*430), (c*350), (c*350) )
+				surface.DrawTexturedRect( -(c*20), h - (c*350), icos, icos )
 		
 				surface.SetMaterial( mat_bub2 )
 				surface.SetDrawColor( 255, 255, 255, 50 )
-				surface.DrawTexturedRect( -(c*40), h - (c*430), (c*350), (c*350) )
+				surface.DrawTexturedRect( -(c*20), h - (c*350), icos, icos )
 			end
 	
 			local he = p:Health() / p:GetMaxHealth()
-			surface.SetDrawColor( 255, 0, 0, 255*(1-he) )
+			if he <= 0.1 then
+				surface.SetDrawColor( 100, 0, 0, 255 )
+			else
+				surface.SetDrawColor( 255, 0, 0, 255*(1-he) )
+			end
 			surface.SetMaterial( mat_bubd )
-			surface.DrawTexturedRect( -(c*40) + lool1, h - (c*430) + lool2, (c*350)*ss_tscale, (c*350)*ss_tscale )
+			surface.DrawTexturedRect( -(c*20) + lool1, h - (c*350) + lool2, icos*ss_tscale, icos*ss_tscale )
+
+			surface.SetMaterial( mat_bub )
+			surface.SetDrawColor( CLR_B )
+			surface.DrawTexturedRect( -(c*20)+s1 + lool1, h - (c*350)+s2 + lool2, icos*ss_tscale, icos*ss_tscale )
+			surface.SetDrawColor( CLR_W )
+			surface.DrawTexturedRect( -(c*20) + lool1, h - (c*350) + lool2, icos*ss_tscale, icos*ss_tscale )
 
 			if enableditem == "radiopack" then
 			-- radar / terminal / teamhealth
@@ -271,8 +275,7 @@ hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 			else
 				amiw = ami * 1.337
 			end
-			local coolmath = string.format("%.2f", ami / wep:GetMaxClip1())
-			ftext( "(" .. string.format("%.3f", amiw) .. "kg) " .. ami .. " (x" .. coolmath .. ")", "MFA_HUD_20", w-(c*30), h - (c*121), CLR_W, CLR_B, TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM )
+			ftext( "(" .. string.format("%.3f", amiw) .. "kg) " .. ami, "MFA_HUD_20", w-(c*30), h - (c*121), CLR_W, CLR_B, TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM )
 
 			local wa = w - (c*28)
 			for i=1, wep:GetMaxClip1() do
