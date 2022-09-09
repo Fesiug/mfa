@@ -915,8 +915,6 @@ function SWEP:GetViewModelPosition(pos, ang)
 		l_down	= math.ease.InSine( l_down )
 		l_up	= math.ease.InCubic( l_up )
 
-		print( l_down, l_up )
-
 		b_pos.x = b_pos.x + -1.5 * l_down
 		b_pos.z = b_pos.z + -1 * l_down
 		b_pos.y = b_pos.y + 0.5 * l_down
