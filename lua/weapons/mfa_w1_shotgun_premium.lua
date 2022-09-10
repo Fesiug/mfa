@@ -9,6 +9,7 @@ SWEP.Category				= "MFA"
 SWEP.PrintName				= "Shotgun Premium"
 SWEP.Trivia = {
 	Category = "Shotgun",
+	Description = "A gorgeous shotgun featuring an extended magazine and tightened pellet spread.",
 	["Real Name"] = "SPAS-12",
 }
 
@@ -91,7 +92,7 @@ SWEP.Recoil2SideDrift					= 0.3
 SWEP.Recoil2UpDecay						= 18 -- how much recoil to remove per second
 SWEP.Recoil2SideDecay					= 18 
 
-SWEP.Dispersion				= 3
+SWEP.Dispersion				= 2
 SWEP.Dispersion_Move		= 1 -- at 200 hu/s
 SWEP.Dispersion_Air			= 1
 SWEP.Dispersion_Crouch		= ( 3 / 4 )

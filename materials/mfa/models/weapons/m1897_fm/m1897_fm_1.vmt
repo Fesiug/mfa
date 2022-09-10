@@ -1,0 +1,23 @@
+"VertexLitGeneric" 
+{
+	$basetexture 			mfa/models\weapons\m1897_fm\m1897_fm_1
+	$bumpmap 				mfa/models\weapons\m1897_fm\m1897_fm_1_n
+	$phongexponenttexture	mfa/models\weapons\m1897_fm\m1897_fm_1_e
+	
+
+	"$phong"                        "1"
+
+
+	"$phongboost"                   "5"
+	"$phongexponent"                "12"
+	"$phongfresnelranges"           "[.1 .4 3]"
+	"$phongtint"         "[1 1 1]"
+
+	"$envmap"                       "env_cubemap"
+	"$envmaptint"                   "[.02 .02 .02]"
+	"$envmapfresnel" "1"
+	
+	"$normalmapalphaenvmapmask"	"1"
+	
+	"$nocull" "1"
+}

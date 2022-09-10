@@ -453,27 +453,14 @@ function SWEP:DrawHUD()
 		cool1.a = Lerp( custperhud, 0, 255 )
 		cool2.a = Lerp( custperhud, 0, 127 )
 		local c = MFAS(1)
-		draw.SimpleText( "WIP! Move to VGUI!", "MFA_HUD_96", ScrW()/2, (c*48), cool1, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP)
-		draw.SimpleText( w.Trivia["Real Name"] or w:GetPrintName(), "MFA_HUD_96_Glow", ScrW() - (c*72), (c*48), cool2, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
-		draw.SimpleText( w.Trivia["Real Name"] or w:GetPrintName(), "MFA_HUD_96", ScrW() - (c*72), (c*48), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
-
-		local ing = 0
+		draw.SimpleText( w:GetPrintName() or w:GetPrintName(), "MFA_HUD_96", ScrW() - (c*72), (c*48), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
+		
 		if w.Trivia["Category"] then
-			ing = ing + 1
-			draw.SimpleText( w.Trivia["Category"], "MFA_HUD_48", ScrW() - (c*72), (c*96) + (c*36*ing), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
+			draw.SimpleText( w.Trivia["Category"], "MFA_HUD_48", ScrW() - (c*72), (c*126), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
 		end
-		if w.Trivia["Category"] then
-			ing = ing + 1
-			draw.SimpleText( w.Trivia["Category"], "MFA_HUD_48", ScrW() - (c*72), (c*96) + (c*36*ing), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
+		if w.Trivia["Description"] then
+			draw.SimpleText( w.Trivia["Description"], "MFA_HUD_20", ScrW() - (c*72), (c*170), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
 		end
-		if w.Trivia["Category"] then
-			ing = ing + 1
-			draw.SimpleText( w.Trivia["Category"], "MFA_HUD_48", ScrW() - (c*72), (c*96) + (c*36*ing), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
-		end
-		--if w.Trivia["Real Name"] then
-		--	ing = ing + 1
-		--	draw.SimpleText( w.Trivia["Real Name"], "MFA_HUD_48", ScrW() - (c*72), (c*48) + (c*64*ing), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
-		--end
 	end
 	-- draw.SimpleText( self:GetNWString("TestRange", "no data"), "Trebuchet24", ScrW()/2, ScrH()*0.75, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 	-- draw.SimpleText( self:GetNWString("TestDisp", "no data"), "Trebuchet24", ScrW()/2, ScrH()*0.8, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
