@@ -85,6 +85,11 @@ SWEP.CustomizePose = {
 	Ang = Angle(6, 6, 0),
 }
 
+SWEP.CrouchPose = {
+	Pos = Vector(-0.2, -0.5, -0.1),
+	Ang = Angle(0.5, 1, -2),
+}
+
 SWEP.MuzzleEffect						= "muzzleflash_4"
 SWEP.QCA_Muzzle							= 1
 SWEP.QCA_Case							= 2
@@ -508,6 +513,10 @@ function SWEP:Reload()
 		return false
 	end
 
+	if self:GetShotgunReloading() != ATTTSG_NO then
+		return false
+	end
+
 	if self:GetReloadingTime() > CurTime() then
 		return false
 	end
@@ -551,8 +560,6 @@ function SWEP:TakePrimaryAmmo( amount )
 
 	self:SetClip1( self:Clip1() - 1 )
 end
-
-CreateClientConVar( "ttt_a_toggleads", 0, true, true )
 
 -- sprint check
 function SWEP:SprCheck( ent )
@@ -924,6 +931,7 @@ SWEP.SwayScale = 0
 local savemoove = 0
 local cancelsprint = 0
 local custper = 0
+local crouchper = 0
 
 local ox, oy = 0, 0
 local LASTAIM
@@ -945,6 +953,25 @@ function SWEP:GetViewModelPosition(pos, ang)
 
 		b_pos:Add( self.ActivePose.Pos )
 		b_ang:Add( self.ActivePose.Ang )
+		b_pos:Mul( si )
+		b_ang:Mul( si )
+
+		opos:Add( b_pos )
+		oang:Add( b_ang )
+	end
+
+	do -- ActivePose, 'idle'
+		local b_pos, b_ang = Vector(), Angle()
+		local si = 1
+		si = si * (1-self:GetSightDelta())
+		si = si * (1-self:GetSprintDelta())
+		si = si * (crouchper)
+		si = math.ease.InOutSine( si )
+
+		crouchper = math.Approach( crouchper, (p:Crouching() or p:KeyDown(IN_DUCK)) and 1 or 0, FrameTime() / 0.6 )
+
+		b_pos:Add( self.CrouchPose.Pos )
+		b_ang:Add( self.CrouchPose.Ang )
 		b_pos:Mul( si )
 		b_ang:Mul( si )
 

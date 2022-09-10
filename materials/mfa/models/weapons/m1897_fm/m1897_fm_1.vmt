@@ -8,8 +8,8 @@
 	"$phong"                        "1"
 
 
-	"$phongboost"                   "5"
-	"$phongexponent"                "12"
+	"$phongboost"                   "1"
+	"$phongexponent"                "15"
 	"$phongfresnelranges"           "[.1 .4 3]"
 	"$phongtint"         "[1 1 1]"
 

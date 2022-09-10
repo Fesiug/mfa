@@ -13,8 +13,8 @@ SWEP.Trivia = {
 }
 
 SWEP.UseHands				= true
-SWEP.ViewModel				= "models/mfa/weapons/m16a4.mdl"
-SWEP.WorldModel				= "models/mfa/weapons/m16a4.mdl"
+SWEP.ViewModel				= "models/mfa/weapons/m16a1_1.mdl"
+SWEP.WorldModel				= "models/mfa/weapons/m16a1_1.mdl"
 SWEP.ViewModelFOV			= 70
 
 SWEP.Primary.ClipSize		= 30
@@ -136,8 +136,8 @@ SWEP.ActivePose = {
 }
 
 SWEP.IronsightPose = {
-	Pos = Vector(-2.42, -3, 1.04),
-	Ang = Angle(0, 0, 0),
+	Pos = Vector(-2.417, -3, 0.89),
+	Ang = Angle(0.1, 0, 0),
 	Mag = 1.3,
 }
 

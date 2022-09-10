@@ -1,0 +1,11 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "mfa/models\weapons\ins2_rs2\m16a1\US_M16_extra_D"
+	"$bumpmap" "mfa/models\weapons\ins2_rs2\m16a1\US_M16_extra_N"
+	"$phongexponenttexture" "mfa/models\weapons\ins2_rs2\m16a1\US_M16_extra_M"
+	
+	"$envmap" env_cubemap
+	"$envmaptint" "[.1 .1 .1]"
+
+	"$nocull" "1"
+}
