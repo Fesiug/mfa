@@ -81,8 +81,8 @@ SWEP.RunPose = {
 }
 
 SWEP.CustomizePose = {
-	Pos = Vector(2, -5, -2),
-	Ang = Angle(12, 12, 0),
+	Pos = Vector(0.5, -2, -0.5),
+	Ang = Angle(6, 6, 0),
 }
 
 SWEP.MuzzleEffect						= "muzzleflash_4"
@@ -319,6 +319,19 @@ function SWEP:PrimaryAttack()
 	return true
 end
 
+local function getdamagefromrange( dmg_near, dmg_far, range_near, range_far, dist )
+	local min, max = range_near, range_far
+	local range = dist
+	local XD = 0
+	if range < min then
+		XD = 0
+	else
+		XD = math.Clamp((range - min) / (max - min), 0, 1)
+	end
+
+	return math.ceil( Lerp( XD, dmg_near, dmg_far ) )
+end
+
 -- Bullets
 function SWEP:FireBullet(bullet)
 	local dispersion = self:GetDispersion()
@@ -343,19 +356,8 @@ function SWEP:FireBullet(bullet)
 			dmg:SetDamage( bullet.DamageNear )
 			dmg:SetDamageType( DMG_BULLET )
 
-			local d = dmg:GetDamage()
-			local min, max = bullet.RangeNear, bullet.RangeFar
-			local range = atk:GetPos():Distance(tr.HitPos)
-			local XD = 0
-			if range < min then
-				XD = 0
-			else
-				XD = math.Clamp((range - min) / (max - min), 0, 1)
-			end
-
-			dmg:SetDamage( Lerp( 1-XD, bullet.DamageFar, bullet.DamageNear ) )
-
-			self:SetNWString( "TestRange", math.Round( (1-XD)*100 ) .. "% effectiveness, " .. math.Round( dmg:GetDamage() ) .. " dmg" )
+			dmg:SetDamage( getdamagefromrange( bullet.DamageNear, bullet.DamageFar, bullet.RangeNear, bullet.RangeFar, atk:GetPos():Distance(tr.HitPos) ) )
+			print(dmg:GetDamage())
 
 			if IsValid(ent) and ent:IsPlayer() then
 				local hg = tr.HitGroup
@@ -567,8 +569,8 @@ function SWEP:Think()
 		end
 	end
 	local capableofads = self:GetStopSightTime() <= CurTime() and !self:SprCheck(self:GetOwner()) and self:GetOwner():OnGround() and !self:GetCustomizing() -- replace with GetReloading
-	self:SetSightDelta( math.Approach( self:GetSightDelta(), (capableofads and self:GetUserSight() and 1 or 0), FrameTime() / 0.5 ) )
-	self:SetSprintDelta( math.Approach( self:GetSprintDelta(), (self:SprCheck(self:GetOwner()) and 1 or 0), FrameTime() / 0.5 ) )
+	self:SetSightDelta( math.Approach( self:GetSightDelta(), (capableofads and self:GetUserSight() and 1 or 0), FrameTime() / (self.Handling_ADS or 0.5) ) )
+	self:SetSprintDelta( math.Approach( self:GetSprintDelta(), (self:SprCheck(self:GetOwner()) and 1 or 0), FrameTime() / (self.Handling_Sprint or 0.5) ) )
 
 	if self:GetLoadIn() > 0 and self:GetLoadIn() <= CurTime() then
 		self:Refill(self:Clip1())
@@ -706,7 +708,7 @@ end
 
 -- Animating
 function SWEP:SendAnimChoose( act, hold )
-	assert( self.Animations, "No animations table?!" )
+	assert( self.Animations, "SendAnimChoose: No animations table?!" )
 
 	local retong = act
 
@@ -726,13 +728,14 @@ local fallback = {
 function SWEP:SendAnim( act, hold )
 	local anim = fallback
 	local anim = self.Animations
+	assert( anim, "SendAnim: No animations table?!" )
 	if !anim then
-		print("No animation table!")
+		-- print("No animation table!")
 		anim = fallback
 		anim.Source = act
 		return false
 	elseif !anim[act] then
-		print("No defined animation!")
+		-- print("No defined animation!")
 		anim = fallback
 		anim.Source = act
 		return false
@@ -872,9 +875,13 @@ function SWEP:GetViewModelPosition(pos, ang)
 		local si = custper
 		si = si * (1-self:GetSightDelta())
 		si = si * (1-self:GetSprintDelta())
-		si = math.ease.InOutSine( si )
+		if self:GetCustomizing() then
+			si = math.ease.OutSine( si )
+		else
+			si = math.ease.InSine( si )
+		end
 
-		custper = math.Approach( custper, self:GetCustomizing() and 1 or 0, FrameTime() / 0.6 )
+		custper = math.Approach( custper, self:GetCustomizing() and 1 or 0, FrameTime() / 0.5 )
 
 		b_pos:Add( self.CustomizePose.Pos )
 		b_ang:Add( self.CustomizePose.Ang )
@@ -893,7 +900,7 @@ function SWEP:GetViewModelPosition(pos, ang)
 		end
 		xi = xi * 2
 
-		b_pos:Add( Vector( -0.2, 0.7, -0.1 ) )
+		b_pos:Add( Vector( -0.3, 0.6, 0.2 ) )
 		b_ang:Add( Angle( -0.6, -0.3, -2 ) )
 		b_pos:Mul( math.ease.InOutSine( xi ) )
 		b_ang:Mul( math.ease.InOutSine( xi ) )

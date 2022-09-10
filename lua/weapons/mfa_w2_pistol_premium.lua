@@ -76,6 +76,11 @@ SWEP.IronsightPose = {
 	Ang = Angle(1.1, 0, 0),
 }
 
+SWEP.CustomizePose = {
+	Pos = Vector(0.9, -2, -0.7),
+	Ang = Angle(8, 9, 2),
+}
+
 SWEP.MuzzleEffect						= "muzzleflash_3"
 SWEP.QCA_Muzzle							= 1
 SWEP.QCA_Case							= 3

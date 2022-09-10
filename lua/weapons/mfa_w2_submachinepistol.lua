@@ -122,13 +122,23 @@ SWEP.Firemodes = {
 }
 
 SWEP.ActivePose = {
-	Pos = Vector(0.2, 0, 0.4),
+	Pos = Vector(0.2, 0, 0.9),
 	Ang = Angle(),
 }
 
 SWEP.IronsightPose = {
 	Pos = Vector(-2.69, -2, 1.91),
 	Ang = Angle(0.1, -0.2, 0),
+}
+
+SWEP.RunPose = {
+	Pos = Vector(0, 0, 1),
+	Ang = Angle(-12, 12, -12),
+}
+
+SWEP.CustomizePose = {
+	Pos = Vector(0.9, -1, 0.1),
+	Ang = Angle(8, 8, 0),
 }
 
 SWEP.MuzzleEffect						= "muzzleflash_3"

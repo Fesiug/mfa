@@ -77,6 +77,11 @@ SWEP.IronsightPose = {
 	Ang = Angle(0, 0, 0),
 }
 
+SWEP.CustomizePose = {
+	Pos = Vector(0.3, -1, -0.9),
+	Ang = Angle(6, 6, -4),
+}
+
 SWEP.Animations = {
 	["idle"] = {
 		Source = "base_idle",
