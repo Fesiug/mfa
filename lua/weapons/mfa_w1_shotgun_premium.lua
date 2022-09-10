@@ -109,6 +109,7 @@ SWEP.Movespeed_ADS						= 0.68
 
 SWEP.Firemodes = {
 	{
+		Name = "Pump-action",
 		Count = 1,
 		Delay = ( 60 / 120 ),
 	}
@@ -152,13 +153,13 @@ SWEP.Animations = {
 		Source = "base_holster",
 	},
 	["fire"] = {
-		Source = "base_fire_1",
+		Source = { "base_fire_1", "base_fire_2"},
 		Time = 0.8,
 		CycleDelayTime = 0.3,
 		StopSightTime = -math.huge,
 	},
 	["cycle"] = {
-		Source = "base_fire_cock_1",
+		Source = { "base_fire_cock_1", "base_fire_cock_2" },
 		Events = {
 			{ t = 0.2, shell = true, },
 			{ t = 0, s = "mfa/wep/ogg/Reload_1P_DBV12_Bolt_Wave 0 0 0.ogg" },
@@ -168,13 +169,13 @@ SWEP.Animations = {
 		AttackTime = 0.3,
 	},
 	["fire_ads"] = {
-		Source = "iron_fire_1",
+		Source = { "iron_fire_1", "iron_fire_2"},
 		Time = 0.8,
 		CycleDelayTime = 0.3,
 		StopSightTime = -math.huge,
 	},
 	["cycle_ads"] = {
-		Source = "iron_fire_cock_1",
+		Source = { "iron_fire_cock_1", "iron_fire_cock_2" },
 		Events = {
 			{ t = 0.2, shell = true, },
 			{ t = 0, s = "mfa/wep/ogg/Reload_1P_DBV12_Bolt_Wave 0 0 0.ogg" },

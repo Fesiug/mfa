@@ -151,14 +151,14 @@ SWEP.Animations = {
 		Source = "base_holster",
 	},
 	["fire"] = {
-		Source = "base_fire",
+		Source = { "base_fire", "base_fire2", "base_fire3" },
 		Events = {
 			{ t = 0, shell = true }
 		},
 		Time = 1.5,
 	},
 	["fire_ads"] = {
-		Source = "iron_fire_1",
+		Source = { "iron_fire_1", "iron_fire_2", "iron_fire_3" },
 		Events = {
 			{ t = 0, shell = true }
 		},

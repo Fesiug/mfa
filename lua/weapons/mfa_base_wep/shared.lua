@@ -184,6 +184,20 @@ function SWEP:GetFiremodeTable(cust)
 
 	return self.Firemodes[cust or self:GetFiremode()] or unavailable
 end
+function SWEP:GetFiremodeName(cust)
+	local ftn = self:GetFiremodeTable(cust or self:GetFiremode())
+	if ftn.Name then
+		ftn = ftn.Name
+	elseif ftn.Count == math.huge then
+		ftn = "Automatic"
+	elseif ftn.Count == 1 then
+		ftn = "Semi-automatic"
+	else
+		ftn = ftn.Count .. "-round burst"
+	end
+
+	return ftn
+end
 
 function SWEP:SwitchFiremode(prev)
 	-- lol?
@@ -357,7 +371,6 @@ function SWEP:FireBullet(bullet)
 			dmg:SetDamageType( DMG_BULLET )
 
 			dmg:SetDamage( getdamagefromrange( bullet.DamageNear, bullet.DamageFar, bullet.RangeNear, bullet.RangeFar, atk:GetPos():Distance(tr.HitPos) ) )
-			print(dmg:GetDamage())
 
 			if IsValid(ent) and ent:IsPlayer() then
 				local hg = tr.HitGroup
@@ -567,6 +580,9 @@ end
 
 -- Thinking
 function SWEP:Think()
+	local p = self:GetOwner()
+	if !IsValid(p) then p = false end
+
 	local runoff = self:GetFiremodeTable().Runoff
 	if runoff and self:GetBurstCount() != 0 then
 		if ( (game.SinglePlayer() and SERVER) or !game.SinglePlayer() ) then
@@ -606,8 +622,6 @@ function SWEP:Think()
 		self:SetLoadIn(-1)
 	end
 
-	local p = self:GetOwner()
-	if !IsValid(p) then p = false end
 	if p then
 		local rp = self:GetRecoilP()
 		local ry = self:GetRecoilY()
@@ -653,7 +667,7 @@ function SWEP:Think()
 		self:SetLoadIn( 0 )
 	end
 
-	if self:GetCycleDelayTime() < CurTime() and self.CycleCount > 0 and self:GetCycleCount() >= self.CycleCount then
+	if p and !p:KeyDown(IN_ATTACK) and self:GetCycleDelayTime() < CurTime() and self.CycleCount > 0 and self:GetCycleCount() >= self.CycleCount then
 		self:SendAnimChoose( "cycle", false )
 		self:SetCycleCount( 0 )
 	end
@@ -772,7 +786,7 @@ function SWEP:SendAnim( act, hold )
 		anim = self.Animations[act]
 	end
 	local mult = anim.Mult or 1
-	local seqc = self:LookupSequence( anim.Source )
+	local seqc = self:LookupSequence( quickie( anim.Source ) )
 	local vm = self:GetOwner():GetViewModel()
 	vm:SendViewModelMatchingSequence( seqc )
 	mult = vm:SequenceDuration() / (anim.Time or vm:SequenceDuration())
@@ -857,6 +871,7 @@ function SWEP:Deploy()
 	self:SetLoadIn( -1 )
 	self:SetSightDelta( 0 )
 	self:SetSprintDelta( 0 )
+	self:SetShotgunReloading( 0 )
 	return true
 end
 
@@ -864,6 +879,7 @@ function SWEP:Holster()
 	self:SetCustomizing( false )
 	self:SetLoadIn( -1 )
 	self:SetSightDelta( 0 )
+	self:SetShotgunReloading( 0 )
 	return true
 end
 
@@ -904,12 +920,12 @@ function SWEP:GetViewModelPosition(pos, ang)
 		si = si * (1-self:GetSightDelta())
 		si = si * (1-self:GetSprintDelta())
 		if self:GetCustomizing() then
-			si = math.ease.OutSine( si )
+			si = math.ease.OutCubic( si )
 		else
 			si = math.ease.InSine( si )
 		end
 
-		custper = math.Approach( custper, self:GetCustomizing() and 1 or 0, FrameTime() / 0.5 )
+		custper = math.Approach( custper, self:GetCustomizing() and 1 or 0, FrameTime() / 0.8 )
 
 		b_pos:Add( self.CustomizePose.Pos )
 		b_ang:Add( self.CustomizePose.Ang )
@@ -928,7 +944,7 @@ function SWEP:GetViewModelPosition(pos, ang)
 		end
 		xi = xi * 2
 
-		b_pos:Add( Vector( -0.3, 0.6, 0.2 ) )
+		b_pos:Add( Vector( -0.3, 0, 0.2 ) )
 		b_ang:Add( Angle( -0.6, -0.3, -2 ) )
 		b_pos:Mul( math.ease.InOutSine( xi ) )
 		b_ang:Mul( math.ease.InOutSine( xi ) )
@@ -974,6 +990,12 @@ function SWEP:GetViewModelPosition(pos, ang)
 		local b_pos, b_ang = Vector(), Angle()
 		local si = self:GetSightDelta()
 		local ss_si = math.ease.InOutSine( si )
+		
+		if self:GetUserSight() then
+			ss_si = math.ease.OutSine( si )
+		else
+			ss_si = math.ease.InOutSine( si )
+		end
 
 		b_pos:Add( self.IronsightPose.Pos )
 		b_ang:Add( self.IronsightPose.Ang )

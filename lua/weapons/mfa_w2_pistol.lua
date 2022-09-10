@@ -17,7 +17,7 @@ SWEP.ViewModel				= "models/mfa/weapons/browninghp.mdl"
 SWEP.WorldModel				= "models/mfa/weapons/browninghp.mdl"
 SWEP.ViewModelFOV			= 70
 
-SWEP.Primary.ClipSize		= 12
+SWEP.Primary.ClipSize		= 14
 SWEP.Primary.Ammo			= "pistol"
 SWEP.Sound_Fire				= {
 	{
@@ -159,7 +159,7 @@ SWEP.Animations = {
 		Source = "iron_dryfire",
 	},
 	["fire"] = {
-		Source = "base_fire2",
+		Source = { "base_fire", "base_fire2", "base_fire3" },
 		Events = {
 			{ t = 0, shell = true }
 		},
@@ -173,7 +173,7 @@ SWEP.Animations = {
 		Time = 1.5,
 	},
 	["fire_ads"] = {
-		Source = "iron_fire_1",
+		Source = { "iron_fire_1", "iron_fire_2", "iron_fire_3" },
 		Events = {
 			{ t = 0, shell = true }
 		},

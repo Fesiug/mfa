@@ -114,11 +114,11 @@ local tscale_last = CurTime()
 local lasthealth = 100
 
 local ammolookup = {
-	[game.GetAmmoID("pistol")]		= (0.5121/30), -- = (0.80285784/100),
-	[game.GetAmmoID("buckshot")]	= (1.211/8), -- = (2.48114824/100),
-	[game.GetAmmoID("ar2")]			= (0.992/100), -- = (1.07047712/100),
-	[game.GetAmmoID("smg1")]		= ((2.433/3)/30), -- = (0.676767/100),
-	[game.GetAmmoID("357")]			= ((2.97/3)/20), -- = (1.48778176/100),
+	[game.GetAmmoID("pistol")]		= (0.621/30),
+	[game.GetAmmoID("buckshot")]	= (3.211/36),
+	[game.GetAmmoID("ar2")]			= (0.992/30),
+	[game.GetAmmoID("smg1")]		= (0.713/30),
+	[game.GetAmmoID("357")]			= (0.889/30),
 }
 
 hook.Add( "HUDPaint", "MFA_HUDPaint", function()
@@ -263,16 +263,8 @@ hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 			ftext( wep:GetPrintName(), "MFA_HUD_48", w-(c*28), h - (c*62), CLR_W, CLR_B, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP )
 
 			local ftn
-			if wep.GetFiremodeTable then
-				ftn = wep:GetFiremodeTable(wep:GetFiremode()).Count
-				if ftn == math.huge then
-					ftn = "AUTOMATIC"
-				elseif ftn == 1 then
-					ftn = "SEMI-AUTOMATIC"
-				else
-					ftn = ftn .. "-ROUND BURST"
-				end
-				ftext( ftn, "MFA_HUD_20", w-(c*30), h - (c*56), CLR_W, CLR_B, TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM )
+			if wep.GetFiremodeName then
+				ftext( string.upper(wep:GetFiremodeName()), "MFA_HUD_20", w-(c*30), h - (c*56), CLR_W, CLR_B, TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM )
 			end
 
 			local amit = wep:GetPrimaryAmmoType()
