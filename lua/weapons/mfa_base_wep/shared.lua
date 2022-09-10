@@ -424,7 +424,36 @@ function SWEP:DoShellEject(atti)
 	util.Effect(eff, ed)
 end
 
+local cool1 = Color(255, 255, 255, 255)
+local custperhud = 0
 function SWEP:DrawHUD()
+	local w = self
+	custperhud = math.Approach( custperhud, self:GetCustomizing() and 1 or 0, FrameTime() / 0.1 )
+	if (custperhud or 0) > 0 then
+		cool1.a = 255*custperhud
+		local c = MFAS(1)
+		draw.SimpleText( "WIP! Move to VGUI!", "MFA_HUD_96", ScrW()/2, (c*48), cool1, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP)
+		draw.SimpleText( w.Trivia["Real Name"] or w:GetPrintName(), "MFA_HUD_96_Glow", ScrW() - (c*72), (c*48), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
+		draw.SimpleText( w.Trivia["Real Name"] or w:GetPrintName(), "MFA_HUD_96", ScrW() - (c*72), (c*48), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
+
+		local ing = 0
+		if w.Trivia["Category"] then
+			ing = ing + 1
+			draw.SimpleText( w.Trivia["Category"], "MFA_HUD_48", ScrW() - (c*72), (c*96) + (c*36*ing), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
+		end
+		if w.Trivia["Category"] then
+			ing = ing + 1
+			draw.SimpleText( w.Trivia["Category"], "MFA_HUD_48", ScrW() - (c*72), (c*96) + (c*36*ing), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
+		end
+		if w.Trivia["Category"] then
+			ing = ing + 1
+			draw.SimpleText( w.Trivia["Category"], "MFA_HUD_48", ScrW() - (c*72), (c*96) + (c*36*ing), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
+		end
+		--if w.Trivia["Real Name"] then
+		--	ing = ing + 1
+		--	draw.SimpleText( w.Trivia["Real Name"], "MFA_HUD_48", ScrW() - (c*72), (c*48) + (c*64*ing), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
+		--end
+	end
 	-- draw.SimpleText( self:GetNWString("TestRange", "no data"), "Trebuchet24", ScrW()/2, ScrH()*0.75, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 	-- draw.SimpleText( self:GetNWString("TestDisp", "no data"), "Trebuchet24", ScrW()/2, ScrH()*0.8, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 end
@@ -844,7 +873,6 @@ local savemoove = 0
 local cancelsprint = 0
 local custper = 0
 
-
 local ox, oy = 0, 0
 local LASTAIM
 
@@ -973,7 +1001,7 @@ function SWEP:GetViewModelPosition(pos, ang)
 		oang:Add( b_ang )
 	end
 
-	if true then -- bobbing
+	if true then -- bobbing & swaying
 		local b_pos, b_ang = Vector(), Angle()
 		local speed = 2.5 -- This can't be changed in real time or it'll look juttery.
 
@@ -1003,8 +1031,8 @@ function SWEP:GetViewModelPosition(pos, ang)
 		if !LASTAIM then LASTAIM = EY end
 		ox = math.ApproachAngle(ox, ox + (EY.y - LASTAIM.y), math.huge)
 		oy = math.ApproachAngle(oy, oy - (EY.p - LASTAIM.p), math.huge)
-		ox = math.Approach(ox, ox*0.99, FrameTime()*1000)
-		oy = math.Approach(oy, oy*0.99, FrameTime()*1000)
+		ox = math.Approach(ox, ox*(1-(math.min(FrameTime(), (1/4))*4)), math.huge)--FrameTime()*10000000)
+		oy = math.Approach(oy, oy*(1-(math.min(FrameTime(), (1/4))*4)), math.huge)--FrameTime()*10000000)
 		LASTAIM:Set(p:EyeAngles())
 
 		local sii = self:GetSightDelta()
@@ -1026,7 +1054,7 @@ function SWEP:GetViewModelPosition(pos, ang)
 		oang:Add(b_ang)
 	end
 
-	if true then -- bobbing
+	if true then -- up/down
 		local b_pos, b_ang = Vector(), Angle()
 
 		local l_down	= math.Clamp( math.TimeFraction( 5, 88, p:EyeAngles().x ), 0, 1 )

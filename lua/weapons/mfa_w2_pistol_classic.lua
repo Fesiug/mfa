@@ -138,6 +138,9 @@ SWEP.Animations = {
 	["idle"] = {
 		Source = "base_idle",
 	},
+	["idle_empty"] = {
+		Source = "empty_idle",
+	},
 	["draw"] = {
 		Source = "base_draw",
 		Time = 0.8,
@@ -156,6 +159,19 @@ SWEP.Animations = {
 	},
 	["fire_ads"] = {
 		Source = "iron_fire_1",
+		Events = {
+			{ t = 0, shell = true }
+		},
+	},
+	["fire_empty"] = {
+		Source = "base_firelast",
+		Events = {
+			{ t = 0, shell = true }
+		},
+		Time = 1.5,
+	},
+	["fire_ads_empty"] = {
+		Source = "iron_firelast",
 		Events = {
 			{ t = 0, shell = true }
 		},

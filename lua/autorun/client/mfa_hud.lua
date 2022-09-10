@@ -50,19 +50,32 @@ hook.Add( "HUDShouldDraw", "MFA_HUDShouldDraw", function( name )
 	end
 end)
 
-function MHAS(size)
+function MFAS(size)
 	local si = (size / ScrH()) * 720
 	return si
 end
 
+surface.CreateFont("MFA_HUD_96", {
+	font = "Carbon Plus Bold",
+	size = MFAS(96),
+	weight = 200,
+})
+surface.CreateFont("MFA_HUD_96_Glow", {
+	font = "Carbon Plus Bold",
+	size = MFAS(96),
+	weight = 200,
+	scanlines = MFAS(4),
+	blursize = MFAS(4),
+	additive = true,
+})
 surface.CreateFont("MFA_HUD_48", {
 	font = "Carbon Plus Bold",
-	size = MHAS(48),
+	size = MFAS(48),
 	weight = 200,
 })
 surface.CreateFont("MFA_HUD_20", {
 	font = "Carbon Plus Bold",
-	size = MHAS(30),
+	size = MFAS(30),
 	weight = 0,
 })
 surface.CreateFont("MFA_Terminal", {
@@ -81,14 +94,14 @@ local CLR_W = Color( 200, 255, 200, 255 )
 local CLR_B = Color( 0, 0, 0, 100 )
 
 function ftext( text, font, x, y, c1, c2, b, z )
-	local c = MHAS(1)
+	local c = MFAS(1)
 	local s1, s2 = (c*2), (c*3)
 	draw.SimpleText( text, font, x+s1, y+s2, c2, b, z )
 	draw.SimpleText( text, font, x, y, c1, b, z )
 end
 
 function fbar( x, y, w, h, c1, c2 )
-	local c = MHAS(1)
+	local c = MFAS(1)
 	local s1, s2 = (c*2), (c*3)
 	surface.SetDrawColor( c2 )
 	surface.DrawRect( x+s1, y+s2, w, h )
@@ -111,7 +124,7 @@ local ammolookup = {
 hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 	if GetConVar("mfa_hud_enable"):GetBool() then
 		local p = LocalPlayer()
-		local c = MHAS(1)
+		local c = MFAS(1)
 		local s1, s2 = (c*2), (c*3)
 		local w, h = ScrW(), ScrH()
 
@@ -141,7 +154,7 @@ hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 			local lool1 = (1-ss_tscale)*(icos*0.5)
 			local lool2 = (1-ss_tscale)*icos
 	
-			if p:GetNWBool("MHAshield", false) then
+			if p:GetNWBool("MFAShield", false) then
 				surface.SetMaterial( mat_bub4 )
 				surface.SetDrawColor( 255, 255, 255, 100 )
 				surface.DrawTexturedRect( -(c*16), h - (c*400), icos, icos )
@@ -292,7 +305,7 @@ hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 end)
 
 concommand.Add("mfa_cl_show_inventory", function()
-	local c = MHAS(1)
+	local c = MFAS(1)
 	local main = vgui.Create("DFrame", nil)
 	main:SetSize( (c*400), (c*300) )
 	main:Center()
