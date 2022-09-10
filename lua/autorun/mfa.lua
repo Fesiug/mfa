@@ -28,6 +28,45 @@ PrecacheParticleSystem( "muzzleflash_4" )
 PrecacheParticleSystem( "muzzleflash_5" )
 PrecacheParticleSystem( "muzzleflash_6" )
 
+
+if SERVER then
+	util.AddNetworkString("MFA_Wep_Custmenu")
+	net.Receive("MFA_Wep_Custmenu", function( len, ply )
+		local w = ply
+		if IsValid(w) and IsValid(w:GetActiveWeapon()) and w:GetActiveWeapon().MFA then
+			w = w:GetActiveWeapon()
+			w:SetCustomizing( net.ReadBool() )
+		end
+	end)
+else
+	hook.Add("OnContextMenuOpen", "MFA_OnContextMenuOpen", function()
+		local w = LocalPlayer()
+		if IsValid(w) and !w:KeyDown(IN_USE) and IsValid(w:GetActiveWeapon()) and w:GetActiveWeapon().MFA then
+			w = w:GetActiveWeapon()
+			if !w:GetCustomizing() then
+				print("openign cmenu!")
+				w:SetCustomizing( true )
+				net.Start("MFA_Wep_Custmenu")
+					net.WriteBool( true )
+				net.SendToServer()
+			else
+				print("closing cmenu!")
+				w:SetCustomizing( false )
+				net.Start("MFA_Wep_Custmenu")
+					net.WriteBool( false )
+				net.SendToServer()
+			end
+		end
+	end)
+	hook.Add("ContextMenuOpen", "MFA_ContextMenuOpen", function()
+		local w = LocalPlayer()
+		if IsValid(w) and !w:KeyDown(IN_USE) and IsValid(w:GetActiveWeapon()) and w:GetActiveWeapon().MFA then
+			return false
+		end
+	end)
+end
+
+
 if CLIENT then
 	local clr_b = Color(160, 190, 255)
 	local clr_r = Color(255, 190, 190)

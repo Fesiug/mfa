@@ -80,6 +80,11 @@ SWEP.RunPose = {
 	Ang = Angle(-12, 12, -12),
 }
 
+SWEP.CustomizePose = {
+	Pos = Vector(2, -5, -2),
+	Ang = Angle(12, 12, 0),
+}
+
 SWEP.MuzzleEffect						= "muzzleflash_4"
 SWEP.QCA_Muzzle							= 1
 SWEP.QCA_Case							= 2
@@ -230,6 +235,10 @@ function SWEP:PrimaryAttack()
 	end
 
 	if self:GetFiredLastShot() then
+		return false
+	end
+
+	if self:GetCustomizing() then
 		return false
 	end
 
@@ -456,6 +465,10 @@ function SWEP:Reload()
 		return false
 	end
 
+	if self:GetCustomizing() then
+		return false
+	end
+
 	if self:GetReloadingTime() > CurTime() then
 		return false
 	end
@@ -553,7 +566,7 @@ function SWEP:Think()
 			self:SetUserSight( !self:GetUserSight() )
 		end
 	end
-	local capableofads = self:GetStopSightTime() <= CurTime() and !self:SprCheck(self:GetOwner()) and self:GetOwner():OnGround() -- replace with GetReloading
+	local capableofads = self:GetStopSightTime() <= CurTime() and !self:SprCheck(self:GetOwner()) and self:GetOwner():OnGround() and !self:GetCustomizing() -- replace with GetReloading
 	self:SetSightDelta( math.Approach( self:GetSightDelta(), (capableofads and self:GetUserSight() and 1 or 0), FrameTime() / 0.4 ) )
 	self:SetSprintDelta( math.Approach( self:GetSprintDelta(), (self:SprCheck(self:GetOwner()) and 1 or 0), FrameTime() / 0.4 ) )
 
@@ -826,6 +839,7 @@ SWEP.BobScale = 0
 SWEP.SwayScale = 0
 local savemoove = 0
 local cancelsprint = 0
+local custper = 0
 
 
 local ox, oy = 0, 0
@@ -838,13 +852,51 @@ function SWEP:GetViewModelPosition(pos, ang)
 	if IsValid(p) then
 	do -- activepos, 'idle'
 		local b_pos, b_ang = Vector(), Angle()
-		local si = 1-self:GetSightDelta()
+		local si = 1
+		si = si * (1-self:GetSightDelta())
+		si = si * (1-self:GetSprintDelta())
+		si = si * (1-custper)
 		si = math.ease.InOutSine( si )
 
 		b_pos:Add( self.ActivePos.Pos )
 		b_ang:Add( self.ActivePos.Ang )
 		b_pos:Mul( si )
 		b_ang:Mul( si )
+
+		opos:Add( b_pos )
+		oang:Add( b_ang )
+	end
+
+	do -- customizing
+		local b_pos, b_ang = Vector(), Angle()
+		local si = custper
+		si = si * (1-self:GetSightDelta())
+		si = si * (1-self:GetSprintDelta())
+		si = math.ease.InOutSine( si )
+
+		custper = math.Approach( custper, self:GetCustomizing() and 1 or 0, FrameTime() / 0.6 )
+
+		b_pos:Add( self.CustomizePose.Pos )
+		b_ang:Add( self.CustomizePose.Ang )
+		b_pos:Mul( si )
+		b_ang:Mul( si )
+
+		opos:Add( b_pos )
+		oang:Add( b_ang )
+
+		local b_pos, b_ang = Vector(), Angle()
+		local xi = si
+
+		if xi >= 0.5 then
+			xi = xi - 0.5
+			xi = 0.5 - xi
+		end
+		xi = xi * 2
+
+		b_pos:Add( Vector( -0.2, 0.7, -0.1 ) )
+		b_ang:Add( Angle( -0.6, -0.3, -2 ) )
+		b_pos:Mul( math.ease.InOutSine( xi ) )
+		b_ang:Mul( math.ease.InOutSine( xi ) )
 
 		opos:Add( b_pos )
 		oang:Add( b_ang )
@@ -1071,7 +1123,7 @@ function SWEP:DoDrawCrosshair()
 
 	if true then
 		reloadclock = math.Approach( reloadclock, (self:GetReloadingTime() > CurTime()) and 1 or 0, FrameTime() / 0.4 )
-		local clock = Lerp( math.max( self:GetSightDelta(), self:GetSprintDelta(), reloadclock ), 1, 0 )
+		local clock = Lerp( math.max( self:GetSightDelta(), self:GetSprintDelta(), reloadclock, (custper or 0) ), 1, 0 )
 		CHR_F.a = clock * 255
 		CHR_B.a = clock * 100
 		gap = gap / (clock)
