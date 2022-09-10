@@ -285,7 +285,7 @@ function SWEP:PrimaryAttack()
 		local fli = self:GetRecoilFlip() and -1 or 1
 		local ads = Lerp( self:GetSightDelta(), 1, self.RecoilADSMult )
 		if true then
-			if CLIENT and IsFirstTimePredicted() then p:SetEyeAngles( p:EyeAngles() + Angle( ads * -self.RecoilUp * (1-self.RecoilUpDrift), ads * fli * self.RecoilSide * (1-self.RecoilSideDrift) ) ) end
+			if ((SERVER and game.SinglePlayer()) or (CLIENT and IsFirstTimePredicted())) then p:SetEyeAngles( p:EyeAngles() + Angle( ads * -self.RecoilUp * (1-self.RecoilUpDrift), ads * fli * self.RecoilSide * (1-self.RecoilSideDrift) ) ) end
 			self:SetRecoilP( self:GetRecoilP() + (ads * -self.RecoilUp * self.RecoilUpDrift) )
 			self:SetRecoilY( self:GetRecoilY() + (ads * fli * -self.RecoilSide * self.RecoilSideDrift) )
 			self:SetRecoil2P( self:GetRecoil2P() + (ads * -self.RecoilUp * self.Recoil2UpDrift) )
@@ -565,20 +565,20 @@ function SWEP:Think()
 		local ry2 = self:GetRecoil2Y()
 		if rp != 0 then
 			local remove = rp - math.Approach( rp, 0, FrameTime() * self.RecoilUpDecay )
-			if CLIENT and IsFirstTimePredicted() then p:SetEyeAngles( p:EyeAngles() + ( Angle( remove, 0 ) ) ) end
+			if ((SERVER and game.SinglePlayer()) or (CLIENT and IsFirstTimePredicted())) then p:SetEyeAngles( p:EyeAngles() + ( Angle( remove, 0 ) ) ) end
 			self:SetRecoilP( rp - remove )
 		else
 			local remove = rp2 - math.Approach( rp2, 0, FrameTime() * self.Recoil2UpDecay )
-			if CLIENT and IsFirstTimePredicted() then p:SetEyeAngles( p:EyeAngles() - ( Angle( remove, 0 ) ) ) end
+			if ((SERVER and game.SinglePlayer()) or (CLIENT and IsFirstTimePredicted())) then p:SetEyeAngles( p:EyeAngles() - ( Angle( remove, 0 ) ) ) end
 			self:SetRecoil2P( rp2 - remove )
 		end
 		if ry != 0 then
 			local remove = ry - math.Approach( ry, 0, FrameTime() * self.RecoilSideDecay )
-			if CLIENT and IsFirstTimePredicted() then p:SetEyeAngles( p:EyeAngles() - ( Angle( 0, remove ) ) ) end
+			if ((SERVER and game.SinglePlayer()) or (CLIENT and IsFirstTimePredicted())) then p:SetEyeAngles( p:EyeAngles() - ( Angle( 0, remove ) ) ) end
 			self:SetRecoilY( math.Approach( ry, ry - remove, math.huge ) )
 		else
 			local remove = ry2 - math.Approach( ry2, 0, FrameTime() * self.Recoil2SideDecay )
-			if CLIENT and IsFirstTimePredicted() then p:SetEyeAngles( p:EyeAngles() + ( Angle( 0, remove ) ) ) end
+			if ((SERVER and game.SinglePlayer()) or (CLIENT and IsFirstTimePredicted())) then p:SetEyeAngles( p:EyeAngles() + ( Angle( 0, remove ) ) ) end
 			self:SetRecoil2Y( math.Approach( ry2, ry2 - remove, math.huge ) )
 		end
 		local ht = self.HoldTypeHip
@@ -641,7 +641,7 @@ end
 function SWEP:PlayEvent(v)
 	if !v or !istable(v) then error("no event to play") end
 
-	if v.s then
+	if v.s and ( (game.SinglePlayer() and SERVER) or (!game.SinglePlayer() and true) ) then
 		if v.s_km then
 			self:StopSound(v.s)
 		end
