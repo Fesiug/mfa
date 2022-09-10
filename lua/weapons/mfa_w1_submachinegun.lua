@@ -126,12 +126,12 @@ SWEP.Firemodes = {
 	}
 }
 
-SWEP.ActivePos = {
+SWEP.ActivePose = {
 	Pos = Vector(-0, 0, -0.4),
 	Ang = Angle(),
 }
 
-SWEP.IronsightPos = {
+SWEP.IronsightPose = {
 	Pos = Vector(-2.31, -2, 0.4),
 	Ang = Angle(0.1, 0, 0),
 }

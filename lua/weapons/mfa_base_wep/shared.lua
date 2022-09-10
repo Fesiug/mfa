@@ -65,12 +65,12 @@ SWEP.BodyDamageMults = {
 	[HITGROUP_GEAR]		= 1,
 }
 
-SWEP.ActivePos = {
+SWEP.ActivePose = {
 	Pos = Vector(0, 0, 0),
 	Ang = Angle(0, 0, 0),
 }
 
-SWEP.IronsightPos = {
+SWEP.IronsightPose = {
 	Pos = Vector(0, 0, 0),
 	Ang = Angle(0, 0, 0),
 }
@@ -803,8 +803,8 @@ end
 -- Aiming
 function SWEP:TranslateFOV(fov)
 	local mag = 1.1
-	if self.IronsightPos and self.IronsightPos.Mag then
-		mag = self.IronsightPos.Mag
+	if self.IronsightPose and self.IronsightPose.Mag then
+		mag = self.IronsightPose.Mag
 	end
 	return fov / Lerp( math.ease.InOutQuad( self:GetSightDelta() ), 1, mag )
 end
@@ -812,8 +812,8 @@ end
 
 function SWEP:AdjustMouseSensitivity()
 	local mag = 1.1
-	if self.IronsightPos and self.IronsightPos.Mag then
-		mag = self.IronsightPos.Mag
+	if self.IronsightPose and self.IronsightPose.Mag then
+		mag = self.IronsightPose.Mag
 	end
 	return 1 / Lerp( math.ease.InOutQuad( self:GetSightDelta() ), 1, mag )
 end
@@ -850,7 +850,7 @@ function SWEP:GetViewModelPosition(pos, ang)
 	local p = self:GetOwner()
 
 	if IsValid(p) then
-	do -- activepos, 'idle'
+	do -- ActivePose, 'idle'
 		local b_pos, b_ang = Vector(), Angle()
 		local si = 1
 		si = si * (1-self:GetSightDelta())
@@ -858,8 +858,8 @@ function SWEP:GetViewModelPosition(pos, ang)
 		si = si * (1-custper)
 		si = math.ease.InOutSine( si )
 
-		b_pos:Add( self.ActivePos.Pos )
-		b_ang:Add( self.ActivePos.Ang )
+		b_pos:Add( self.ActivePose.Pos )
+		b_ang:Add( self.ActivePose.Ang )
 		b_pos:Mul( si )
 		b_ang:Mul( si )
 
@@ -940,8 +940,8 @@ function SWEP:GetViewModelPosition(pos, ang)
 		local si = self:GetSightDelta()
 		local ss_si = math.ease.InOutSine( si )
 
-		b_pos:Add( self.IronsightPos.Pos )
-		b_ang:Add( self.IronsightPos.Ang )
+		b_pos:Add( self.IronsightPose.Pos )
+		b_ang:Add( self.IronsightPose.Ang )
 		b_pos:Mul( ss_si )
 		b_ang:Mul( ss_si )
 		opos:Add( b_pos )
