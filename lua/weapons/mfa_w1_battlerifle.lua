@@ -11,6 +11,10 @@ SWEP.Trivia = {
 	Category = "Rifle",
 	["Real Name"] = "G3",
 }
+SWEP.MFAsys = {
+	Weight = 5,
+	Size = "verylarge",
+}
 
 SWEP.UseHands				= true
 SWEP.ViewModel				= "models/mfa/weapons/g3.mdl"
@@ -113,6 +117,9 @@ SWEP.Dispersion_Sights		= ( 1 / 3 )
 SWEP.Dispersion_FireShoot	= 1
 SWEP.Dispersion_FireDecay	= 5
 
+SWEP.Movespeed							= 0.88
+SWEP.Movespeed_Firing					= 0.78
+SWEP.Movespeed_ADS						= 0.68
 
 SWEP.Firemodes = {
 	{
@@ -133,6 +140,7 @@ SWEP.ActivePos = {
 SWEP.IronsightPos = {
 	Pos = Vector(-2.07, -3, 0.55),
 	Ang = Angle(0, 0, 0),
+	Mag = 1.3,
 }
 
 SWEP.MuzzleEffect						= "muzzleflash_3"

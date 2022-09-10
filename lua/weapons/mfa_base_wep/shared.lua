@@ -90,6 +90,10 @@ SWEP.ShellScale							= 1
 SWEP.ShotgunReloading					= false
 SWEP.CycleCount							= 0
 
+SWEP.Movespeed							= 1
+SWEP.Movespeed_Firing					= 1
+SWEP.Movespeed_ADS						= 1
+
 --
 -- Useless shit that you should NEVER touch
 --
@@ -995,13 +999,25 @@ function SWEP:GetViewModelPosition(pos, ang)
 end
 
 function SWEP:GetMovespeed()
-	local mo = 1
+	local mo = (self.Movespeed or 1)
 	if self:GetNextPrimaryFire() > CurTime() then
-		mo = mo * 0.7
+		mo = mo * (self.Movespeed_Firing or 0.85)
+	end
+	if self:GetSightDelta() > 0.5 then
+		mo = mo * (self.Movespeed_ADS or 0.75)
 	end
 
 	return mo
 end
+
+hook.Add( "Move", "MFA_Movespeed", function( ply, mv )
+	if ply and IsValid(ply) and IsValid(ply:GetActiveWeapon()) and ply:GetActiveWeapon().MFA then
+		local speed = mv:GetMaxSpeed() * ply:GetActiveWeapon():GetMovespeed()
+		mv:SetMaxSpeed( speed )
+		mv:SetMaxClientSpeed( speed )
+	end
+end)
+
 
 function SWEP:GetDispersion()
 	local disp = self.Dispersion

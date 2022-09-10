@@ -103,6 +103,10 @@ SWEP.Dispersion_FireDecay	= 3
 SWEP.ShotgunReloading		= true
 SWEP.CycleCount				= 1
 
+SWEP.Movespeed							= 0.88
+SWEP.Movespeed_Firing					= 0.78
+SWEP.Movespeed_ADS						= 0.68
+
 SWEP.Firemodes = {
 	{
 		Count = 1,

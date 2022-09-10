@@ -35,7 +35,7 @@ Type HELP for help.
 C:/>abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_
 ]]
 
-CreateClientConVar("mfa_hud", 1)
+CreateClientConVar("mfa_hud_enable", 1)
 
 local hide = {
 	["CHudHealth"] = true,
@@ -45,7 +45,7 @@ local hide = {
 }
 
 hook.Add( "HUDShouldDraw", "MFA_HUDShouldDraw", function( name )
-	if GetConVar("mfa_hud"):GetBool() and ( hide[ name ] ) then
+	if GetConVar("mfa_hud_enable"):GetBool() and ( hide[ name ] ) then
 		return false
 	end
 end)
@@ -101,15 +101,15 @@ local tscale_last = CurTime()
 local lasthealth = 100
 
 local ammolookup = {
-	[game.GetAmmoID("pistol")]		= (0.5/30), -- = (0.80285784/100),
-	[game.GetAmmoID("buckshot")]	= (2/8), -- = (2.48114824/100),
+	[game.GetAmmoID("pistol")]		= (0.5121/30), -- = (0.80285784/100),
+	[game.GetAmmoID("buckshot")]	= (1.211/8), -- = (2.48114824/100),
 	[game.GetAmmoID("ar2")]			= (0.992/100), -- = (1.07047712/100),
-	[game.GetAmmoID("smg1")]		= ((2/3)/30), -- = (0.676767/100),
-	[game.GetAmmoID("357")]			= ((2/3)/20), -- = (1.48778176/100),
+	[game.GetAmmoID("smg1")]		= ((2.433/3)/30), -- = (0.676767/100),
+	[game.GetAmmoID("357")]			= ((2.97/3)/20), -- = (1.48778176/100),
 }
 
 hook.Add( "HUDPaint", "MFA_HUDPaint", function()
-	if GetConVar("mfa_hud"):GetBool() then
+	if GetConVar("mfa_hud_enable"):GetBool() then
 		local p = LocalPlayer()
 		local c = MHAS(1)
 		local s1, s2 = (c*2), (c*3)
@@ -144,11 +144,11 @@ hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 			if p:GetNWBool("MHAshield", false) then
 				surface.SetMaterial( mat_bub4 )
 				surface.SetDrawColor( 255, 255, 255, 100 )
-				surface.DrawTexturedRect( -(c*16), h - (c*390), icos, icos )
+				surface.DrawTexturedRect( -(c*16), h - (c*400), icos, icos )
 		
 				surface.SetMaterial( mat_bub2 )
 				surface.SetDrawColor( 255, 255, 255, 50 )
-				surface.DrawTexturedRect( -(c*16), h - (c*390), icos, icos )
+				surface.DrawTexturedRect( -(c*16), h - (c*400), icos, icos )
 			end
 	
 			local he = p:Health() / p:GetMaxHealth()
@@ -158,13 +158,13 @@ hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 				surface.SetDrawColor( 255, 0, 0, 255*(1-he) )
 			end
 			surface.SetMaterial( mat_bubd )
-			surface.DrawTexturedRect( -(c*16) + lool1, h - (c*390) + lool2, icos*ss_tscale, icos*ss_tscale )
+			surface.DrawTexturedRect( -(c*16) + lool1, h - (c*400) + lool2, icos*ss_tscale, icos*ss_tscale )
 
 			surface.SetMaterial( mat_bub )
 			surface.SetDrawColor( CLR_B )
-			surface.DrawTexturedRect( -(c*16)+s1 + lool1, h - (c*390)+s2 + lool2, icos*ss_tscale, icos*ss_tscale )
+			surface.DrawTexturedRect( -(c*16)+s1 + lool1, h - (c*400)+s2 + lool2, icos*ss_tscale, icos*ss_tscale )
 			surface.SetDrawColor( CLR_W )
-			surface.DrawTexturedRect( -(c*16) + lool1, h - (c*390) + lool2, icos*ss_tscale, icos*ss_tscale )
+			surface.DrawTexturedRect( -(c*16) + lool1, h - (c*400) + lool2, icos*ss_tscale, icos*ss_tscale )
 
 			if enableditem == "radiopack" then
 			-- radar / terminal / teamhealth

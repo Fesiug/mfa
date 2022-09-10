@@ -66,9 +66,10 @@ function EFFECT:Init(data)
 
 	ang:RotateAroundAxis(ang:Right(), -90 + ent.ShellRotate)
 
-	ang:RotateAroundAxis(ang:Right(), (ent.ShellRotateAngle or Angle(0, 0, 0))[1])
-	ang:RotateAroundAxis(ang:Up(), (ent.ShellRotateAngle or Angle(0, 0, 0))[2])
-	ang:RotateAroundAxis(ang:Forward(), (ent.ShellRotateAngle or Angle(0, 0, 0))[3])
+	local dubm = ent.ShellRotateAngle or Angle(0, 0, 0)
+	ang:RotateAroundAxis(ang:Right(), dubm[1])
+	ang:RotateAroundAxis(ang:Up(), dubm[2])
+	ang:RotateAroundAxis(ang:Forward(), dubm[3])
 
 	local dir = ang:Up()
 

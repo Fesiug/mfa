@@ -106,6 +106,9 @@ SWEP.Dispersion_Sights		= ( 1 / 3 )
 SWEP.Dispersion_FireShoot	= 0.4
 SWEP.Dispersion_FireDecay	= 3
 
+SWEP.Movespeed							= 0.94
+SWEP.Movespeed_Firing					= 0.84
+SWEP.Movespeed_ADS						= 0.84
 
 SWEP.Firemodes = {
 	{
