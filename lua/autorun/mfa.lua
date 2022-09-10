@@ -44,13 +44,11 @@ else
 		if IsValid(w) and !w:KeyDown(IN_USE) and IsValid(w:GetActiveWeapon()) and w:GetActiveWeapon().MFA then
 			w = w:GetActiveWeapon()
 			if !w:GetCustomizing() then
-				print("openign cmenu!")
 				w:SetCustomizing( true )
 				net.Start("MFA_Wep_Custmenu")
 					net.WriteBool( true )
 				net.SendToServer()
 			else
-				print("closing cmenu!")
 				w:SetCustomizing( false )
 				net.Start("MFA_Wep_Custmenu")
 					net.WriteBool( false )
