@@ -134,8 +134,8 @@ hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 			end
 			local ss_tscale = math.ease.InCirc( tscale ) -- it looks funnier linear 
 			fbar( 0, h - (c*82), (c*320), (c*6), CLR_W, CLR_B )
-			ftext( p:Nick(), "MFA_HUD_48", (c*28), h - (c*62), CLR_W, CLR_B, TEXT_ALIGN_TOP, TEXT_ALIGN_TOP )
-			ftext( string.format( "%.1f", math.Round((p:Health()/p:GetMaxHealth())*100) ) .. "%", "MFA_HUD_48", (c*170), h - (c*100), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_BOTTOM )
+			ftext( p:Nick(), "MFA_HUD_48", (c*28), h - (c*62), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP )
+			ftext( string.format( "%.1f", math.Round((p:Health()/p:GetMaxHealth())*100) ) .. "%", "MFA_HUD_48", (c*28), h - (c*140), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP )
 
 			local icos = (c*250)
 			local lool1 = (1-ss_tscale)*(icos*0.5)
@@ -144,11 +144,11 @@ hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 			if p:GetNWBool("MHAshield", false) then
 				surface.SetMaterial( mat_bub4 )
 				surface.SetDrawColor( 255, 255, 255, 100 )
-				surface.DrawTexturedRect( -(c*20), h - (c*350), icos, icos )
+				surface.DrawTexturedRect( -(c*16), h - (c*390), icos, icos )
 		
 				surface.SetMaterial( mat_bub2 )
 				surface.SetDrawColor( 255, 255, 255, 50 )
-				surface.DrawTexturedRect( -(c*20), h - (c*350), icos, icos )
+				surface.DrawTexturedRect( -(c*16), h - (c*390), icos, icos )
 			end
 	
 			local he = p:Health() / p:GetMaxHealth()
@@ -158,13 +158,13 @@ hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 				surface.SetDrawColor( 255, 0, 0, 255*(1-he) )
 			end
 			surface.SetMaterial( mat_bubd )
-			surface.DrawTexturedRect( -(c*20) + lool1, h - (c*350) + lool2, icos*ss_tscale, icos*ss_tscale )
+			surface.DrawTexturedRect( -(c*16) + lool1, h - (c*390) + lool2, icos*ss_tscale, icos*ss_tscale )
 
 			surface.SetMaterial( mat_bub )
 			surface.SetDrawColor( CLR_B )
-			surface.DrawTexturedRect( -(c*20)+s1 + lool1, h - (c*350)+s2 + lool2, icos*ss_tscale, icos*ss_tscale )
+			surface.DrawTexturedRect( -(c*16)+s1 + lool1, h - (c*390)+s2 + lool2, icos*ss_tscale, icos*ss_tscale )
 			surface.SetDrawColor( CLR_W )
-			surface.DrawTexturedRect( -(c*20) + lool1, h - (c*350) + lool2, icos*ss_tscale, icos*ss_tscale )
+			surface.DrawTexturedRect( -(c*16) + lool1, h - (c*390) + lool2, icos*ss_tscale, icos*ss_tscale )
 
 			if enableditem == "radiopack" then
 			-- radar / terminal / teamhealth
