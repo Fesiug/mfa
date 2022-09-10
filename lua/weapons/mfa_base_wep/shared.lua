@@ -878,6 +878,7 @@ end
 -- Deploy and holster
 local deploydebounce = 0
 function SWEP:Deploy(valis)
+	-- The dirtiest hack of ALL TIME!
 	if deploydebounce > CurTime() then return false end
 	local original = self:GetNWBool( "readyed", false )
 	if (valis == "Unreadyed" or !self:GetNWBool( "readyed", false )) and self:SendAnimChoose( "ready", true ) then
