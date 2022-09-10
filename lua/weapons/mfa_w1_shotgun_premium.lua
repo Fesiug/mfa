@@ -148,9 +148,17 @@ SWEP.Animations = {
 	},
 	["draw"] = {
 		Source = "base_draw",
+		Events = {
+			{ t = 0, s = "mfa/zenith/ogg/cloth_soft_1.ogg" },
+		},
+		ReloadingTime = 0.5,
 	},
 	["holster"] = {
 		Source = "base_holster",
+		Events = {
+			{ t = 0, s = "mfa/zenith/ogg/cloth_soft_3.ogg" },
+		},
+		HolsterTime = 0.3,
 	},
 	["fire"] = {
 		Source = { "base_fire_1", "base_fire_2"},
@@ -161,7 +169,7 @@ SWEP.Animations = {
 	["cycle"] = {
 		Source = { "base_fire_cock_1", "base_fire_cock_2" },
 		Events = {
-			{ t = 0.2, shell = true, },
+			{ t = 0.1, shell = true, },
 			{ t = 0, s = "mfa/wep/ogg/Reload_1P_DBV12_Bolt_Wave 0 0 0.ogg" },
 		},
 		Time = 0.7,
@@ -177,7 +185,7 @@ SWEP.Animations = {
 	["cycle_ads"] = {
 		Source = { "iron_fire_cock_1", "iron_fire_cock_2" },
 		Events = {
-			{ t = 0.2, shell = true, },
+			{ t = 0.1, shell = true, },
 			{ t = 0, s = "mfa/wep/ogg/Reload_1P_DBV12_Bolt_Wave 0 0 0.ogg" },
 		},
 		Time = 0.7,

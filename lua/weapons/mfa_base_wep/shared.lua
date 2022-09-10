@@ -898,8 +898,8 @@ function SWEP:Deploy(valis)
 	self:SetSightDelta( 0 )
 	self:SetSprintDelta( 0 )
 	self:SetShotgunReloading( 0 )
-	timer.Simple(0.1, function() self:CallOnClient("Deploy", (original == false and "Unreadyed")) end)
-	deploydebounce = CurTime() + 0.2
+	timer.Simple(0.07, function() self:CallOnClient("Deploy", (original == false and "Unreadyed")) end)
+	deploydebounce = CurTime() + 0.14
 	return true
 end
 
@@ -921,9 +921,7 @@ function SWEP:Holster( wep )
 
 		return true
 	elseif (game.SinglePlayer() and SERVER or !game.SinglePlayer()) and self:SendAnimChoose( "holster", "holster", true ) then
-		local anaa = self:SendAnimChoose( "holster", "holster", true )
-		local tiim = self:SendAnim( anaa, "holster" )
-		--self:SetHolster_Time( CurTime() + tiim )
+		self:SendAnimChoose( "holster", "holster" )
 		self:SetHolster_Entity( wep )
 	else
 		self:SetHolster_Time( 0 )
