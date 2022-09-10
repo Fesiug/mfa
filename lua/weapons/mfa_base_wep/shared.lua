@@ -812,6 +812,7 @@ function SWEP:SendAnim( act, hold )
 	local suppresstime = false
 	local cycledelaytime = hold == "cycle" or hold == "fire"
 	local attacktime = false
+	local holstertime = hold == "holster"
 
 	if anim.StopSightTime then
 		stopsight = true
@@ -831,6 +832,9 @@ function SWEP:SendAnim( act, hold )
 	if anim.AttackTime then
 		attacktime = true
 	end
+	if anim.HolsterTime then
+		holstertime = true
+	end
 
 	if reloadtime then
 		self:SetReloadingTime( CurTime() + (anim.ReloadingTime or seqdur) )
@@ -849,6 +853,9 @@ function SWEP:SendAnim( act, hold )
 	end
 	if attacktime then
 		self:SetNextMechFire( CurTime() + (anim.AttackTime or seqdur) )
+	end
+	if holstertime then
+		self:SetHolster_Time( CurTime() + (anim.HolsterTime or seqdur) )
 	end
 
 	table.Empty(self.EventTable)
@@ -899,7 +906,6 @@ end
 function SWEP:Holster( wep )
 	self:SetCustomizing( false )
 	self:SetLoadIn( -1 )
-	self:SetSightDelta( 0 )
 	self:SetShotgunReloading( 0 )
 	if self:GetHolster_Time() > CurTime() then
 		self:SetHolster_Time( 0 )
@@ -911,16 +917,19 @@ function SWEP:Holster( wep )
 	if (self:GetHolster_Time() != 0 and self:GetHolster_Time() <= CurTime()) or !IsValid( wep ) then
 		self:SetHolster_Time( 0 )
 		self:SetHolster_Entity( NULL )
+		self:SetSightDelta( 0 )
 
 		return true
 	elseif (game.SinglePlayer() and SERVER or !game.SinglePlayer()) and self:SendAnimChoose( "holster", "holster", true ) then
 		local anaa = self:SendAnimChoose( "holster", "holster", true )
 		local tiim = self:SendAnim( anaa, "holster" )
-		self:SetHolster_Time( CurTime() + tiim )
+		--self:SetHolster_Time( CurTime() + tiim )
 		self:SetHolster_Entity( wep )
 	else
 		self:SetHolster_Time( 0 )
 		self:SetHolster_Entity( NULL )
+		self:SetSightDelta( 0 )
+
 		return true
 	end
 end

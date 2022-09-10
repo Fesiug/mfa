@@ -159,11 +159,17 @@ SWEP.Animations = {
 	},
 	["draw"] = {
 		Source = "base_draw",
+		Events = {
+			{ t = 0, s = "mfa/zenith/ogg/raise.ogg" },
+		},
 		Time = 0.8,
 		ReloadingTime = 0.6,
 	},
 	["holster"] = {
 		Source = "base_holster",
+		Events = {
+			{ t = 0, s = "mfa/zenith/ogg/cloth_3.ogg" },
+		},
 	},
 	["fire"] = {
 		Source = "base_fire",
