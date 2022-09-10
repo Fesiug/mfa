@@ -615,7 +615,7 @@ function SWEP:Think()
 			self:SetUserSight( !self:GetUserSight() )
 		end
 	end
-	local capableofads = self:GetStopSightTime() <= CurTime() and !self:SprCheck(self:GetOwner()) and self:GetOwner():OnGround() and !self:GetCustomizing() -- replace with GetReloading
+	local capableofads = self:GetStopSightTime() <= CurTime() and self:GetSprintDelta() <= 0 and self:GetOwner():OnGround() and !self:GetCustomizing() -- replace with GetReloading
 	self:SetSightDelta( math.Approach( self:GetSightDelta(), (capableofads and self:GetUserSight() and 1 or 0), FrameTime() / (self.Handling_ADS or 0.5) ) )
 	self:SetSprintDelta( math.Approach( self:GetSprintDelta(), (self:SprCheck(self:GetOwner()) and 1 or 0), FrameTime() / (self.Handling_Sprint or 0.5) ) )
 
@@ -961,8 +961,8 @@ function SWEP:GetViewModelPosition(pos, ang)
 		local b_pos, b_ang = Vector(), Angle()
 		local si = self:GetSprintDelta()
 
-		cancelsprint = math.Approach( cancelsprint, (self:GetStopSightTime() > CurTime() and 0 or 1), FrameTime() / 0.4 )
-		si = math.min(si, cancelsprint)
+		--cancelsprint = math.Approach( cancelsprint, (self:GetStopSightTime() > CurTime() and 0 or 1), FrameTime() / 0.4 )
+		--si = math.min(si, cancelsprint)
 
 		b_pos:Add( self.RunPose.Pos )
 		b_pos:Mul( math.ease.InOutSine( si ) )
