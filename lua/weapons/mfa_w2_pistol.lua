@@ -154,6 +154,9 @@ SWEP.Animations = {
 	},
 	["holster"] = {
 		Source = "base_holster",
+		Events = {
+			{ t = 0, s = "mfa/zenith/ogg/shoulder.ogg" },
+		},
 		Time = 0.4,
 		HolsterTime = 0.15,
 	},
