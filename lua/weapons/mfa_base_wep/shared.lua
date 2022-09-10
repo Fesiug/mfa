@@ -675,7 +675,7 @@ function SWEP:Think()
 		self:SetLoadIn( 0 )
 	end
 
-	if p and !p:KeyDown(IN_ATTACK) and self:GetCycleDelayTime() < CurTime() and self.CycleCount > 0 and self:GetCycleCount() >= self.CycleCount then
+	if p and !(self:GetFiremodeTable().Count == 1 and p:KeyDown(IN_ATTACK)) and self:GetCycleDelayTime() < CurTime() and self.CycleCount > 0 and self:GetCycleCount() >= self.CycleCount then
 		self:SendAnimChoose( "cycle", false )
 		self:SetCycleCount( 0 )
 	end

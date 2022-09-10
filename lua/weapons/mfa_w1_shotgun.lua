@@ -170,9 +170,10 @@ SWEP.Animations = {
 		Source = { "base_fire_cock_1", "base_fire_cock_2" },
 		Events = {
 			{ t = 0.1, shell = true, },
-			{ t = 0, s = "mfa/wep/ogg/Reload_1P_DBV12_Bolt_Wave 0 0 0.ogg" },
+			{ t = 0, s = "mfa/zenith/ogg/pistol_rattle_2.ogg" },
+			{ t = 0, s = "mfa/wep/ogg/Reload_1P_A91_Bolt_Wave 0 0 0.ogg" },
 		},
-		Time = 0.7,
+		Time = 1.0,
 		AttackTime = 0.3,
 	},
 	["fire_ads"] = {
@@ -185,7 +186,8 @@ SWEP.Animations = {
 		Source = { "iron_fire_cock_1", "iron_fire_cock_2" },
 		Events = {
 			{ t = 0.1, shell = true, },
-			{ t = 0, s = "mfa/wep/ogg/Reload_1P_DBV12_Bolt_Wave 0 0 0.ogg" },
+			{ t = 0, s = "mfa/zenith/ogg/pistol_rattle_2.ogg" },
+			{ t = 0, s = "mfa/wep/ogg/Reload_1P_A91_Bolt_Wave 0 0 0.ogg" },
 		},
 		Time = 0.7,
 		AttackTime = 0.3,
@@ -202,11 +204,11 @@ SWEP.Animations = {
 		Source = "base_reload_start_empty",
 		Events = {
 			{ t = 0, s = "mfa/zenith/ogg/pistol_rattle_2.ogg" },
-			{ t = 0.2, s = "mfa/wep/ogg/Reload_1P_SPAS12_InsertFirstShell_Wave 0 0 0.ogg" },
-			{ t = 1.67, s = "mfa/wep/ogg/Reload_1P_SG553_Bolt_Wave 0 0 0.ogg" },
+			{ t = 0.1, s = "mfa/wep/ogg/Reload_1P_SPAS12_InsertFirstShell_Wave 0 0 0.ogg", p = 110 },
+			--{ t = 1.4, s = "mfa/wep/ogg/Reload_1P_SG553_Bolt_Wave 0 0 0.ogg" },
 		},
-		Time = 2.6,
-		LoadIn = 2.2,
+		Time = 2.2,
+		LoadIn = 1.7,
 	},
 	["reload"] = {
 		Source = "base_reload_insert",
@@ -229,9 +231,9 @@ SWEP.Animations = {
 				"mfa/zenith/ogg/rattle_weapon_4.ogg",
 			} },
 		},
-		Time = 0.6,
-		ReloadingTime = 0.52,
-		LoadIn = 0.16,
+		Time = 0.5,
+		ReloadingTime = 0.46,
+		LoadIn = 0.12,
 	},
 	["sgreload_finish"] = {
 		Source = "base_reload_end_empty",
