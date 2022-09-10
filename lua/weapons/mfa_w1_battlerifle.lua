@@ -204,7 +204,7 @@ SWEP.Animations = {
 			{ t = 1.5, s = "mfa/wep/ogg/Reload_1P_AK12_Magout_Wave 0 0 0.ogg" },
 			{ t = 2.7, s = "mfa/zenith/ogg/magpouch.ogg" },
 			{ t = 3.3, s = "mfa/wep/ogg/Reload_1P_AK12_Magin_Wave 0 0 0.ogg" },
-			{ t = 4.5, s = "mfa/wep/ogg/Reload_1P_AK12_Bolt_Wave 0 0 0.ogg" },
+			{ t = 4.4, s = "mfa/wep/ogg/Reload_1P_AK12_Bolt_Wave 0 0 0.ogg" },
 			{ t = 4.7, s = "mfa/zenith/ogg/cloth_soft_1.ogg", v = 0.5 },
 		},
 		Time = 4.9,

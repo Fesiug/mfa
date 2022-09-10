@@ -158,7 +158,7 @@ SWEP.Animations = {
 	["draw"] = {
 		Source = "base_draw",
 		Time = 0.8,
-		ReloadingTime = 0.5,
+		ReloadingTime = 0.6,
 	},
 	["holster"] = {
 		Source = "base_holster",

@@ -438,15 +438,17 @@ function SWEP:DoShellEject(atti)
 end
 
 local cool1 = Color(255, 255, 255, 255)
+local cool2 = Color(255, 255, 255, 255)
 local custperhud = 0
 function SWEP:DrawHUD()
 	local w = self
 	custperhud = math.Approach( custperhud, self:GetCustomizing() and 1 or 0, FrameTime() / 0.1 )
 	if (custperhud or 0) > 0 then
-		cool1.a = 255*custperhud
+		cool1.a = Lerp( custperhud, 0, 255 )
+		cool2.a = Lerp( custperhud, 0, 127 )
 		local c = MFAS(1)
 		draw.SimpleText( "WIP! Move to VGUI!", "MFA_HUD_96", ScrW()/2, (c*48), cool1, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP)
-		draw.SimpleText( w.Trivia["Real Name"] or w:GetPrintName(), "MFA_HUD_96_Glow", ScrW() - (c*72), (c*48), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
+		draw.SimpleText( w.Trivia["Real Name"] or w:GetPrintName(), "MFA_HUD_96_Glow", ScrW() - (c*72), (c*48), cool2, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
 		draw.SimpleText( w.Trivia["Real Name"] or w:GetPrintName(), "MFA_HUD_96", ScrW() - (c*72), (c*48), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
 
 		local ing = 0
@@ -802,7 +804,7 @@ function SWEP:SendAnim( act, hold )
 	local reloadtime = hold
 	local loadin = hold == "reload"
 	local suppresstime = false
-	local cycledelaytime = hold
+	local cycledelaytime = hold == "cycle" or hold == "fire"
 	local attacktime = false
 
 	if anim.StopSightTime then
@@ -891,6 +893,8 @@ local custper = 0
 
 local ox, oy = 0, 0
 local LASTAIM
+
+local ttpos, ttang = Vector(), Angle()
 
 function SWEP:GetViewModelPosition(pos, ang)
 	local opos, oang = Vector(), Angle()
@@ -1053,8 +1057,8 @@ function SWEP:GetViewModelPosition(pos, ang)
 		if !LASTAIM then LASTAIM = EY end
 		ox = math.ApproachAngle(ox, ox + (EY.y - LASTAIM.y), math.huge)
 		oy = math.ApproachAngle(oy, oy - (EY.p - LASTAIM.p), math.huge)
-		ox = math.Approach(ox, ox*(1-(math.min(FrameTime(), (1/4))*4)), math.huge)--FrameTime()*10000000)
-		oy = math.Approach(oy, oy*(1-(math.min(FrameTime(), (1/4))*4)), math.huge)--FrameTime()*10000000)
+		ox = math.Approach(ox, ox*(1-(math.min(FrameTime(), (1/4))*4)), math.huge)
+		oy = math.Approach(oy, oy*(1-(math.min(FrameTime(), (1/4))*4)), math.huge)
 		LASTAIM:Set(p:EyeAngles())
 
 		local sii = self:GetSightDelta()
