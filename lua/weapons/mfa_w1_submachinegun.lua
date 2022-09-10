@@ -152,11 +152,25 @@ SWEP.Animations = {
 	["idle"] = {
 		Source = "base_idle",
 	},
+	["ready"] = {
+		Source = "base_ready",
+		Events = {
+			{ t = 0, s = "mfa/zenith/ogg/raise.ogg" },
+			{ t = 0.2, s = "mfa/wep/ogg/Reload_1P_MK11_Bolt_Wave 0 0 0.ogg" },
+			{ t = 0.7, s = "mfa/zenith/ogg/shoulder.ogg", v = 0.2 },
+		},
+	},
 	["draw"] = {
 		Source = "base_draw",
+		Events = {
+			{ t = 0, s = "mfa/zenith/ogg/raise.ogg" },
+		},
 	},
 	["holster"] = {
 		Source = "base_holster",
+		Events = {
+			{ t = 0, s = "mfa/zenith/ogg/cloth.ogg" },
+		},
 	},
 	["fire"] = {
 		Source = "base_fire",

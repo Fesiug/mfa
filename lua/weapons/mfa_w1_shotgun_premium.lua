@@ -97,8 +97,8 @@ SWEP.Dispersion_Air			= 1
 SWEP.Dispersion_Crouch		= ( 3 / 4 )
 SWEP.Dispersion_Sights		= ( 3 / 4 )
 
-SWEP.Dispersion_FireShoot	= 0.4
-SWEP.Dispersion_FireDecay	= 3
+SWEP.Dispersion_FireShoot	= 4
+SWEP.Dispersion_FireDecay	= 12
 
 SWEP.ShotgunReloading		= true
 SWEP.CycleCount				= 1

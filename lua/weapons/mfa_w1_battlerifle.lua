@@ -114,8 +114,8 @@ SWEP.Dispersion_Air			= 5
 SWEP.Dispersion_Crouch		= ( 2 / 3 )
 SWEP.Dispersion_Sights		= ( 1 / 3 )
 
-SWEP.Dispersion_FireShoot	= 1
-SWEP.Dispersion_FireDecay	= 5
+SWEP.Dispersion_FireShoot	= 1.3
+SWEP.Dispersion_FireDecay	= 7
 
 SWEP.Movespeed							= 0.88
 SWEP.Movespeed_Firing					= 0.78

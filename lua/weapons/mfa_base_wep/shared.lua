@@ -160,6 +160,9 @@ function SWEP:SetupDataTables()
 	self:NetworkVar("Float", 13, "Recoil2P")
 	self:NetworkVar("Float", 14, "Recoil2Y")
 	self:NetworkVar("Float", 15, "CycleDelayTime")
+	self:NetworkVar("Float", 16, "Holster_Time")
+
+	self:NetworkVar("Entity", 0, "Holster_Entity")
 	
 	self:SetFiremode(1)
 	self:SetNextMechFire(0)
@@ -227,6 +230,9 @@ end
 --
 function SWEP:PrimaryAttack()
 	local ammototake = 1
+
+	if IsValid(self:GetHolster_Entity()) then return end
+	if self:GetHolster_Time() > 0 then return end
 
 	if self:GetNextPrimaryFire() > CurTime() then
 		return false
@@ -707,7 +713,7 @@ end
 function SWEP:PlayEvent(v)
 	if !v or !istable(v) then error("no event to play") end
 
-	if v.s and ( (game.SinglePlayer() and SERVER) or (!game.SinglePlayer() and true) ) then
+	if v.s and ( (game.SinglePlayer() and SERVER) or (!game.SinglePlayer() and CLIENT) ) then
 		if v.s_km then
 			self:StopSound(v.s)
 		end
@@ -752,10 +758,14 @@ function SWEP:PlaySoundTable(soundtable, mult)
 end
 
 -- Animating
-function SWEP:SendAnimChoose( act, hold )
+function SWEP:SendAnimChoose( act, hold, send )
 	assert( self.Animations, "SendAnimChoose: No animations table?!" )
 
 	local retong = act
+
+	if !self.Animations[act] then
+		return false
+	end
 
 	if self:GetSightDelta() > 0.5 and self.Animations[act .. "_ads"] then
 		retong = retong .. "_ads"
@@ -765,7 +775,7 @@ function SWEP:SendAnimChoose( act, hold )
 		retong = retong .. "_empty"
 	end
 
-	self:SendAnim( retong, hold )
+	return ( send and retong ) or self:SendAnim( retong, hold )
 end
 local fallback = {
 	Mult = 1,
@@ -776,14 +786,10 @@ function SWEP:SendAnim( act, hold )
 	assert( anim, "SendAnim: No animations table?!" )
 	if !anim then
 		-- print("No animation table!")
-		anim = fallback
-		anim.Source = act
-		return false
+		return 0
 	elseif !anim[act] then
 		-- print("No defined animation!")
-		anim = fallback
-		anim.Source = act
-		return false
+		return 0
 	else
 		anim = self.Animations[act]
 	end
@@ -845,7 +851,10 @@ function SWEP:SendAnim( act, hold )
 		self:SetNextMechFire( CurTime() + (anim.AttackTime or seqdur) )
 	end
 
-	if anim.Events then table.Empty(self.EventTable) self:PlaySoundTable( anim.Events, 1 / mult ) end
+	table.Empty(self.EventTable)
+	if anim.Events then self:PlaySoundTable( anim.Events, 1 / mult ) end
+
+	return seqdur
 end
 
 -- Aiming
@@ -867,22 +876,52 @@ function SWEP:AdjustMouseSensitivity()
 end
 
 -- Deploy and holster
-function SWEP:Deploy()
-	self:SendAnimChoose( "draw", true )
+local deploydebounce = 0
+function SWEP:Deploy(valis)
+	if deploydebounce > CurTime() then return false end
+	local original = self:GetNWBool( "readyed", false )
+	if (valis == "Unreadyed" or !self:GetNWBool( "readyed", false )) and self:SendAnimChoose( "ready", true ) then
+		self:SetNWBool( "readyed", true )
+	else
+		self:SendAnimChoose( "draw", true )
+	end
 	self:SetCustomizing( false )
 	self:SetLoadIn( -1 )
 	self:SetSightDelta( 0 )
 	self:SetSprintDelta( 0 )
 	self:SetShotgunReloading( 0 )
+	timer.Simple(0.1, function() self:CallOnClient("Deploy", (original == false and "Unreadyed")) end)
+	deploydebounce = CurTime() + 0.2
 	return true
 end
 
-function SWEP:Holster()
+function SWEP:Holster( wep )
 	self:SetCustomizing( false )
 	self:SetLoadIn( -1 )
 	self:SetSightDelta( 0 )
 	self:SetShotgunReloading( 0 )
-	return true
+	if self:GetHolster_Time() > CurTime() then
+		self:SetHolster_Time( 0 )
+		self:SetHolster_Entity( NULL )
+		self:Deploy()
+		return false
+	end
+
+	if (self:GetHolster_Time() != 0 and self:GetHolster_Time() <= CurTime()) or !IsValid( wep ) then
+		self:SetHolster_Time( 0 )
+		self:SetHolster_Entity( NULL )
+
+		return true
+	elseif (game.SinglePlayer() and SERVER or !game.SinglePlayer()) and self:SendAnimChoose( "holster", "holster", true ) then
+		local anaa = self:SendAnimChoose( "holster", "holster", true )
+		local tiim = self:SendAnim( anaa, "holster" )
+		self:SetHolster_Time( CurTime() + tiim )
+		self:SetHolster_Entity( wep )
+	else
+		self:SetHolster_Time( 0 )
+		self:SetHolster_Entity( NULL )
+		return true
+	end
 end
 
 SWEP.BobScale = 0
@@ -1138,6 +1177,18 @@ hook.Add( "Move", "MFA_Movespeed", function( ply, mv )
 	end
 end)
 
+hook.Add( "StartCommand", "MFA_StartCommand", function( ply, ucmd )
+	if ply and IsValid(ply) and IsValid(ply:GetActiveWeapon()) and ply:GetActiveWeapon().MFA then
+		local wep = ply:GetActiveWeapon()
+		if wep:GetHolster_Time() != 0 and wep:GetHolster_Time() <= CurTime() then
+			if IsValid(wep:GetHolster_Entity()) then
+				wep:SetHolster_Time(-math.huge)
+				ucmd:SelectWeapon(wep:GetHolster_Entity())
+			end
+		end
+	end
+end)
+
 
 function SWEP:GetDispersion()
 	local disp = self.Dispersion
@@ -1159,9 +1210,10 @@ end
 --
 
 local CHR_F = Color( 255, 242, 151, 255 )
+local CHR_F = Color( 200, 200, 200, 255 )
 local CHR_B = Color( 0, 0, 0, 100 )
 local CHR_S = Color( 255, 255, 255, 255 )
-local len = 1.0
+local len = 5.0
 local thi = 1.0
 local gap = 10
 local sd = 1
@@ -1205,8 +1257,10 @@ function SWEP:DoDrawCrosshair()
 	-- right prong
 	surface.DrawRect( math.Round(( ScrW() / 2 ) + gap + s), math.Round(( ScrH() / 2 ) - ( t / 2 ) + s), l, t )
 
-	-- center
-	surface.DrawRect( math.Round(( ScrW() / 2 ) - ( t / 2 ) + s), math.Round(( ScrH() / 2 ) - ( t / 2 ) + s), t, t )
+	if dot then
+		-- center
+		surface.DrawRect( math.Round(( ScrW() / 2 ) - ( t / 2 ) + s), math.Round(( ScrH() / 2 ) - ( t / 2 ) + s), t, t )
+	end
 
 	-- fore
 	surface.SetDrawColor( CHR_F )
@@ -1222,7 +1276,9 @@ function SWEP:DoDrawCrosshair()
 	-- right prong
 	surface.DrawRect( math.Round(( ScrW() / 2 ) + gap), math.Round(( ScrH() / 2 ) - ( t / 2 )), l, t )
 
-	-- center
-	surface.DrawRect( math.Round(( ScrW() / 2 ) - ( t / 2 )), math.Round(( ScrH() / 2 ) - ( t / 2 )), t, t )
+	if dot then
+		-- center
+		surface.DrawRect( math.Round(( ScrW() / 2 ) - ( t / 2 )), math.Round(( ScrH() / 2 ) - ( t / 2 )), t, t )
+	end
 	return true
 end
