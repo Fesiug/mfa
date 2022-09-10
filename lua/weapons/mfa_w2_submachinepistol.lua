@@ -165,7 +165,7 @@ SWEP.Animations = {
 		},
 	},
 	["fire_ads"] = {
-		Source = "iron_fire",
+		Source = { "iron_fire", "iron_fire_a", "iron_fire_b", "iron_fire_c", "iron_fire_d", "iron_fire_e", "iron_fire_f" },
 		Events = {
 			{ t = 0, shell = true }
 		},
