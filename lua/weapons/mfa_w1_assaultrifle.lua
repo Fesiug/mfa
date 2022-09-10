@@ -171,6 +171,7 @@ SWEP.Animations = {
 		Events = {
 			{ t = 0, s = "mfa/zenith/ogg/cloth_1.ogg" },
 		},
+		HolsterTime = 0.5,
 	},
 	["fire"] = {
 		Source = "base_fire",

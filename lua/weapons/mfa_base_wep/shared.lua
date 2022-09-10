@@ -1218,7 +1218,7 @@ end
 --
 
 local CHR_F = Color( 255, 242, 151, 255 )
-local CHR_F = Color( 200, 200, 200, 255 )
+local CHR_F = Color( 166, 255, 255, 255 )
 local CHR_B = Color( 0, 0, 0, 100 )
 local CHR_S = Color( 255, 255, 255, 255 )
 local len = 5.0
