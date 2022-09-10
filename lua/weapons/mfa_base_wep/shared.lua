@@ -132,6 +132,7 @@ function SWEP:SetupDataTables()
 	self:NetworkVar("Bool", 1, "UserSight")
 	self:NetworkVar("Bool", 2, "RecoilFlip")
 	self:NetworkVar("Bool", 3, "FiremodeDebounce")
+	self:NetworkVar("Bool", 4, "Customizing")
 
 	self:NetworkVar("Int", 0, "BurstCount")
 	self:NetworkVar("Int", 1, "Firemode")
@@ -241,6 +242,7 @@ function SWEP:PrimaryAttack()
 		self:SetBurstCount( self:GetBurstCount() + 1 )
 		local volume = self.Sound_Dry
 		self:EmitSound( quickie(volume.s), volume.sl, math.Rand( volume.p, volume.pm or volume.p ), volume.v, volume.c )
+		self:SendAnimChoose( "dryfire" )
 		return false
 	end
 
@@ -612,7 +614,7 @@ function SWEP:Think()
 		self:SetCycleCount( 0 )
 	end
 
-	if self:GetShotgunReloading() then
+	if self:GetShotgunReloading() != ATTTSG_NO then
 		if self:GetShotgunReloading() == ATTTSG_START and self:GetReloadingTime() < CurTime() then
 			self:SetShotgunReloading( ATTTSG_INSERT )
 		elseif self:GetShotgunReloading() == ATTTSG_INSERT and self:GetReloadingTime() < CurTime() then
@@ -702,7 +704,7 @@ function SWEP:SendAnimChoose( act, hold )
 	if self:Clip1() == 0 and self.Animations[act .. "_empty"] then
 		retong = retong .. "_empty"
 	end
-	
+
 	self:SendAnim( retong, hold )
 end
 local fallback = {
@@ -779,7 +781,7 @@ function SWEP:SendAnim( act, hold )
 		self:SetCycleDelayTime( CurTime() + (anim.CycleDelayTime or seqdur) )
 	end
 	if attacktime then
-		self:SetNextPrimaryFire( CurTime() + (anim.AttackTime or seqdur) )
+		self:SetNextMechFire( CurTime() + (anim.AttackTime or seqdur) )
 	end
 
 	if anim.Events then table.Empty(self.EventTable) self:PlaySoundTable( anim.Events, 1 / mult ) end
@@ -806,10 +808,15 @@ end
 -- Deploy and holster
 function SWEP:Deploy()
 	self:SendAnimChoose( "draw", true )
+	self:SetCustomizing( false )
+	self:SetLoadIn( -1 )
+	self:SetSightDelta( 0 )
+	self:SetSprintDelta( 0 )
 	return true
 end
 
 function SWEP:Holster()
+	self:SetCustomizing( false )
 	self:SetLoadIn( -1 )
 	self:SetSightDelta( 0 )
 	return true

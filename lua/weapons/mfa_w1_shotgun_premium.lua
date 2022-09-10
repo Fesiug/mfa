@@ -91,7 +91,7 @@ SWEP.Recoil2SideDrift					= 0.3
 SWEP.Recoil2UpDecay						= 18 -- how much recoil to remove per second
 SWEP.Recoil2SideDecay					= 18 
 
-SWEP.Dispersion				= 4
+SWEP.Dispersion				= 3
 SWEP.Dispersion_Move		= 1 -- at 200 hu/s
 SWEP.Dispersion_Air			= 1
 SWEP.Dispersion_Crouch		= ( 3 / 4 )
@@ -110,7 +110,7 @@ SWEP.Movespeed_ADS						= 0.68
 SWEP.Firemodes = {
 	{
 		Count = 1,
-		Delay = ( 60 / 1200 ),
+		Delay = ( 60 / 120 ),
 	}
 }
 

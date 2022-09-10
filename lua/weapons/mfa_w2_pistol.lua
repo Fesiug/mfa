@@ -38,13 +38,12 @@ SWEP.Sound_Fire				= {
 	},
 	{
 		s = {
-			")mfa/wep/luger/Luger_P08_Shot_CoreBass_FPP-001.ogg",
-			")mfa/wep/luger/Luger_P08_Shot_CoreBass_FPP-002.ogg",
-			")mfa/wep/luger/Luger_P08_Shot_CoreBass_FPP-003.ogg",
-			")mfa/wep/luger/Luger_P08_Shot_CoreBass_FPP-004.ogg",
-			")mfa/wep/luger/Luger_P08_Shot_CoreBass_FPP-005.ogg",
-			")mfa/wep/luger/Luger_P08_Shot_CoreBass_FPP-006.ogg",
-			")mfa/wep/luger/Luger_P08_Shot_CoreBass_FPP-007.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_CoreBass_FPP-001.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_CoreBass_FPP-002.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_CoreBass_FPP-003.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_CoreBass_FPP-004.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_CoreBass_FPP-005.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_CoreBass_FPP-006.ogg",
 		},
 		sl = 140,
 		v = 1,
@@ -136,6 +135,9 @@ SWEP.Animations = {
 	["idle"] = {
 		Source = "base_idle",
 	},
+	["idle_empty"] = {
+		Source = "empty_idle",
+	},
 	["draw"] = {
 		Source = "base_draw",
 		Time = 0.8,
@@ -145,6 +147,12 @@ SWEP.Animations = {
 	["holster"] = {
 		Source = "base_holster",
 	},
+	["dryfire"] = {
+		Source = "base_dryfire",
+	},
+	["dryfire_ads"] = {
+		Source = "iron_dryfire",
+	},
 	["fire"] = {
 		Source = "base_fire2",
 		Events = {
@@ -152,8 +160,21 @@ SWEP.Animations = {
 		},
 		Time = 1.5,
 	},
+	["fire_empty"] = {
+		Source = "base_firelast",
+		Events = {
+			{ t = 0, shell = true }
+		},
+		Time = 1.5,
+	},
 	["fire_ads"] = {
 		Source = "iron_fire_1",
+		Events = {
+			{ t = 0, shell = true }
+		},
+	},
+	["fire_ads_empty"] = {
+		Source = "iron_firelast",
 		Events = {
 			{ t = 0, shell = true }
 		},
