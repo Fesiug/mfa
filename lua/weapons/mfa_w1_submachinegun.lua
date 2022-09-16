@@ -6,7 +6,7 @@ SWEP.Spawnable				= true
 
 SWEP.Slot					= 2
 SWEP.Category				= "MFA"	
-SWEP.PrintName				= "Submachine Gun"
+SWEP.PrintName				= "K&M SMG-1"
 SWEP.Trivia = {
 	Category = "Submachine Gun",
 	["Real Name"] = "MP5A3",

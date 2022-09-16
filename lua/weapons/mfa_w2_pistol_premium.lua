@@ -6,20 +6,66 @@ SWEP.Spawnable				= true
 
 SWEP.Slot					= 1
 SWEP.Category				= "MFA"	
-SWEP.PrintName				= "Pistol Premium"
+SWEP.PrintName				= "Night Hawk .50c"
 SWEP.Trivia = {
 	Category = "Sidearm",
 	["Real Name"] = "Colt M1911",
 }
 
 SWEP.UseHands				= true
-SWEP.ViewModel				= "models/mfa/weapons/m1911.mdl"
+SWEP.ViewModel				= "models/mfa/weapons/deagle.mdl"
 SWEP.WorldModel				= "models/mfa/weapons/m1911.mdl"
 SWEP.ViewModelFOV			= 70
 
 SWEP.Primary.ClipSize		= 7
 SWEP.Primary.Ammo			= "357"
-SWEP.Primary.Sound			= ")weapons/iw3/de50/fire.wav"
+SWEP.Sound_Fire				= {
+	{
+		s = {
+			")mfa/wep/colt/M1911_Colt_Shot_Body_FPP-001.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_Body_FPP-002.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_Body_FPP-003.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_Body_FPP-004.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_Body_FPP-005.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_Body_FPP-006.ogg",
+		},
+		sl = 90,
+		v = 1,
+		p = 90,
+		pm = 110,
+		c = CHAN_STATIC,
+	},
+	{
+		s = {
+			")mfa/wep/colt/M1911_Colt_Shot_CoreBass_FPP-001.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_CoreBass_FPP-002.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_CoreBass_FPP-003.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_CoreBass_FPP-004.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_CoreBass_FPP-005.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_CoreBass_FPP-006.ogg",
+		},
+		sl = 140,
+		v = 1,
+		p = 90,
+		pm = 110,
+		c = CHAN_STATIC,
+	},
+	{
+		s = {
+			")mfa/wep/colt/M1911_Colt_Shot_HiFi_FPP-001.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_HiFi_FPP-002.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_HiFi_FPP-003.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_HiFi_FPP-004.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_HiFi_FPP-005.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_HiFi_FPP-006.ogg",
+		},
+		sl = 70,
+		v = 1,
+		p = 90,
+		pm = 110,
+		c = CHAN_STATIC,
+	},
+}
 SWEP.Sound_Dry = { s = "mfa/wep/dry/pistol_high.ogg", sl = 50, v = 0.5, p = 100 }
 
 SWEP.DamageNear				= 44
@@ -30,20 +76,20 @@ SWEP.RangeFar				= 50
 --
 -- Recoil
 --
-SWEP.RecoilUp							= 4.5 -- degrees punched
-SWEP.RecoilUpDecay						= 35 -- how much recoil to remove per second
-SWEP.RecoilSide							= 1.8 -- degrees punched, in either direction (-100% to 100%)
-SWEP.RecoilSideDecay					= 35 -- how much recoil to remove per second
-SWEP.RecoilUpDrift						= 0.3 -- how much will be smooth recoil
-SWEP.RecoilSideDrift					= 0.3 -- how much will be smooth recoil
+SWEP.RecoilUp							= 7.5 -- degrees punched
+SWEP.RecoilUpDecay						= 42 -- how much recoil to remove per second
+SWEP.RecoilSide							= 3.8 -- degrees punched, in either direction (-100% to 100%)
+SWEP.RecoilSideDecay					= 42 -- how much recoil to remove per second
+SWEP.RecoilUpDrift						= 0.7 -- how much will be smooth recoil
+SWEP.RecoilSideDrift					= 0.7 -- how much will be smooth recoil
 SWEP.RecoilFlipChance					= ( 2 / 3 ) -- chance to flip recoil direction
 SWEP.RecoilADSMult						= ( 3 / 4 ) -- multiply shot recoil by this amount when ads'd
 
 -- after the fact
-SWEP.Recoil2UpDrift						= 0.4 -- how much to return to the original pos
-SWEP.Recoil2SideDrift					= 0.4
-SWEP.Recoil2UpDecay						= 11 -- how much recoil to remove per second
-SWEP.Recoil2SideDecay					= 11 
+SWEP.Recoil2UpDrift						= 0.6 -- how much to return to the original pos
+SWEP.Recoil2SideDrift					= 0.6
+SWEP.Recoil2UpDecay						= 14 -- how much recoil to remove per second
+SWEP.Recoil2SideDecay					= 14 
 
 
 SWEP.Dispersion				= 0.5
@@ -62,18 +108,18 @@ SWEP.Movespeed_ADS						= 0.88
 SWEP.Firemodes = {
 	{
 		Count = 1,
-		Delay = 0.15,
+		Delay = ( 60 / 400 ),
 	}
 }
 
 SWEP.ActivePose = {
-	Pos = Vector(0.2, -1, 0.2),
+	Pos = Vector(0.2, -4, -0.1),
 	Ang = Angle(),
 }
 
 SWEP.IronsightPose = {
-	Pos = Vector(-2.44, -3, 0.99),
-	Ang = Angle(1.1, 0, 0),
+	Pos = Vector(-1.85, -4.8, 0.26),
+	Ang = Angle(0.3, 0, 0),
 }
 
 SWEP.CustomizePose = {

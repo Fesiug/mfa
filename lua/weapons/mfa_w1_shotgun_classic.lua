@@ -126,7 +126,7 @@ SWEP.RunPose = {
 }
 
 SWEP.IronsightPose = {
-	Pos = Vector(-1.8, -4, 0.4),
+	Pos = Vector(-1.81, -2, 0.4),
 	Ang = Angle(0.7, 0, 0),
 }
 
@@ -207,6 +207,7 @@ SWEP.Animations = {
 		},
 		Time = 2.2,
 		LoadIn = 1.7,
+		ReloadingTime = 2.0,
 	},
 	["reload"] = {
 		Source = "base_reload_insert",

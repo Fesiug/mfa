@@ -458,13 +458,18 @@ function SWEP:DrawHUD()
 		cool1.a = Lerp( custperhud, 0, 255 )
 		cool2.a = Lerp( custperhud, 0, 127 )
 		local c = MFAS(1)
-		draw.SimpleText( w:GetPrintName() or w:GetPrintName(), "MFA_HUD_96", ScrW() - (c*72), (c*48), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
+		draw.SimpleText( w:GetPrintName(), "MFA_HUD_96", ScrW() - (c*72), (c*48), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
 		
 		if w.Trivia["Category"] then
 			draw.SimpleText( w.Trivia["Category"], "MFA_HUD_48", ScrW() - (c*72), (c*126), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
 		end
 		if w.Trivia["Description"] then
 			draw.SimpleText( w.Trivia["Description"], "MFA_HUD_20", ScrW() - (c*72), (c*170), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
+		end
+
+		if true then
+			draw.SimpleText( w.DamageNear .. " up to " .. w.RangeNear .. "m, " .. w.DamageFar .. " up to " .. w.RangeFar .. "m", "MFA_HUD_20", ScrW() - (c*72), (c*200), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
+			draw.SimpleText( w:GetMaxClip1() .. " magazine capacity", "MFA_HUD_20", ScrW() - (c*72), (c*(200 + (25*1))), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
 		end
 	end
 	-- draw.SimpleText( self:GetNWString("TestRange", "no data"), "Trebuchet24", ScrW()/2, ScrH()*0.75, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
@@ -580,6 +585,13 @@ function SWEP:SprCheck( ent )
 	return true
 end
 
+local lastsighting = nil
+local sound_played = true
+local adssound = {
+	"mfa/zenith/ogg/cloth_inspect_soft_1.ogg",
+	"mfa/zenith/ogg/cloth_inspect_soft_2.ogg"
+}
+
 -- Thinking
 function SWEP:Think()
 	local p = self:GetOwner()
@@ -616,7 +628,18 @@ function SWEP:Think()
 		end
 	end
 	local capableofads = self:GetStopSightTime() <= CurTime() and self:GetSprintDelta() <= 0 and self:GetOwner():OnGround() and !self:GetCustomizing() -- replace with GetReloading
-	self:SetSightDelta( math.Approach( self:GetSightDelta(), (capableofads and self:GetUserSight() and 1 or 0), FrameTime() / (self.Handling_ADS or 0.5) ) )
+
+	local sighting = (capableofads and self:GetUserSight() and 1 or 0)
+	self:SetSightDelta( math.Approach( self:GetSightDelta(), sighting, FrameTime() / (self.Handling_ADS or 0.5) ) )
+	if lastsighting != nil and lastsighting != sighting then
+		sound_played = false
+	end
+	if !sound_played then
+		self:EmitSound( quickie( adssound ), 50, sighting and 150 or 50, 1, CHAN_STATIC )
+		sound_played = true
+	end
+	lastsighting = sighting
+
 	self:SetSprintDelta( math.Approach( self:GetSprintDelta(), (self:SprCheck(self:GetOwner()) and 1 or 0), FrameTime() / (self.Handling_Sprint or 0.5) ) )
 
 	if self:GetLoadIn() > 0 and self:GetLoadIn() <= CurTime() then

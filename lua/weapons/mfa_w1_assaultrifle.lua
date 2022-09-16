@@ -6,7 +6,7 @@ SWEP.Spawnable				= true
 
 SWEP.Slot					= 2
 SWEP.Category				= "MFA"	
-SWEP.PrintName				= "Assault Rifle"
+SWEP.PrintName				= "Cobra AM2"
 SWEP.Trivia = {
 	Category = "Rifle",
 	["Real Name"] = "M16A4",
@@ -198,6 +198,7 @@ SWEP.Animations = {
 			{ t = 3.05, s = "mfa/zenith/ogg/magimpact.ogg" },
 		},
 		Time = 4.0,
+		ReloadingTime = 3.7,
 		LoadIn = 2.5,
 	},
 	["reload_empty"] = {
@@ -213,6 +214,7 @@ SWEP.Animations = {
 			{ t = 3.1, s = "mfa/zenith/ogg/rattle.ogg" },
 		},
 		Time = 4.6,
+		ReloadingTime = 4.3,
 		LoadIn = 3.5,
 	}
 }

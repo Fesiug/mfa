@@ -1,0 +1,25 @@
+"VertexLitGeneric"
+{
+	"$basetexture"			"mfa/models\weapons\m45\deagle_dm"
+	"$bumpmap" 			"mfa/models\weapons\m45\deagle_nm"
+        "$color"			"[1.1 1.1 1.1]"
+
+	"$phong"                        "1"
+	"$phongalbedotint"              "1"
+	"$phongtint"                    "[.8 1 1.2]"
+
+	"$phongboost"                   "1.5"
+	//"$phongexponent"                "37"
+	"$phongfresnelranges"           "[.9 2 10]"
+
+	"$phongexponenttexture"         "mfa/models\weapons\m45\deagle_s"
+
+	"$envmap"                       "env_cubemap"
+	"$normalmapalphaenvmapmask"	"1"
+	"$envmaptint"                   "[0.035 0.035 0.035]"
+	
+	$rimlight               1
+	$rimlightexponent       95
+	$rimlightboost          0.05	
+}
+
