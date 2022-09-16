@@ -86,9 +86,16 @@ surface.CreateFont("MFA_Terminal", {
 
 local mat_bub = Material( "mfa/hud/bubble.png", "smooth" )
 local mat_glow = Material( "mfa/hud/glow.png", "" )
-local mat_bubd = Material( "mfa/hud/damage.png", "" )
 local mat_bub2 = Material( "mfa/hud/shield.png", "" )
 local mat_bub4 = Material( "mfa/hud/outl.png", "" )
+
+local mat_bubd_arm_r = Material( "mfa/hud/dmg/arm_r.png", "" )
+local mat_bubd_arm_l = Material( "mfa/hud/dmg/arm_l.png", "" )
+local mat_bubd_leg_r = Material( "mfa/hud/dmg/leg_r.png", "" )
+local mat_bubd_leg_l = Material( "mfa/hud/dmg/leg_l.png", "" )
+local mat_bubd_stomach = Material( "mfa/hud/dmg/stomach.png", "" )
+local mat_bubd_chest = Material( "mfa/hud/dmg/chest.png", "" )
+local mat_bubd_head = Material( "mfa/hud/dmg/head.png", "" )
 
 local CLR_W = Color( 200, 255, 200, 255 )
 local CLR_B = Color( 0, 0, 0, 100 )
@@ -121,6 +128,51 @@ local ammolookup = {
 	[game.GetAmmoID("357")]			= (0.889/30),
 }
 
+local annoyingshit = {
+	{	
+		Range_Min = 0.34,
+		Range_Max = 0.66,
+		Mat = mat_bubd_arm_r,
+		Limb = "arm_r",
+	},
+	{	
+		Range_Min = 0.34,
+		Range_Max = 0.66,
+		Mat = mat_bubd_arm_l,
+		Limb = "arm_l",
+	},
+	{
+		Range_Min = 0.63,
+		Range_Max = 0.94,
+		Mat = mat_bubd_leg_r,
+		Limb = "leg_r",
+	},
+	{
+		Range_Min = 0.63,
+		Range_Max = 0.94,
+		Mat = mat_bubd_leg_l,
+		Limb = "leg_l",
+	},
+	{
+		Range_Min = 0.5,
+		Range_Max = 0.66,
+		Mat = mat_bubd_stomach,
+		Limb = "stomach",
+	},
+	{
+		Range_Min = 0.31,
+		Range_Max = 0.49,
+		Mat = mat_bubd_chest,
+		Limb = "chest",
+	},
+	{
+		Range_Min = 0.05,
+		Range_Max = 0.28,
+		Mat = mat_bubd_head,
+		Limb = "head",
+	},
+}
+
 hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 	if GetConVar("mfa_hud_enable"):GetBool() then
 		local p = LocalPlayer()
@@ -136,48 +188,59 @@ hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 			--surface.DrawTexturedRectUV( 0, 0, (c*500), (c*250), 1, 1, 0, 0 )
 			--surface.DrawTexturedRectUV( w - (c*500), 0, (c*500), (c*250), 0, 1, 1, 0 )
 
-			if p:Health() != lasthealth then
-				lasthealth = p:Health()
-				tscale_last = CurTime()
+			if false then
+				if p:Health() != lasthealth then
+					lasthealth = p:Health()
+					tscale_last = CurTime()
+				end
+				if true or tscale_last + 3 > CurTime() then
+					tscale = math.Approach( tscale, 1, FrameTime() / 0.3 )
+				else
+					tscale = math.Approach( tscale, 0, FrameTime() / 0.3 )
+				end
+				local ss_tscale = math.ease.InCirc( tscale ) -- it looks funnier linear 
+				fbar( 0, h - (c*82), (c*320), (c*6), CLR_W, CLR_B )
+				ftext( p:Nick(), "MFA_HUD_48", (c*28), h - (c*62), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP )
+				ftext( string.format( "%.1f", math.Round((p:Health()/p:GetMaxHealth())*100) ) .. "%", "MFA_HUD_48", (c*28), h - (c*140), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP )
 			end
-			if true or tscale_last + 3 > CurTime() then
-				tscale = math.Approach( tscale, 1, FrameTime() / 0.3 )
-			else
-				tscale = math.Approach( tscale, 0, FrameTime() / 0.3 )
-			end
-			local ss_tscale = math.ease.InCirc( tscale ) -- it looks funnier linear 
-			fbar( 0, h - (c*82), (c*320), (c*6), CLR_W, CLR_B )
-			ftext( p:Nick(), "MFA_HUD_48", (c*28), h - (c*62), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP )
-			ftext( string.format( "%.1f", math.Round((p:Health()/p:GetMaxHealth())*100) ) .. "%", "MFA_HUD_48", (c*28), h - (c*140), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP )
 
-			local icos = (c*250)
-			local lool1 = (1-ss_tscale)*(icos*0.5)
-			local lool2 = (1-ss_tscale)*icos
-	
-			if p:GetNWBool("MFAShield", false) then
-				surface.SetMaterial( mat_bub4 )
-				surface.SetDrawColor( 255, 255, 255, 100 )
-				surface.DrawTexturedRect( -(c*16), h - (c*400), icos, icos )
+			if false then
+				local icos = (c*200)
+				local pos_x, pos_y = (c*-16), h - (c*350)
+				local lool1 = (1-ss_tscale)*(icos*0.5)
+				local lool2 = (1-ss_tscale)*icos
 		
-				surface.SetMaterial( mat_bub2 )
-				surface.SetDrawColor( 255, 255, 255, 50 )
-				surface.DrawTexturedRect( -(c*16), h - (c*400), icos, icos )
-			end
-	
-			local he = p:Health() / p:GetMaxHealth()
-			if he <= 0.1 then
-				surface.SetDrawColor( 100, 0, 0, 255 )
-			else
-				surface.SetDrawColor( 255, 0, 0, 255*(1-he) )
-			end
-			surface.SetMaterial( mat_bubd )
-			surface.DrawTexturedRect( -(c*16) + lool1, h - (c*400) + lool2, icos*ss_tscale, icos*ss_tscale )
+				if p:GetNWBool("MFAShield", false) then
+					surface.SetMaterial( mat_bub4 )
+					surface.SetDrawColor( 255, 255, 255, 100 )
+					surface.DrawTexturedRect( pos_x, pos_y, icos, icos )
+			
+					surface.SetMaterial( mat_bub2 )
+					surface.SetDrawColor( 255, 255, 255, 50 )
+					surface.DrawTexturedRect( pos_x, pos_y, icos, icos )
+				end
+		
+				local he = p:Health() / p:GetMaxHealth()
+				for i, data in ipairs(annoyingshit) do
+					if !data.Limb then continue end
+					local effective = p:GetNWFloat( "MFA_HP_" .. data.Limb, 1 )
+					local shithead = 0--math.Clamp( math.Remap( effective, 0, 1, data.Range_Min, data.Range_Max), 0, 1 )
 
-			surface.SetMaterial( mat_bub )
-			surface.SetDrawColor( CLR_B )
-			surface.DrawTexturedRect( -(c*16)+s1 + lool1, h - (c*400)+s2 + lool2, icos*ss_tscale, icos*ss_tscale )
-			surface.SetDrawColor( CLR_W )
-			surface.DrawTexturedRect( -(c*16) + lool1, h - (c*400) + lool2, icos*ss_tscale, icos*ss_tscale )
+					surface.SetMaterial( data.Mat )
+					
+					surface.SetDrawColor( 0, 0, 127, 255 )
+					surface.DrawTexturedRect( pos_x + lool1, pos_y + lool2, icos*ss_tscale, icos*ss_tscale )
+
+					surface.SetDrawColor( 255, 0, 0, 255*(1-effective) ) -- *(1-he) )
+					surface.DrawTexturedRectUV( pos_x + lool1, pos_y + lool2 + (icos*ss_tscale * (shithead)), icos*ss_tscale, icos*ss_tscale * (1-shithead), 0, (shithead), 1, 1 )
+				end
+
+				surface.SetMaterial( mat_bub )
+				surface.SetDrawColor( CLR_B )
+				surface.DrawTexturedRect( pos_x+s1 + lool1, pos_y+s2 + lool2, icos*ss_tscale, icos*ss_tscale )
+				surface.SetDrawColor( CLR_W )
+				surface.DrawTexturedRect( pos_x + lool1, pos_y + lool2, icos*ss_tscale, icos*ss_tscale )
+			end
 
 			if enableditem == "radiopack" then
 			-- radar / terminal / teamhealth

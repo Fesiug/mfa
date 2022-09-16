@@ -18,8 +18,53 @@ SWEP.WorldModel				= "models/mfa/weapons/mp5.mdl"
 SWEP.ViewModelFOV			= 70
 
 SWEP.Primary.ClipSize		= 25
-SWEP.Primary.Ammo			= "pistol"
-SWEP.Primary.Sound			= ")weapons/iw4/ump45/fire.wav"
+SWEP.Primary.Ammo			= "pistol"SWEP.Sound_Fire				= {
+	{
+		s = {
+			")mfa/wep/colt/M1911_Colt_Shot_Body_FPP-001.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_Body_FPP-002.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_Body_FPP-003.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_Body_FPP-004.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_Body_FPP-005.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_Body_FPP-006.ogg",
+		},
+		sl = 90,
+		v = 1,
+		p = 90,
+		pm = 110,
+		c = CHAN_STATIC,
+	},
+	{
+		s = {
+			")mfa/wep/colt/M1911_Colt_Shot_CoreBass_FPP-001.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_CoreBass_FPP-002.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_CoreBass_FPP-003.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_CoreBass_FPP-004.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_CoreBass_FPP-005.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_CoreBass_FPP-006.ogg",
+		},
+		sl = 140,
+		v = 1,
+		p = 90,
+		pm = 110,
+		c = CHAN_STATIC,
+	},
+	{
+		s = {
+			")mfa/wep/colt/M1911_Colt_Shot_HiFi_FPP-001.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_HiFi_FPP-002.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_HiFi_FPP-003.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_HiFi_FPP-004.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_HiFi_FPP-005.ogg",
+			")mfa/wep/colt/M1911_Colt_Shot_HiFi_FPP-006.ogg",
+		},
+		sl = 70,
+		v = 1,
+		p = 90,
+		pm = 110,
+		c = CHAN_STATIC,
+	},
+}
 SWEP.Sound_Dry = { s = "mfa/wep/dry/smg_high.ogg", sl = 50, v = 0.5, p = 100 }
 
 SWEP.DamageNear				= 26
