@@ -31,7 +31,7 @@ PrecacheParticleSystem( "muzzleflash_6" )
 
 if SERVER then
 
-	concommand.Add( "mfa_dev_hp_cheat", function(ply, cmd, args)
+	concommand.Add( "mfa_dev_cheat_hp", function(ply, cmd, args)
 		local ply = Entity(args[1])
 		assert(ply, "Invalid entity!")
 		local limb = args[2]
@@ -40,6 +40,15 @@ if SERVER then
 		assert(ply, "No value!")
 
 		ply:SetNWFloat( "MFA_HP_" .. limb, set )
+	end)
+
+	concommand.Add( "mfa_dev_cheat_stamina", function(ply, cmd, args)
+		local ply = Entity(args[1])
+		assert(ply, "Invalid entity!")
+		local set = args[2]
+		assert(ply, "No value!")
+
+		ply:SetNWFloat( "MFA_Stamina", set )
 	end)
 
 	util.AddNetworkString("MFA_Wep_Custmenu")
