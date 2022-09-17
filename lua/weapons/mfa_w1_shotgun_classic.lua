@@ -6,7 +6,7 @@ SWEP.Spawnable				= true
 
 SWEP.Slot					= 2
 SWEP.Category				= "MFA"	
-SWEP.PrintName				= "Shotgun Classic"
+SWEP.PrintName				= "Model 1897"
 SWEP.Trivia = {
 	Category = "Shotgun",
 	["Real Name"] = "Winchester 1897",
@@ -173,7 +173,7 @@ SWEP.Animations = {
 			{ t = 0, s = "mfa/wep/ogg/Reload_1P_HAWK_BoltAction_Wave 0 0 0.ogg", p = 110 },
 		},
 		Time = 1.0,
-		AttackTime = 0.5,
+		CycleDelayTime = 0.5,
 	},
 	["fire_ads"] = {
 		Source = { "iron_fire_1", "iron_fire_2"},
@@ -188,7 +188,7 @@ SWEP.Animations = {
 			{ t = 0, s = "mfa/wep/ogg/Reload_1P_HAWK_BoltAction_Wave 0 0 0.ogg", p = 110 },
 		},
 		Time = 1.0,
-		AttackTime = 0.5,
+		CycleDelayTime = 0.5,
 	},
 	["sgreload_start"] = {
 		Source = "base_reload_start",

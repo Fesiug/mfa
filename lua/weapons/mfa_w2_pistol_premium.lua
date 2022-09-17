@@ -140,12 +140,20 @@ SWEP.Animations = {
 	},
 	["draw"] = {
 		Source = "base_draw",
-		Time = 0.8,
-		ReloadingTime = 0.5,
+		Events = {
+			{ t = 0, s = "mfa/zenith/ogg/draw.ogg" },
+		},
+		Time = 0.5,
+		ReloadingTime = 0.3,
 		StopSightTime = 0.3,
 	},
 	["holster"] = {
 		Source = "base_holster",
+		Events = {
+			{ t = 0, s = "mfa/zenith/ogg/shoulder.ogg" },
+		},
+		Time = 0.4,
+		HolsterTime = 0.15,
 	},
 	["fire"] = {
 		Source = "base_fire",

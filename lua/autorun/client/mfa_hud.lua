@@ -189,34 +189,34 @@ hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 			--surface.DrawTexturedRectUV( w - (c*500), 0, (c*500), (c*250), 0, 1, 1, 0 )
 
 			surface.SetDrawColor( CLR_B )
-			surface.DrawOutlinedRect( (c*30) + s1, h - (c*30) - (c*40) + s2, (c*250), (c*20), (c*3) )
+			surface.DrawOutlinedRect( (c*30) + s1, h - (c*30) - (c*24) + s2, (c*250), (c*12), (c*3) )
 		
 			local he = p:Health() / p:GetMaxHealth()
 			local mul = Lerp( he, 0.5, 0.9 )
 			surface.SetDrawColor( CLR_W.r * mul, CLR_W.g * mul, CLR_W.b * mul )
-			surface.DrawRect( (c*30), h - (c*30) - (c*40), (c*250) * he, (c*20) )
+			surface.DrawRect( (c*30), h - (c*30) - (c*24), (c*250) * he, (c*12) )
 
 			surface.SetDrawColor( CLR_W )
-			surface.DrawOutlinedRect( (c*30), h - (c*30) - (c*40), (c*250), (c*20), (c*3) )
+			surface.DrawOutlinedRect( (c*30), h - (c*30) - (c*24), (c*250), (c*12), (c*3) )
 
 			local amt = p:GetNWFloat( "MFA_Stamina", 1 )
 			for i=1, 4 do
 				local e = i-1
 				
 				surface.SetDrawColor( CLR_B )
-				surface.DrawOutlinedRect( (c*30) + (c*125*e) + s1, h - (c*30) - (c*20) + s2, (c*125), (c*20), (c*3) )
+				surface.DrawOutlinedRect( (c*30) + (c*125*e) + s1, h - (c*30) - (c*12) + s2, (c*125), (c*12), (c*3) )
 
 				local mul = Lerp( i/4, 0.5, 0.9 )
 				surface.SetDrawColor( CLR_W.r * mul, CLR_W.g * mul, CLR_W.b * mul )
 	
 				local te = math.Clamp( math.TimeFraction( 0 + (0.25*e), (0.25*i), amt ), 0, 1 )
-				surface.DrawRect( (c*30) + (c*125*e), h - (c*30) - (c*20), (c*125 * te), (c*20) )
+				surface.DrawRect( (c*30) + (c*125*e), h - (c*30) - (c*12), (c*125 * te), (c*12) )
 				
 				surface.SetDrawColor( CLR_W )
-				surface.DrawOutlinedRect( (c*30) + (c*125*e), h - (c*30) - (c*20), (c*125), (c*20), (c*3) )
+				surface.DrawOutlinedRect( (c*30) + (c*125*e), h - (c*30) - (c*12), (c*125), (c*12), (c*3) )
 			end
 
-			ftext( p:Nick(), "MFA_HUD_48", (c*41), h - (c*106), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP )
+			ftext( p:Nick(), "MFA_HUD_48", (c*41), h - (c*90), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP )
 
 			if false then
 				if p:Health() != lasthealth then
