@@ -9,6 +9,9 @@ function EFFECT:Init(data)
 	local att = data:GetAttachment() or 1
 
 	local Owner = wpn:GetOwner()
+	if Owner != LocalPlayer() then
+	    return
+	end
 	--if Owner != LocalPlayer() and !(true or GetConVar("arccw_muzzleeffects"):GetBool()) then
 	--    return
 	--end
