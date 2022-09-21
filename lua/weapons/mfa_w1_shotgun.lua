@@ -6,10 +6,11 @@ SWEP.Spawnable				= true
 
 SWEP.Slot					= 2
 SWEP.Category				= "MFA"	
-SWEP.PrintName				= "Shotgun"
+SWEP.PrintName				= "Rosertinn 800C"
 SWEP.Trivia = {
 	Category = "Shotgun",
-	["Real Name"] = "SPAS-12",
+	Description = "A compact shotgun with no stock and pistol grip enhances mobility in CQB situations.",
+	["Real Name"] = "Mossberg 500",
 }
 
 SWEP.UseHands				= true
@@ -174,7 +175,7 @@ SWEP.Animations = {
 			{ t = 0, s = "mfa/wep/ogg/Reload_1P_A91_Bolt_Wave 0 0 0.ogg" },
 		},
 		Time = 1.0,
-		AttackTime = 0.3,
+		CycleDelayTime = 0.4,
 	},
 	["fire_ads"] = {
 		Source = { "iron_fire_1", "iron_fire_2"},
@@ -190,7 +191,7 @@ SWEP.Animations = {
 			{ t = 0, s = "mfa/wep/ogg/Reload_1P_A91_Bolt_Wave 0 0 0.ogg" },
 		},
 		Time = 0.7,
-		AttackTime = 0.3,
+		CycleDelayTime = 0.4,
 	},
 	["sgreload_start"] = {
 		Source = "base_reload_start",
