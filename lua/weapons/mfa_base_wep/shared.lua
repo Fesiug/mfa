@@ -387,8 +387,8 @@ function SWEP:FireBullet(bullet)
 				local hg = tr.HitGroup
 				local gam = LimbCompensation
 				local gem = self.BodyDamageMults
-				if gem[hg] then dmg:ScaleDamage(gem[hg]) end
-				if gam[hg] then dmg:ScaleDamage(gam[hg]) end
+				if gem and gem[hg] then dmg:ScaleDamage(gem[hg]) end
+				if gam and gam[hg] then dmg:ScaleDamage(gam[hg]) end
 			end
 			return
 		end
