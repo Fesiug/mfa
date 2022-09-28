@@ -627,11 +627,13 @@ function SWEP:Think()
 			self:SetUserSight( !self:GetUserSight() )
 		end
 	end
-	local capableofads = self:GetStopSightTime() <= CurTime() and self:GetSprintDelta() <= 0 and self:GetOwner():OnGround() and !self:GetCustomizing() -- replace with GetReloading
+	local capableofads = self:GetStopSightTime() <= CurTime() and !self:SprCheck(self:GetOwner()) and self:GetOwner():OnGround() and !self:GetCustomizing() -- replace with GetReloading
 
 	local sighting = (capableofads and self:GetUserSight() and 1 or 0)
 	self:SetSightDelta( math.Approach( self:GetSightDelta(), sighting, FrameTime() / (self.Handling_ADS or 0.5) ) )
-	if lastsighting != nil and lastsighting != sighting then
+
+	local spgarb = !game.SinglePlayer() or CLIENT
+	if spgarb and lastsighting != nil and lastsighting != sighting then
 		sound_played = false
 	end
 	if !sound_played then
