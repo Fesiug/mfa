@@ -1,0 +1,22 @@
+"VertexLitGeneric"
+{
+	"$basetexture"			"mfa/models\weapons\kriss\kriss_sights_dm"
+	"$bumpmap"			"mfa/models\weapons\kriss\kriss_sights_nm"
+
+	"$nocull" "1"
+
+	// PHONG SHADING
+	$phong                      	1
+	$phongboost                	1.0
+	$phongfresnelranges        	"[2 4 6]"
+	$phongtint 			"[0.6 0.8 1]"
+	$phongexponent			35
+	$phongalbedotint            	1
+	$phongalbedoboost           	48
+	$normalmapalphaphongmask    	1
+
+	// ENVIRONMENT REFLECTION
+	"$envmaptint" 			"[0.1 0.1 0.1]"
+     	"$normalmapalphaenvmapmask" 	1
+     	"$envmapfresnel" 		"0.7"
+}
