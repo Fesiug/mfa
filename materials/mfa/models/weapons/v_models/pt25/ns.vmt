@@ -1,0 +1,10 @@
+"unLitGeneric"
+{
+"$basetexture" "mfa/models\weapons\v_models\pt25\pt25_DIFF"
+"$bumpmap" "mfa/models\weapons\v_models\pt25\pt25_DDN"
+"$PhongExponentTexture" "mfa/models\weapons\v_models\pt25\pt25_spec"
+"$selfillum" "1"
+
+
+
+}
