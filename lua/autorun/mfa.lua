@@ -31,13 +31,48 @@ PrecacheParticleSystem( "muzzleflash_6" )
 
 if SERVER then
 
+	local lastpcall = {}
+	local nextpcall = {}
+	hook.Add("PlayerPostThink", "MFA_PlayerPostThink", function( ply )
+		local dt = 0
+		if (nextpcall[ply] or 0) <= CurTime() then
+			if !lastpcall[ply] then
+				lastpcall[ply] = CurTime()
+				dt = 0
+			else
+				dt = ( CurTime() - lastpcall[ply] )
+			end
+
+			local stammy = ply:GetNWFloat( "MFA_Stamina", 1 )
+			local drain = 0
+
+			-- movement
+			if ply:Alive() then
+				drain = drain + (1/60/60/30)
+				if ply:OnGround() then
+					local vel = ply:GetAbsVelocity():Length2D()
+					drain = drain + Lerp( vel/200, 0, (1/60/5) * ( ply:IsSprinting() and 2.5 or 1 ) )
+				end
+			end
+
+			stammy = math.Approach( stammy, 0, dt * drain )
+			ply:SetNWFloat( "MFA_Stamina", stammy )
+			lastpcall[ply] = CurTime()
+			nextpcall[ply] = CurTime() + 0.2
+		end
+	end)
+
+	hook.Add("PlayerSpawn", "MFA_PlayerSpawn", function( ply )
+		ply:SetNWFloat( "MFA_Stamina", 1 )
+	end)
+
 	concommand.Add( "mfa_dev_cheat_hp", function(ply, cmd, args)
 		local ply = Entity(args[1])
 		assert(ply, "Invalid entity!")
 		local limb = args[2]
 		assert(limb, "No limb!")
 		local set = args[3]
-		assert(ply, "No value!")
+		assert(set, "No value!")
 
 		ply:SetNWFloat( "MFA_HP_" .. limb, set )
 	end)
@@ -46,7 +81,9 @@ if SERVER then
 		local ply = Entity(args[1])
 		assert(ply, "Invalid entity!")
 		local set = args[2]
-		assert(ply, "No value!")
+		assert(set, "No value!")
+		assert(tonumber(set), "Not a number!")
+		set = tonumber(set)
 
 		ply:SetNWFloat( "MFA_Stamina", set )
 	end)
