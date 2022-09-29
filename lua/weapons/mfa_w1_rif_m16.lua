@@ -32,6 +32,16 @@ SWEP.Sound_Fire				= {
 		pm = 105,
 		c = CHAN_STATIC,
 	},
+	{
+		s = {
+			")mfa/fesiug/sweet/galil.ogg",
+		},
+		sl = 50,
+		v = 0.75,
+		p = 95,
+		pm = 105,
+		c = CHAN_STATIC,
+	},
 }
 SWEP.Sound_Dry = { s = "mfa/wep/dry/rifle.ogg", sl = 50, v = 0.5, p = 100 }
 
