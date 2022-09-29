@@ -1178,6 +1178,18 @@ function SWEP:GetViewModelPosition(pos, ang)
 		oang:Add(b_ang)
 	end
 
+	if true then -- hunger sway
+		local b_ang = Angle()
+		local hunger = math.Clamp( math.TimeFraction( 1, 0, p:GetNWFloat( "MFA_Stamina", 1 ) ), 0, 1 )
+
+		b_ang.y = b_ang.y + math.cos( CurTime() * 1 ) * Lerp( hunger, 0, 3 * 0.5 )
+		b_ang.x = b_ang.x + math.sin( CurTime() * 2 ) * Lerp( hunger, 0, 1 * 0.5 )
+
+		b_ang:Mul( 1 )
+
+		oang:Add(b_ang)
+	end
+
 	end
 	
 	ang:RotateAroundAxis( ang:Right(),		oang.x )
