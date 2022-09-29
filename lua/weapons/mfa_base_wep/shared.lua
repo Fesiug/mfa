@@ -32,19 +32,15 @@ SWEP.HoldTypeSprint						= "passive"
 -- Recoil
 --
 SWEP.RecoilUp							= 2 -- degrees punched
-SWEP.RecoilUpDecay						= 30 -- how much recoil to remove per second
 SWEP.RecoilSide							= 0.5 -- degrees punched, in either direction (-100% to 100%)
-SWEP.RecoilSideDecay					= 30 -- how much recoil to remove per second
-SWEP.RecoilUpDrift						= 0.5 -- how much will be smooth recoil
-SWEP.RecoilSideDrift					= 0.5 -- how much will be smooth recoil
+SWEP.RecoilDrift						= 0.5 -- how much will be smooth recoil
+SWEP.RecoilDecay						= 30 -- how much recoil to remove per second
 SWEP.RecoilFlipChance					= ( 1 / 3 ) -- chance to flip recoil direction
 SWEP.RecoilADSMult						= ( 1 / 3 ) -- multiply shot recoil by this amount when ads'd
 
 -- after the fact
-SWEP.Recoil2UpDrift						= 0.5 -- how much to return to the original pos
-SWEP.Recoil2SideDrift					= 0.5
-SWEP.Recoil2UpDecay						= 20 -- how much recoil to remove per second
-SWEP.Recoil2SideDecay					= 20 
+SWEP.Recoil2Drift						= 0.5 -- how much to return to the original pos
+SWEP.Recoil2Decay						= 20 -- how much recoil to remove per second
 
 
 SWEP.Dispersion							= 1
@@ -326,11 +322,11 @@ function SWEP:PrimaryAttack()
 		local ads = Lerp( self:GetSightDelta(), 1, self.RecoilADSMult )
 		self:SetRecoilFlip( math.Rand( -1, 1 ) )
 		if true then
-			if ((SERVER and game.SinglePlayer()) or (CLIENT and IsFirstTimePredicted())) then p:SetEyeAngles( p:EyeAngles() + Angle( ads * -self.RecoilUp * (1-self.RecoilUpDrift), ads * self:GetRecoilFlip() * self.RecoilSide * (1-self.RecoilSideDrift) ) ) end
-			self:SetRecoilP( self:GetRecoilP() + (ads * -self.RecoilUp * self.RecoilUpDrift) )
-			self:SetRecoilY( self:GetRecoilY() + (ads * self:GetRecoilFlip() * -self.RecoilSide * self.RecoilSideDrift) )
-			self:SetRecoil2P( self:GetRecoil2P() + (ads * -self.RecoilUp * self.Recoil2UpDrift) )
-			self:SetRecoil2Y( self:GetRecoil2Y() + (ads * self:GetRecoilFlip() * -self.RecoilSide * self.Recoil2SideDrift) )
+			if ((SERVER and game.SinglePlayer()) or (CLIENT and IsFirstTimePredicted())) then p:SetEyeAngles( p:EyeAngles() + Angle( ads * -self.RecoilUp * (1-self.RecoilDrift), ads * self:GetRecoilFlip() * self.RecoilSide * (1-self.RecoilDrift) ) ) end
+			self:SetRecoilP( self:GetRecoilP() + (ads * -self.RecoilUp * self.RecoilDrift) )
+			self:SetRecoilY( self:GetRecoilY() + (ads * self:GetRecoilFlip() * -self.RecoilSide * self.RecoilDrift) )
+			self:SetRecoil2P( self:GetRecoil2P() + (ads * -self.RecoilUp * self.Recoil2Drift) )
+			self:SetRecoil2Y( self:GetRecoil2Y() + (ads * self:GetRecoilFlip() * -self.RecoilSide * self.Recoil2Drift) )
 		end
 	end
 	self:SetDISP_Fire( self:GetDISP_Fire() + self.Dispersion_FireShoot )
@@ -654,14 +650,14 @@ function SWEP:Think()
 		local returncoil_p = self:GetRecoil2P()
 		local returncoil_y = self:GetRecoil2Y()
 		if recoil_p != 0 or recoil_y != 0 then
-			local frigginmath = math.Approach( 0, math.sqrt( math.pow( recoil_p, 2 ) + math.pow( recoil_y, 2 ) ), FrameTime() * self.RecoilUpDecay )
+			local frigginmath = math.Approach( 0, math.sqrt( math.pow( recoil_p, 2 ) + math.pow( recoil_y, 2 ) ), FrameTime() * self.RecoilDecay )
 			if ((SERVER and game.SinglePlayer()) or (CLIENT and IsFirstTimePredicted())) then
 				p:SetEyeAngles( p:EyeAngles() - Angle( frigginmath, frigginmath * fli ) )
 			end
 			self:SetRecoilP( math.Approach( recoil_p, 0, frigginmath ) )
 			self:SetRecoilY( math.Approach( recoil_y, 0, frigginmath ) )
 		else
-			local frigginmath = math.Approach( 0, math.sqrt( math.pow( returncoil_p, 2 ) + math.pow( returncoil_y, 2 ) ), FrameTime() * self.Recoil2UpDecay )
+			local frigginmath = math.Approach( 0, math.sqrt( math.pow( returncoil_p, 2 ) + math.pow( returncoil_y, 2 ) ), FrameTime() * self.Recoil2Decay )
 			if ((SERVER and game.SinglePlayer()) or (CLIENT and IsFirstTimePredicted())) then
 				p:SetEyeAngles( p:EyeAngles() - Angle( frigginmath, frigginmath * fli ) )
 			end
