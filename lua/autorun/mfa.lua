@@ -62,6 +62,14 @@ if SERVER then
 		end
 	end)
 
+	hook.Add("Move", "MFA_Move", function( ply, mv )
+		if mv:KeyPressed( IN_JUMP ) and ply:OnGround() then
+			local vel = ply:GetAbsVelocity():Length2D()
+
+			ply:SetNWFloat( "MFA_Stamina", math.Clamp( ply:GetNWFloat( "MFA_Stamina", 1 ) - ( 0.01 * Lerp( vel/200, 1, 1.5 ) * ( ply:IsSprinting() and 1.5 or 1 ) ), 0, 1 ) )
+		end
+	end)
+
 	hook.Add("PlayerSpawn", "MFA_PlayerSpawn", function( ply )
 		ply:SetNWFloat( "MFA_Stamina", 1 )
 	end)

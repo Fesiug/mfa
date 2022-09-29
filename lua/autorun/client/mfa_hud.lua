@@ -32,10 +32,11 @@ Cycledroft Corporation (c) 1982-1983. All rights reserved.
 Command Interpreter [Version 02.11.1983]
 Type HELP for help.
 
-C:/>abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_
+C:/>abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz
 ]]
 
 CreateClientConVar("mfa_hud_enable", 1)
+CreateClientConVar("mfa_hud_scale", 1)
 
 local hide = {
 	["CHudHealth"] = true,
@@ -52,37 +53,51 @@ end)
 
 function MFAS(size)
 	local si = (size / ScrH()) * 720
+	return si * 2
+end
+
+function MFAS2(size)
+	local si = (size / ScrH()) * 720
+	si = si * GetConVar("mfa_hud_scale"):GetFloat()
+	si = math.ceil( si )
 	return si
 end
 
-surface.CreateFont("MFA_HUD_96", {
-	font = "Carbon Plus Bold",
-	size = MFAS(96),
-	weight = 200,
-})
-surface.CreateFont("MFA_HUD_96_Glow", {
-	font = "Carbon Plus Bold",
-	size = MFAS(96),
-	weight = 200,
-	scanlines = MFAS(4),
-	blursize = MFAS(4),
-	additive = true,
-})
-surface.CreateFont("MFA_HUD_48", {
-	font = "Carbon Plus Bold",
-	size = MFAS(48),
-	weight = 200,
-})
-surface.CreateFont("MFA_HUD_20", {
-	font = "Carbon Plus Bold",
-	size = MFAS(30),
-	weight = 0,
-})
-surface.CreateFont("MFA_Terminal", {
-	font = "Carbon Plus Bold",
-	size = 24,
-	weight = 0,
-})
+function MFA_genfont()
+	surface.CreateFont("MFA_HUD_96", {
+		font = "Carbon Plus Bold",
+		size = MFAS2(96),
+		weight = 200,
+	})
+	surface.CreateFont("MFA_HUD_96_Glow", {
+		font = "Carbon Plus Bold",
+		size = MFAS2(96),
+		weight = 200,
+		scanlines = MFAS2(4),
+		blursize = MFAS2(4),
+		additive = true,
+	})
+	surface.CreateFont("MFA_HUD_48", {
+		font = "Carbon Plus Bold",
+		size = MFAS2(48),
+		weight = 200,
+	})
+	surface.CreateFont("MFA_HUD_20", {
+		font = "Carbon Plus Bold",
+		size = MFAS2(30),
+		weight = 0,
+	})
+	surface.CreateFont("MFA_Terminal", {
+		font = "Carbon Plus Bold",
+		size = 24,
+		weight = 0,
+	})
+end
+MFA_genfont()
+
+cvars.AddChangeCallback("mfa_hud_scale", function()
+	MFA_genfont()
+end, "mfa_hudscale")
 
 local mat_bub = Material( "mfa/hud/bubble.png", "smooth" )
 local mat_glow = Material( "mfa/hud/glow.png", "" )
@@ -101,24 +116,20 @@ local CLR_W = Color( 200, 255, 200, 255 )
 local CLR_B = Color( 0, 0, 0, 100 )
 
 function ftext( text, font, x, y, c1, c2, b, z )
-	local c = MFAS(1)
-	local s1, s2 = (c*2), (c*3)
+	local dd = MFAS2
+	local s1, s2 = dd(2), dd(3)
 	draw.SimpleText( text, font, x+s1, y+s2, c2, b, z )
 	draw.SimpleText( text, font, x, y, c1, b, z )
 end
 
 function fbar( x, y, w, h, c1, c2 )
-	local c = MFAS(1)
-	local s1, s2 = (c*2), (c*3)
+	local dd = MFAS2
+	local s1, s2 = dd(2), dd(3)
 	surface.SetDrawColor( c2 )
 	surface.DrawRect( x+s1, y+s2, w, h )
 	surface.SetDrawColor( c1 )
 	surface.DrawRect( x, y, w, h )
 end
-
-local tscale = 1
-local tscale_last = CurTime()
-local lasthealth = 100
 
 local ammolookup = {
 	[game.GetAmmoID("pistol")]		= (0.621/30),
@@ -176,101 +187,48 @@ local annoyingshit = {
 hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 	if GetConVar("mfa_hud_enable"):GetBool() then
 		local p = LocalPlayer()
-		local c = MFAS(1)
-		local s1, s2 = (c*2), (c*3)
+		local dd = MFAS2
+		local s1, s2 = dd(2), dd(3)
 		local w, h = ScrW(), ScrH()
 
 		if IsValid(p) and p:Health() > 0 then -- heealth
 			surface.SetMaterial( mat_glow )
 			surface.SetDrawColor( Color( 0, 0, 0, 255 ) )
-			surface.DrawTexturedRect( w - (c*500), h - (c*250), (c*500), (c*250) )
-			surface.DrawTexturedRectUV( 0, h - (c*250), (c*500), (c*250), 1, 0, 0, 1 )
+			surface.DrawTexturedRect( w - dd(500), h - dd(250), dd(500), dd(250) )
+			surface.DrawTexturedRectUV( 0, h - dd(250), dd(500), dd(250), 1, 0, 0, 1 )
 			--surface.DrawTexturedRectUV( 0, 0, (c*500), (c*250), 1, 1, 0, 0 )
 			--surface.DrawTexturedRectUV( w - (c*500), 0, (c*500), (c*250), 0, 1, 1, 0 )
 
 			surface.SetDrawColor( CLR_B )
-			surface.DrawOutlinedRect( (c*30) + s1, h - (c*30) - (c*24) + s2, (c*250), (c*12), (c*3) )
+			surface.DrawOutlinedRect( dd(30) + s1, h - dd(30+24+4) + s2, dd(250), dd(12), dd(2) )
 		
 			local he = p:Health() / p:GetMaxHealth()
-			local mul = Lerp( he, 0.5, 0.9 )
+			local mul = Lerp( he, 0.4, 0.9 )
 			surface.SetDrawColor( CLR_W.r * mul, CLR_W.g * mul, CLR_W.b * mul )
-			surface.DrawRect( (c*30), h - (c*30) - (c*24), (c*250) * he, (c*12) )
+			surface.DrawRect( dd(30), h - dd(30+24+4), dd(250) * he, dd(12) )
 
 			surface.SetDrawColor( CLR_W )
-			surface.DrawOutlinedRect( (c*30), h - (c*30) - (c*24), (c*250), (c*12), (c*3) )
+			surface.DrawOutlinedRect( dd(30), h - dd(30+24+4), dd(250), dd(12), dd(2) )
 
 			local amt = p:GetNWFloat( "MFA_Stamina", 1 )
 			for i=1, 4 do
 				local e = i-1
 				
 				surface.SetDrawColor( CLR_B )
-				surface.DrawOutlinedRect( (c*30) + (c*125*e) + s1, h - (c*30) - (c*12) + s2, (c*125), (c*12), (c*3) )
+				surface.DrawOutlinedRect( dd(30) + dd(125*e) + s1, h - dd(30) - dd(12) + s2, dd(125), dd(12), dd(2) )
 
-				local mul = Lerp( i/4, 0.5, 0.9 )
+				local mul = Lerp( i/4, 0.65, 0.85 )
 				surface.SetDrawColor( CLR_W.r * mul, CLR_W.g * mul, CLR_W.b * mul )
 	
 				local te = math.Clamp( math.TimeFraction( 0 + (0.25*e), (0.25*i), amt ), 0, 1 )
-				surface.DrawRect( (c*30) + (c*125*e), h - (c*30) - (c*12), (c*125 * te), (c*12) )
+				surface.DrawRect( dd(30) + dd(125*e), h - dd(30) - dd(12), dd(125 * te), dd(12) )
 				
-				surface.SetDrawColor( CLR_W )
-				surface.DrawOutlinedRect( (c*30) + (c*125*e), h - (c*30) - (c*12), (c*125), (c*12), (c*3) )
+				mul = 1.1
+				surface.SetDrawColor( CLR_W.r * mul, CLR_W.g * mul, CLR_W.b * mul )
+				surface.DrawOutlinedRect( dd(30) + dd(125*e), h - dd(30) - dd(12), dd(125), dd(12), dd(2) )
 			end
 
-			ftext( p:Nick(), "MFA_HUD_48", (c*41), h - (c*90), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP )
-
-			if false then
-				if p:Health() != lasthealth then
-					lasthealth = p:Health()
-					tscale_last = CurTime()
-				end
-				if true or tscale_last + 3 > CurTime() then
-					tscale = math.Approach( tscale, 1, FrameTime() / 0.3 )
-				else
-					tscale = math.Approach( tscale, 0, FrameTime() / 0.3 )
-				end
-				local ss_tscale = math.ease.InCirc( tscale ) -- it looks funnier linear 
-				fbar( 0, h - (c*82), (c*320), (c*6), CLR_W, CLR_B )
-				ftext( p:Nick(), "MFA_HUD_48", (c*28), h - (c*62), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP )
-				ftext( string.format( "%.1f", math.Round((p:Health()/p:GetMaxHealth())*100) ) .. "%", "MFA_HUD_48", (c*28), h - (c*140), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP )
-			end
-
-			if false then
-				local icos = (c*200)
-				local pos_x, pos_y = (c*-16), h - (c*350)
-				local lool1 = (1-ss_tscale)*(icos*0.5)
-				local lool2 = (1-ss_tscale)*icos
-		
-				if p:GetNWBool("MFAShield", false) then
-					surface.SetMaterial( mat_bub4 )
-					surface.SetDrawColor( 255, 255, 255, 100 )
-					surface.DrawTexturedRect( pos_x, pos_y, icos, icos )
-			
-					surface.SetMaterial( mat_bub2 )
-					surface.SetDrawColor( 255, 255, 255, 50 )
-					surface.DrawTexturedRect( pos_x, pos_y, icos, icos )
-				end
-		
-				local he = p:Health() / p:GetMaxHealth()
-				for i, data in ipairs(annoyingshit) do
-					if !data.Limb then continue end
-					local effective = p:GetNWFloat( "MFA_HP_" .. data.Limb, 1 )
-					local shithead = 0--math.Clamp( math.Remap( effective, 0, 1, data.Range_Min, data.Range_Max), 0, 1 )
-
-					surface.SetMaterial( data.Mat )
-					
-					surface.SetDrawColor( 0, 0, 127, 255 )
-					surface.DrawTexturedRect( pos_x + lool1, pos_y + lool2, icos*ss_tscale, icos*ss_tscale )
-
-					surface.SetDrawColor( 255, 0, 0, 255*(1-effective) ) -- *(1-he) )
-					surface.DrawTexturedRectUV( pos_x + lool1, pos_y + lool2 + (icos*ss_tscale * (shithead)), icos*ss_tscale, icos*ss_tscale * (1-shithead), 0, (shithead), 1, 1 )
-				end
-
-				surface.SetMaterial( mat_bub )
-				surface.SetDrawColor( CLR_B )
-				surface.DrawTexturedRect( pos_x+s1 + lool1, pos_y+s2 + lool2, icos*ss_tscale, icos*ss_tscale )
-				surface.SetDrawColor( CLR_W )
-				surface.DrawTexturedRect( pos_x + lool1, pos_y + lool2, icos*ss_tscale, icos*ss_tscale )
-			end
+			ftext( p:Nick(), "MFA_HUD_48", dd(41), h - dd(94), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP )
 
 			if enableditem == "radiopack" then
 			-- radar / terminal / teamhealth
@@ -353,11 +311,11 @@ hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 		if !IsValid(wep) then wep = false end
 		if wep then -- weap
 			--fbar( w - (c*320), h - (c*82), (c*320), (c*6), CLR_W, CLR_B )
-			ftext( wep:GetPrintName(), "MFA_HUD_48", w-(c*28), h - (c*62), CLR_W, CLR_B, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP )
+			ftext( wep:GetPrintName(), "MFA_HUD_48", w-dd(28), h - dd(62), CLR_W, CLR_B, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP )
 
 			local ftn
 			if wep.GetFiremodeName then
-				ftext( string.upper(wep:GetFiremodeName()), "MFA_HUD_20", w-(c*30), h - (c*56), CLR_W, CLR_B, TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM )
+				ftext( string.upper(wep:GetFiremodeName()), "MFA_HUD_20", w-dd(30), h - dd(56), CLR_W, CLR_B, TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM )
 			end
 
 			local amit = wep:GetPrimaryAmmoType()
@@ -373,16 +331,16 @@ hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 			else
 				amiw = ami * 1.337
 			end
-			ftext( "(" .. string.format("%.3f", amiw) .. "kg) " .. ami, "MFA_HUD_20", w-(c*30), h - (c*121), CLR_W, CLR_B, TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM )
+			ftext( "(" .. string.format("%.3f", amiw) .. "kg) " .. ami, "MFA_HUD_20", w-dd(30), h - dd(121), CLR_W, CLR_B, TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM )
 
-			local wa = w - (c*28)
+			local wa = w - dd(28)
 			for i=1, wep:GetMaxClip1() do
 				surface.SetDrawColor( CLR_B )
-				surface.DrawRect( wa - i * math.ceil(c*7) + s1, h - (c*122) + s2, math.Round(c*5), (c*30) )
+				surface.DrawRect( wa - i * dd(7) + s1, h - dd(122) + s2, dd(5), dd(30) )
 			end
 			for i=1, wep:Clip1() do
 				surface.SetDrawColor( (i > wep:GetMaxClip1() and Color(255, 0, 0)) or CLR_W )
-				surface.DrawRect( wa - i * math.ceil(c*7), h - (c*122), math.Round(c*5), (c*30) )
+				surface.DrawRect( wa - i * dd(7), h - dd(122), dd(5), dd(30) )
 			end
 
 		end
