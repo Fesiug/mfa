@@ -461,7 +461,7 @@ function SWEP:DrawHUD()
 		end
 
 		if true then
-			draw.SimpleText( w.DamageNear .. " up to " .. w.RangeNear .. "m, " .. w.DamageFar .. " up to " .. w.RangeFar .. "m", "MFA_HUD_20", ScrW() - (c*72), (c*200), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
+			draw.SimpleText( w.DamageNear .. "dmg at " .. w.RangeNear .. "m, " .. w.DamageFar .. "dmg at " .. w.RangeFar .. "m", "MFA_HUD_20", ScrW() - (c*72), (c*200), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
 			draw.SimpleText( w:GetMaxClip1() .. " magazine capacity", "MFA_HUD_20", ScrW() - (c*72), (c*(200 + (25*1))), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
 		end
 	end

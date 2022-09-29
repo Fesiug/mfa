@@ -9,6 +9,7 @@ SWEP.Category				= "MFA"
 SWEP.PrintName				= "K&M SMG-1"
 SWEP.Trivia = {
 	Category = "Submachine Gun",
+	Description = "",
 	["Real Name"] = "MP5A3",
 }
 SWEP.MFAsys = {
@@ -50,8 +51,8 @@ SWEP.Sound_Fire				= {
 SWEP.Sound_Dry = { s = "mfa/wep/dry/smg.ogg", sl = 50, v = 0.5, p = 100 }
 
 
-SWEP.DamageNear				= 24
-SWEP.DamageFar				= 16
+SWEP.DamageNear				= 20
+SWEP.DamageFar				= 10
 SWEP.RangeNear				= 20
 SWEP.RangeFar				= 40
 

@@ -9,6 +9,7 @@ SWEP.Category				= "MFA"
 SWEP.PrintName				= "ES BASE-9"
 SWEP.Trivia = {
 	Category = "Sidearm",
+	Description = "Standard 9mm sidearm. Ergonomic design ensures controllability even on the move.",
 	["Real Name"] = "Browning Hi-Power",
 }
 
@@ -45,10 +46,10 @@ SWEP.Sound_Fire				= {
 }
 SWEP.Sound_Dry = { s = "mfa/wep/dry/pistol.ogg", sl = 50, v = 0.5, p = 100 }
 
-SWEP.DamageNear				= 30
-SWEP.DamageFar				= 26
+SWEP.DamageNear				= 20
+SWEP.DamageFar				= 10
 SWEP.RangeNear				= 20
-SWEP.RangeFar				= 50
+SWEP.RangeFar				= 40
 
 --
 -- Recoil
@@ -65,13 +66,13 @@ SWEP.Recoil2Decay						= 15 -- how much recoil to remove per second
 
 
 SWEP.Dispersion				= 0.3
-SWEP.Dispersion_Move		= 4 -- at 200 hu/s
-SWEP.Dispersion_Air			= 5
+SWEP.Dispersion_Move		= 2 -- at 200 hu/s
+SWEP.Dispersion_Air			= 3
 SWEP.Dispersion_Crouch		= ( 2 / 3 )
 SWEP.Dispersion_Sights		= ( 1 / 3 )
 
-SWEP.Dispersion_FireShoot	= 2
-SWEP.Dispersion_FireDecay	= 10
+SWEP.Dispersion_FireShoot	= 0.7
+SWEP.Dispersion_FireDecay	= 3
 
 SWEP.Movespeed							= 0.98
 SWEP.Movespeed_Firing					= 0.88

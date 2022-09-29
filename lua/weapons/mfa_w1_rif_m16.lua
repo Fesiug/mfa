@@ -9,6 +9,7 @@ SWEP.Category				= "MFA"
 SWEP.PrintName				= "COBRA Mk. 4"
 SWEP.Trivia = {
 	Category = "Rifle",
+	Description = "Full-length 5.56 assault rifle. Long barrel allows for prolonged fire with minimal penalty to accuracy.",
 	["Real Name"] = "M16A4",
 }
 
@@ -45,10 +46,11 @@ SWEP.Sound_Fire				= {
 }
 SWEP.Sound_Dry = { s = "mfa/wep/dry/rifle.ogg", sl = 50, v = 0.5, p = 100 }
 
+
 SWEP.DamageNear				= 30
 SWEP.DamageFar				= 26
-SWEP.RangeNear				= 20
-SWEP.RangeFar				= 50
+SWEP.RangeNear				= 40
+SWEP.RangeFar				= 80
 
 --
 -- Recoil
@@ -70,7 +72,7 @@ SWEP.Dispersion_Air			= 4
 SWEP.Dispersion_Crouch		= ( 2 / 3 )
 SWEP.Dispersion_Sights		= ( 1 / 3 )
 
-SWEP.Dispersion_FireShoot	= 0.4
+SWEP.Dispersion_FireShoot	= 0.36
 SWEP.Dispersion_FireDecay	= 3
 
 SWEP.Movespeed							= 0.92
@@ -80,7 +82,7 @@ SWEP.Movespeed_ADS						= 0.72
 SWEP.Firemodes = {
 	{
 		Count = math.huge,
-		Delay = ( 60 / 700 ),
+		Delay = ( 60 / 630 ),
 	},
 	{
 		Count = 3,

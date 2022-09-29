@@ -9,6 +9,7 @@ SWEP.Category				= "MFA"
 SWEP.PrintName				= "K&M NE36"
 SWEP.Trivia = {
 	Category = "Rifle",
+	Description = "Compact & portable 5.56 assault carbine. Sustained fire severely diminishes accuracy.",
 	["Real Name"] = "G36C",
 }
 
@@ -55,22 +56,23 @@ SWEP.Sound_Fire				= {
 }
 SWEP.Sound_Dry = { s = "mfa/wep/dry/rifle.ogg", sl = 50, v = 0.5, p = 100 }
 
+
 SWEP.DamageNear				= 30
 SWEP.DamageFar				= 26
-SWEP.RangeNear				= 20
-SWEP.RangeFar				= 50
+SWEP.RangeNear				= 40
+SWEP.RangeFar				= 80
 
 --
 -- Recoil
 --
-SWEP.RecoilUp							= 2.5 -- degrees punched
-SWEP.RecoilSide							= 0.6 -- degrees punched, in either direction (-100% to 100%)
-SWEP.RecoilDrift						= 0.5 -- how much will be smooth recoil
+SWEP.RecoilUp							= 2.1 -- degrees punched
+SWEP.RecoilSide							= 0.9 -- degrees punched, in either direction (-100% to 100%)
+SWEP.RecoilDrift						= 0.7 -- how much will be smooth recoil
 SWEP.RecoilDecay						= 25 -- how much recoil to remove per second
 SWEP.RecoilADSMult						= ( 3 / 4 ) -- multiply shot recoil by this amount when ads'd
 
 -- after the fact
-SWEP.Recoil2Drift						= 0.1 -- how much to return to the original pos
+SWEP.Recoil2Drift						= 0.4 -- how much to return to the original pos
 SWEP.Recoil2Decay						= 23 -- how much recoil to remove per second
 
 
@@ -80,7 +82,7 @@ SWEP.Dispersion_Air			= 4
 SWEP.Dispersion_Crouch		= ( 2 / 3 )
 SWEP.Dispersion_Sights		= ( 1 / 3 )
 
-SWEP.Dispersion_FireShoot	= 0.7
+SWEP.Dispersion_FireShoot	= 0.8
 SWEP.Dispersion_FireDecay	= 6
 
 SWEP.Movespeed							= 0.92

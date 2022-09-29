@@ -46,10 +46,11 @@ SWEP.Sound_Fire				= {
 }
 SWEP.Sound_Dry = { s = "mfa/wep/dry/smg_high.ogg", sl = 50, v = 0.5, p = 100 }
 
-SWEP.DamageNear				= 26
-SWEP.DamageFar				= 17
-SWEP.RangeNear				= 20
-SWEP.RangeFar				= 40
+
+SWEP.DamageNear				= 24
+SWEP.DamageFar				= 12
+SWEP.RangeNear				= 25
+SWEP.RangeFar				= 50
 
 --
 -- Recoil
@@ -71,7 +72,7 @@ SWEP.Dispersion_Air			= 2
 SWEP.Dispersion_Crouch		= ( 2 / 3 )
 SWEP.Dispersion_Sights		= ( 1 / 3 )
 
-SWEP.Dispersion_FireShoot	= 0.4
+SWEP.Dispersion_FireShoot	= 0.33
 SWEP.Dispersion_FireDecay	= 3
 
 SWEP.Movespeed							= 0.94

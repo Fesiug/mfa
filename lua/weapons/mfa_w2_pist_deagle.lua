@@ -45,9 +45,9 @@ SWEP.Sound_Fire				= {
 }
 SWEP.Sound_Dry = { s = "mfa/wep/dry/pistol_high.ogg", sl = 50, v = 0.5, p = 100 }
 
-SWEP.DamageNear				= 44
-SWEP.DamageFar				= 26
-SWEP.RangeNear				= 20
+SWEP.DamageNear				= 36
+SWEP.DamageFar				= 20
+SWEP.RangeNear				= 25
 SWEP.RangeFar				= 50
 
 --
