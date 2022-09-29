@@ -65,8 +65,12 @@ if SERVER then
 	hook.Add("Move", "MFA_Move", function( ply, mv )
 		if mv:KeyPressed( IN_JUMP ) and ply:OnGround() then
 			local vel = ply:GetAbsVelocity():Length2D()
+			local stammy = ply:GetNWFloat( "MFA_Stamina", 1 )
 
-			ply:SetNWFloat( "MFA_Stamina", math.Clamp( ply:GetNWFloat( "MFA_Stamina", 1 ) - ( 0.01 * Lerp( vel/200, 1, 1.5 ) * ( ply:IsSprinting() and 1.5 or 1 ) ), 0, 1 ) )
+			local drain = 0
+			drain = drain + 0.003
+			drain = drain + ( Lerp( vel/200, 0, 0.003 ) * ( ply:IsSprinting() and 1.5 or 1 ) )
+			ply:SetNWFloat( "MFA_Stamina", math.Clamp( stammy - drain, 0, 1 ) )
 		end
 	end)
 
