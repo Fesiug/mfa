@@ -48,7 +48,7 @@ if SERVER then
 
 			-- movement
 			if ply:Alive() then
-				drain = drain + (1/60/60/30)
+				drain = drain + (1/60/60/60)
 				if ply:OnGround() then
 					local vel = ply:GetAbsVelocity():Length2D()
 					drain = drain + Lerp( vel/200, 0, (1/60/5) * ( ply:IsSprinting() and 2.5 or 1 ) )
