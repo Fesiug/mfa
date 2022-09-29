@@ -659,7 +659,7 @@ function SWEP:Think()
 		else
 			local frigginmath = math.Approach( 0, math.sqrt( math.pow( returncoil_p, 2 ) + math.pow( returncoil_y, 2 ) ), FrameTime() * self.Recoil2Decay )
 			if ((SERVER and game.SinglePlayer()) or (CLIENT and IsFirstTimePredicted())) then
-				p:SetEyeAngles( p:EyeAngles() - Angle( frigginmath, frigginmath * fli ) )
+				p:SetEyeAngles( p:EyeAngles() + Angle( frigginmath, frigginmath * fli ) )
 			end
 			self:SetRecoil2P( math.Approach( returncoil_p, 0, frigginmath ) )
 			self:SetRecoil2Y( math.Approach( returncoil_y, 0, frigginmath ) )
