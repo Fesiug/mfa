@@ -34,6 +34,16 @@ SWEP.Sound_Fire				= {
 	},
 	{
 		s = {
+			")mfa/fesiug/sweet/m4a1.ogg",
+		},
+		sl = 50,
+		v = 0.22,
+		p = 105,
+		pm = 115,
+		c = CHAN_STATIC,
+	},
+	{
+		s = {
 			")mfa/fesiug/sweet/galil.ogg",
 		},
 		sl = 50,

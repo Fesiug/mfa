@@ -140,7 +140,7 @@ ATTTSG_FINISH = 3
 function SWEP:SetupDataTables()
 	self:NetworkVar("Bool", 0, "FiredLastShot")
 	self:NetworkVar("Bool", 1, "UserSight")
-	self:NetworkVar("Bool", 2, "RecoilFlip")
+	--
 	self:NetworkVar("Bool", 3, "FiremodeDebounce")
 	self:NetworkVar("Bool", 4, "Customizing")
 
@@ -166,12 +166,13 @@ function SWEP:SetupDataTables()
 	self:NetworkVar("Float", 14, "Recoil2Y")
 	self:NetworkVar("Float", 15, "CycleDelayTime")
 	self:NetworkVar("Float", 16, "Holster_Time")
+	self:NetworkVar("Float", 17, "RecoilFlip")
 
 	self:NetworkVar("Entity", 0, "Holster_Entity")
 	
 	self:SetFiremode(1)
 	self:SetNextMechFire(0)
-	self:SetRecoilFlip( util.SharedRandom( "recoilflipinit", 0, 1, CurTime() ) < 0.5 and true or false )
+	self:SetRecoilFlip( math.Rand( -1, 1 ) )
 	self.Primary.DefaultClip = self.Primary.ClipSize * 1
 
 end
@@ -322,17 +323,14 @@ function SWEP:PrimaryAttack()
 	local p = self:GetOwner()
 	if !IsValid(p) then p = false end
 	if p then
-		local fli = self:GetRecoilFlip() and -1 or 1
 		local ads = Lerp( self:GetSightDelta(), 1, self.RecoilADSMult )
+		self:SetRecoilFlip( math.Rand( -1, 1 ) )
 		if true then
-			if ((SERVER and game.SinglePlayer()) or (CLIENT and IsFirstTimePredicted())) then p:SetEyeAngles( p:EyeAngles() + Angle( ads * -self.RecoilUp * (1-self.RecoilUpDrift), ads * fli * self.RecoilSide * (1-self.RecoilSideDrift) ) ) end
+			if ((SERVER and game.SinglePlayer()) or (CLIENT and IsFirstTimePredicted())) then p:SetEyeAngles( p:EyeAngles() + Angle( ads * -self.RecoilUp * (1-self.RecoilUpDrift), ads * self:GetRecoilFlip() * self.RecoilSide * (1-self.RecoilSideDrift) ) ) end
 			self:SetRecoilP( self:GetRecoilP() + (ads * -self.RecoilUp * self.RecoilUpDrift) )
-			self:SetRecoilY( self:GetRecoilY() + (ads * fli * -self.RecoilSide * self.RecoilSideDrift) )
+			self:SetRecoilY( self:GetRecoilY() + (ads * self:GetRecoilFlip() * -self.RecoilSide * self.RecoilSideDrift) )
 			self:SetRecoil2P( self:GetRecoil2P() + (ads * -self.RecoilUp * self.Recoil2UpDrift) )
-			self:SetRecoil2Y( self:GetRecoil2Y() + (ads * fli * -self.RecoilSide * self.Recoil2SideDrift) )
-		end
-		if util.SharedRandom( "recoilflipinit", 0, 1, CurTime() ) < self.RecoilFlipChance then
-			self:SetRecoilFlip( !self:GetRecoilFlip() )
+			self:SetRecoil2Y( self:GetRecoil2Y() + (ads * self:GetRecoilFlip() * -self.RecoilSide * self.Recoil2SideDrift) )
 		end
 	end
 	self:SetDISP_Fire( self:GetDISP_Fire() + self.Dispersion_FireShoot )
@@ -650,27 +648,25 @@ function SWEP:Think()
 	end
 
 	if p then
-		local rp = self:GetRecoilP()
-		local ry = self:GetRecoilY()
-		local rp2 = self:GetRecoil2P()
-		local ry2 = self:GetRecoil2Y()
-		if rp != 0 then
-			local remove = rp - math.Approach( rp, 0, FrameTime() * self.RecoilUpDecay )
-			if ((SERVER and game.SinglePlayer()) or (CLIENT and IsFirstTimePredicted())) then p:SetEyeAngles( p:EyeAngles() + ( Angle( remove, 0 ) ) ) end
-			self:SetRecoilP( rp - remove )
+		local fli = self:GetRecoilFlip() or 1
+		local recoil_p = self:GetRecoilP()
+		local recoil_y = self:GetRecoilY()
+		local returncoil_p = self:GetRecoil2P()
+		local returncoil_y = self:GetRecoil2Y()
+		if recoil_p != 0 or recoil_y != 0 then
+			local frigginmath = math.Approach( 0, math.sqrt( math.pow( recoil_p, 2 ) + math.pow( recoil_y, 2 ) ), FrameTime() * self.RecoilUpDecay )
+			if ((SERVER and game.SinglePlayer()) or (CLIENT and IsFirstTimePredicted())) then
+				p:SetEyeAngles( p:EyeAngles() - Angle( frigginmath, frigginmath * fli ) )
+			end
+			self:SetRecoilP( math.Approach( recoil_p, 0, frigginmath ) )
+			self:SetRecoilY( math.Approach( recoil_y, 0, frigginmath ) )
 		else
-			local remove = rp2 - math.Approach( rp2, 0, FrameTime() * self.Recoil2UpDecay )
-			if ((SERVER and game.SinglePlayer()) or (CLIENT and IsFirstTimePredicted())) then p:SetEyeAngles( p:EyeAngles() - ( Angle( remove, 0 ) ) ) end
-			self:SetRecoil2P( rp2 - remove )
-		end
-		if ry != 0 then
-			local remove = ry - math.Approach( ry, 0, FrameTime() * self.RecoilSideDecay )
-			if ((SERVER and game.SinglePlayer()) or (CLIENT and IsFirstTimePredicted())) then p:SetEyeAngles( p:EyeAngles() - ( Angle( 0, remove ) ) ) end
-			self:SetRecoilY( math.Approach( ry, ry - remove, math.huge ) )
-		else
-			local remove = ry2 - math.Approach( ry2, 0, FrameTime() * self.Recoil2SideDecay )
-			if ((SERVER and game.SinglePlayer()) or (CLIENT and IsFirstTimePredicted())) then p:SetEyeAngles( p:EyeAngles() + ( Angle( 0, remove ) ) ) end
-			self:SetRecoil2Y( math.Approach( ry2, ry2 - remove, math.huge ) )
+			local frigginmath = math.Approach( 0, math.sqrt( math.pow( returncoil_p, 2 ) + math.pow( returncoil_y, 2 ) ), FrameTime() * self.Recoil2UpDecay )
+			if ((SERVER and game.SinglePlayer()) or (CLIENT and IsFirstTimePredicted())) then
+				p:SetEyeAngles( p:EyeAngles() - Angle( frigginmath, frigginmath * fli ) )
+			end
+			self:SetRecoil2P( math.Approach( returncoil_p, 0, frigginmath ) )
+			self:SetRecoil2Y( math.Approach( returncoil_y, 0, frigginmath ) )
 		end
 		local ht = self.HoldTypeHip
 		if self:GetSightDelta() > 0.2 then

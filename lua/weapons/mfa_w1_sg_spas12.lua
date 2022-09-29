@@ -29,34 +29,6 @@ SWEP.Sound_Fire				= {
 		pm = 90,
 		c = CHAN_STATIC,
 	},
-	{
-		s = {
-			")mfa/wep/w1897/Winchester_1897_Shot_Core-001.ogg",
-			")mfa/wep/w1897/Winchester_1897_Shot_Core-002.ogg",
-			")mfa/wep/w1897/Winchester_1897_Shot_Core-003.ogg",
-			")mfa/wep/w1897/Winchester_1897_Shot_Core-004.ogg",
-			")mfa/wep/w1897/Winchester_1897_Shot_Core-005.ogg",
-		},
-		sl = 140,
-		v = 1,
-		p = 90,
-		pm = 110,
-		c = CHAN_STATIC,
-	},
-	{
-		s = {
-			")mfa/wep/w1897/Winchester_1897_Shot_HiFi-001.ogg",
-			")mfa/wep/w1897/Winchester_1897_Shot_HiFi-002.ogg",
-			")mfa/wep/w1897/Winchester_1897_Shot_HiFi-003.ogg",
-			")mfa/wep/w1897/Winchester_1897_Shot_HiFi-004.ogg",
-			")mfa/wep/w1897/Winchester_1897_Shot_HiFi-005.ogg",
-		},
-		sl = 70,
-		v = 1,
-		p = 90,
-		pm = 110,
-		c = CHAN_STATIC,
-	},
 }
 SWEP.Sound_Dry = { s = "mfa/wep/dry/shotgun.ogg", sl = 50, v = 0.5, p = 100 }
 
