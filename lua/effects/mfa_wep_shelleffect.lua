@@ -167,6 +167,8 @@ function EFFECT:PhysicsCollide()
 	sound.Play(self.Sounds[math.random(#self.Sounds)], self:GetPos(), 65, self.HitPitch, 1)
 
 	self.AlreadyPlayedSound = true
+
+	self:Remove()
 end
 
 function EFFECT:Think()

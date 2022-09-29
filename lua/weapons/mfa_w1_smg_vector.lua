@@ -18,50 +18,29 @@ SWEP.WorldModel				= "models/mfa/weapons/vector.mdl"
 SWEP.ViewModelFOV			= 70
 
 SWEP.Primary.ClipSize		= 28
-SWEP.Primary.Ammo			= "pistol"SWEP.Sound_Fire				= {
+SWEP.Primary.Ammo			= "pistol"
+SWEP.Sound_Fire				= {
 	{
 		s = {
-			")mfa/wep/colt/M1911_Colt_Shot_Body_FPP-001.ogg",
-			")mfa/wep/colt/M1911_Colt_Shot_Body_FPP-002.ogg",
-			")mfa/wep/colt/M1911_Colt_Shot_Body_FPP-003.ogg",
-			")mfa/wep/colt/M1911_Colt_Shot_Body_FPP-004.ogg",
-			")mfa/wep/colt/M1911_Colt_Shot_Body_FPP-005.ogg",
-			")mfa/wep/colt/M1911_Colt_Shot_Body_FPP-006.ogg",
+			")mfa/dk2/wep/mp7_fire_01.ogg",
+			")mfa/dk2/wep/mp7_fire_02.ogg",
+			")mfa/dk2/wep/mp7_fire_03.ogg",
+			")mfa/dk2/wep/mp7_fire_04.ogg",
 		},
 		sl = 90,
 		v = 1,
-		p = 90,
-		pm = 110,
+		p = 95,
+		pm = 105,
 		c = CHAN_STATIC,
 	},
 	{
 		s = {
-			")mfa/wep/colt/M1911_Colt_Shot_CoreBass_FPP-001.ogg",
-			")mfa/wep/colt/M1911_Colt_Shot_CoreBass_FPP-002.ogg",
-			")mfa/wep/colt/M1911_Colt_Shot_CoreBass_FPP-003.ogg",
-			")mfa/wep/colt/M1911_Colt_Shot_CoreBass_FPP-004.ogg",
-			")mfa/wep/colt/M1911_Colt_Shot_CoreBass_FPP-005.ogg",
-			")mfa/wep/colt/M1911_Colt_Shot_CoreBass_FPP-006.ogg",
+			")mfa/fesiug/sweet/p90.ogg",
 		},
-		sl = 140,
-		v = 1,
-		p = 90,
-		pm = 110,
-		c = CHAN_STATIC,
-	},
-	{
-		s = {
-			")mfa/wep/colt/M1911_Colt_Shot_HiFi_FPP-001.ogg",
-			")mfa/wep/colt/M1911_Colt_Shot_HiFi_FPP-002.ogg",
-			")mfa/wep/colt/M1911_Colt_Shot_HiFi_FPP-003.ogg",
-			")mfa/wep/colt/M1911_Colt_Shot_HiFi_FPP-004.ogg",
-			")mfa/wep/colt/M1911_Colt_Shot_HiFi_FPP-005.ogg",
-			")mfa/wep/colt/M1911_Colt_Shot_HiFi_FPP-006.ogg",
-		},
-		sl = 70,
-		v = 1,
-		p = 90,
-		pm = 110,
+		sl = 50,
+		v = 0.75,
+		p = 95,
+		pm = 105,
 		c = CHAN_STATIC,
 	},
 }
@@ -147,10 +126,31 @@ SWEP.Animations = {
 		Source = "base_reload",
 		Time = 2.8,
 		LoadIn = 2.0,
+		ReloadingTime = 2.6,
+		Events = {
+			{ t = 0, s = "mfa/zenith/ogg/rattle2.ogg" },
+			{ t = 0.1, s = "mfa/zenith/ogg/cloth_soft_2.ogg" },
+			{ t = 0.2, s = "mfa/wep/ogg/Reload_1P_MK11_Magout_Wave 0 0 0.ogg" },
+			{ t = 0.5, s = "mfa/zenith/ogg/cloth_soft_1.ogg" },
+			{ t = 0.9, s = "mfa/zenith/ogg/magpouch_replace_small.ogg" },
+			{ t = 1.5, s = "mfa/wep/ogg/Reload_1P_MK11_Magin_Wave 0 0 0.ogg" },
+			{ t = 1.8, s = "mfa/zenith/ogg/shoulder.ogg", v = 0.2 },
+		}
 	},
 	["reload_empty"] = {
 		Source = "base_reloadempty",
 		Time = 3.7,
 		LoadIn = 3.1,
+		ReloadingTime = 3.4,
+		Events = {
+			{ t = 0, s = "mfa/zenith/ogg/rattle2.ogg" },
+			{ t = 0.1, s = "mfa/zenith/ogg/cloth_soft_2.ogg" },
+			{ t = 0.2, s = "mfa/wep/ogg/Reload_1P_MK11_Magout_Wave 0 0 0.ogg" },
+			{ t = 0.5, s = "mfa/zenith/ogg/cloth_soft_1.ogg" },
+			{ t = 0.9, s = "mfa/zenith/ogg/magpouch_replace_small.ogg" },
+			{ t = 1.5, s = "mfa/wep/ogg/Reload_1P_MK11_Magin_Wave 0 0 0.ogg" },
+			{ t = 2.25, s = "mfa/wep/ogg/Reload_1P_MK11_Bolt_Wave 0 0 0.ogg", v = 0.5 },
+			{ t = 2.7, s = "mfa/zenith/ogg/shoulder.ogg", v = 0.2 },
+		}
 	}
 }
