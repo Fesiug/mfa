@@ -67,7 +67,6 @@ SWEP.RecoilUp							= 2.5 -- degrees punched
 SWEP.RecoilSide							= 0.6 -- degrees punched, in either direction (-100% to 100%)
 SWEP.RecoilDrift						= 0.5 -- how much will be smooth recoil
 SWEP.RecoilDecay						= 25 -- how much recoil to remove per second
-SWEP.RecoilFlipChance					= ( 1 / 3 ) -- chance to flip recoil direction
 SWEP.RecoilADSMult						= ( 3 / 4 ) -- multiply shot recoil by this amount when ads'd
 
 -- after the fact
