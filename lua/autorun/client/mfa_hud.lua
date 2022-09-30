@@ -51,15 +51,10 @@ hook.Add( "HUDShouldDraw", "MFA_HUDShouldDraw", function( name )
 	end
 end)
 
-function MFAS(size)
-	local si = (size / ScrH()) * 720
-	return si * 2
-end
-
 function MFAS2(size)
 	local si = (size / ScrH()) * 720
 	si = si * GetConVar("mfa_hud_scale"):GetFloat()
-	si = math.ceil( si )
+	si = math.Round( si )
 	return si
 end
 
@@ -85,6 +80,11 @@ function MFA_genfont()
 	surface.CreateFont("MFA_HUD_20", {
 		font = "Carbon Plus Bold",
 		size = MFAS2(30),
+		weight = 0,
+	})
+	surface.CreateFont("MFA_HUD_5", {
+		font = "Carbon Plus Bold",
+		size = MFAS2(20),
 		weight = 0,
 	})
 	surface.CreateFont("MFA_Terminal", {
@@ -237,9 +237,45 @@ hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 				surface.DrawTexturedRect( pos_x + lool1, pos_y + lool2, icos, icos )
 			end
 
+			for i=1, 7 do
+				local limb
+				local posx, posy = 0, 0
+				if i == 1 then
+					limb = "head"
+					posy = 4
+				elseif i == 2 then
+					limb = "chest"
+					posy = 77
+				elseif i == 3 then
+					limb = "stomach"
+					posy = 128
+				elseif i == 4 then
+					limb = "l_arm"
+					posx = -98
+					posy = 61
+				elseif i == 5 then
+					limb = "r_arm"
+					posx = 98
+					posy = 61
+				elseif i == 6 then
+					limb = "l_leg"
+					posx = -84
+					posy = 187
+				elseif i == 7 then
+					limb = "r_leg"
+					posx = 84
+					posy = 187
+				else
+					continue
+				end
+
+				ftext( string.format( "%s", string.upper(limb)), "MFA_HUD_5", dd(175 + posx), h - dd(340 - posy), CLR_W, CLR_B, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+				ftext( string.format( "%.0f%%", p:GetNWFloat( "MFA_HP_" .. limb, 1 )*100 ), "MFA_HUD_5", dd(175 + posx), h - dd(340 - 15 - posy), CLR_W, CLR_B, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+			end
+
 
 			surface.SetDrawColor( CLR_B )
-			surface.DrawOutlinedRect( dd(60) + s1, h - dd(30+16) + s2, dd(250), dd(12), dd(2) )
+			surface.DrawOutlinedRect( dd(60) + s1, h - dd(30+16) + s2, dd(250), dd(12), dd(3) )
 		
 			local he = p:Health() / p:GetMaxHealth()
 			local mul = Lerp( he, 0.4, 0.9 )
@@ -247,10 +283,10 @@ hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 			surface.DrawRect( dd(60), h - dd(30+16), dd(250) * he, dd(12) )
 
 			surface.SetDrawColor( CLR_W )
-			surface.DrawOutlinedRect( dd(60), h - dd(30+16), dd(250), dd(12), dd(2) )
+			surface.DrawOutlinedRect( dd(60), h - dd(30+16), dd(250), dd(12), dd(3) )
 
 			surface.SetDrawColor( CLR_B )
-			surface.DrawOutlinedRect( dd(30) + s1, h - dd(125+30) - dd(300) + s2, dd(12), dd(100*4) )
+			surface.DrawOutlinedRect( dd(30) + s1, h - dd(125+30) - dd(300) + s2, dd(12), dd(100*4), dd(3) )
 			local amt = p:GetNWFloat( "MFA_Stamina", 1 )
 			for i=1, 4 do
 				local e = i-1
@@ -310,16 +346,16 @@ hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 end)
 
 concommand.Add("mfa_cl_show_inventory", function()
-	local c = MFAS(1)
+	local dd = MFAS2
 	local main = vgui.Create("DFrame", nil)
-	main:SetSize( (c*400), (c*300) )
+	main:SetSize( dd(400), dd(300) )
 	main:Center()
 	main:MakePopup()
 	main:ShowCloseButton(false)
 	main:SetTitle("")
 	function main:Paint(w, h)
 		local old = DisableClipping(true)
-		local b = (c*5)
+		local b = dd(5)
 		surface.SetDrawColor(CLR_B)
 		surface.DrawRect(0, 0, w, h)
 
@@ -333,10 +369,10 @@ concommand.Add("mfa_cl_show_inventory", function()
 	end
 	do
 		local close = vgui.Create("DButton", main)
-		close:SetSize( (c*30), (c*30) )
-		close:SetPos( main:GetSize() - (c*10) - (c*30), (c*10) )
+		close:SetSize( dd(30), dd(30) )
+		close:SetPos( main:GetSize() - dd(10) - dd(30), dd(10) )
 		function close:Paint(w, h)
-			local b = (c*5)
+			local b = dd(5)
 			surface.SetDrawColor(CLR_W)
 			surface.DrawRect(0, 0, w, b)
 			surface.DrawRect(0, h-b, w, b)

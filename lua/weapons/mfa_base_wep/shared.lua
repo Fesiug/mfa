@@ -450,19 +450,19 @@ function SWEP:DrawHUD()
 	if (custperhud or 0) > 0 then
 		cool1.a = Lerp( custperhud, 0, 255 )
 		cool2.a = Lerp( custperhud, 0, 127 )
-		local c = MFAS(1)
-		draw.SimpleText( w:GetPrintName(), "MFA_HUD_96", ScrW() - (c*72), (c*48), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
+		local dd = MFAS2
+		draw.SimpleText( w:GetPrintName(), "MFA_HUD_96", ScrW() - dd(72), dd(48), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
 		
 		if w.Trivia["Category"] then
-			draw.SimpleText( w.Trivia["Category"], "MFA_HUD_48", ScrW() - (c*72), (c*126), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
+			draw.SimpleText( w.Trivia["Category"], "MFA_HUD_48", ScrW() - dd(72), dd(126), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
 		end
 		if w.Trivia["Description"] then
-			draw.SimpleText( w.Trivia["Description"], "MFA_HUD_20", ScrW() - (c*72), (c*170), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
+			draw.SimpleText( w.Trivia["Description"], "MFA_HUD_20", ScrW() - dd(72), dd(170), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
 		end
 
 		if true then
-			draw.SimpleText( w.DamageNear .. "dmg at " .. w.RangeNear .. "m, " .. w.DamageFar .. "dmg at " .. w.RangeFar .. "m", "MFA_HUD_20", ScrW() - (c*72), (c*200), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
-			draw.SimpleText( w:GetMaxClip1() .. " magazine capacity", "MFA_HUD_20", ScrW() - (c*72), (c*(200 + (25*1))), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
+			draw.SimpleText( w.DamageNear .. "dmg at " .. w.RangeNear .. "m, " .. w.DamageFar .. "dmg at " .. w.RangeFar .. "m", "MFA_HUD_20", ScrW() - dd(72), dd(200), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
+			draw.SimpleText( w:GetMaxClip1() .. " magazine capacity", "MFA_HUD_20", ScrW() - dd(72), dd((200 + (25*1))), cool1, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
 		end
 	end
 	-- draw.SimpleText( self:GetNWString("TestRange", "no data"), "Trebuchet24", ScrW()/2, ScrH()*0.75, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
