@@ -4,7 +4,7 @@ AddCSLuaFile()
 ENT.Base				= "mfa_forg"
 ENT.Type				= "anim"
 ENT.Spawnable			= true
-ENT.Category			= "MFA"
+ENT.Category			= "MFA - foodstuffs"
 ENT.PrintName			= "raw flour"
 
 ENT.Model = {

@@ -3,7 +3,7 @@ AddCSLuaFile()
 
 ENT.Type				= "anim"
 ENT.Spawnable			= false
-ENT.Category			= "MFA"
+ENT.Category			= "MFA - foodstuffs"
 ENT.PrintName			= "forgable material"
 
 ENT.Model				= "models/props_junk/cardboard_box003b.mdl"
