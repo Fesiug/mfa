@@ -80,7 +80,7 @@ SWEP.Movespeed_ADS						= 0.88
 SWEP.Firemodes = {
 	{
 		Count = 1,
-		Delay = ( 60 / 360 ),
+		Delay = ( 60 / 380 ),
 	}
 }
 

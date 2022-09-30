@@ -235,7 +235,7 @@ function SWEP:GetSwayAngle()
 	local b_ang = Angle()
 	local hunger = math.Clamp( math.TimeFraction( 1, 0, p:GetNWFloat( "MFA_Stamina", 1 ) ), 0, 1 )
 
-	local updown, leftright = (self.SwayP or 0) + (hunger*1), (self.SwayY or 0) + (hunger*3)
+	local updown, leftright = (self.SwayP or 0) + (hunger*0.6), (self.SwayY or 0) + (hunger*2)
 
 	b_ang.y = b_ang.y + math.cos( CurTime() * 1 ) * leftright
 	b_ang.x = b_ang.x + math.sin( CurTime() * 2 ) * updown
@@ -1171,6 +1171,11 @@ function SWEP:GetViewModelPosition(pos, ang)
 		b_pos.z = b_pos.z + oy*-0.04*Lerp(sii, 1, 0.05)
 
 		b_ang.z = b_ang.z + ((oy*-0.1) + (ox*-0.02))*Lerp(sii, 1, 0.1)
+
+		b_ang.p = b_ang.p - self:GetRecoilP()
+		b_ang.y = b_ang.y - self:GetRecoilY()
+
+		b_pos.y = b_pos.y - ( math.sqrt(math.pow(self:GetRecoil2P(),2) + math.pow(self:GetRecoil2Y(),2)) * 0.1 )
 
 		b_ang:Normalize()
 
