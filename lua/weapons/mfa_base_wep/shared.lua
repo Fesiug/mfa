@@ -99,6 +99,9 @@ SWEP.Movespeed							= 1
 SWEP.Movespeed_Firing					= 1
 SWEP.Movespeed_ADS						= 1
 
+SWEP.SwayP								= 0.1
+SWEP.SwayY								= 0.2
+
 --
 -- Useless shit that you should NEVER touch
 --
@@ -224,6 +227,30 @@ local function quickie(en)
 	else
 		return en
 	end
+end
+
+function SWEP:GetSwayAngle()
+	local p = self:GetOwner()
+
+	local b_ang = Angle()
+	local hunger = math.Clamp( math.TimeFraction( 1, 0, p:GetNWFloat( "MFA_Stamina", 1 ) ), 0, 1 )
+
+	local updown, leftright = (self.SwayP or 0) + (hunger*1), (self.SwayY or 0) + (hunger*3)
+
+	b_ang.y = b_ang.y + math.cos( CurTime() * 1 ) * leftright
+	b_ang.x = b_ang.x + math.sin( CurTime() * 2 ) * updown
+
+	return b_ang
+end
+
+function SWEP:GetFinalShotAngle()
+	local p = self:GetOwner()
+	local fsa = p:EyeAngles()
+	fsa = Angle( fsa.p, fsa.y, 0 )
+
+	fsa:Add(self:GetSwayAngle())
+
+	return fsa
 end
 
 --
@@ -354,7 +381,7 @@ end
 function SWEP:FireBullet(bullet)
 	local dispersion = self:GetDispersion()
 	for i=1, self.Pellets or 1 do
-		local dir = self:GetOwner():EyeAngles()
+		local dir = self:GetFinalShotAngle()
 		local shared_rand = CurTime() + (i-1)
 		local x = util.SharedRandom(shared_rand, -0.5, 0.5) + util.SharedRandom(shared_rand + 1, -0.5, 0.5)
 		local y = util.SharedRandom(shared_rand + 2, -0.5, 0.5) + util.SharedRandom(shared_rand + 3, -0.5, 0.5)
@@ -1178,16 +1205,8 @@ function SWEP:GetViewModelPosition(pos, ang)
 		oang:Add(b_ang)
 	end
 
-	if true then -- hunger sway
-		local b_ang = Angle()
-		local hunger = math.Clamp( math.TimeFraction( 1, 0, p:GetNWFloat( "MFA_Stamina", 1 ) ), 0, 1 )
-
-		b_ang.y = b_ang.y + math.cos( CurTime() * 1 ) * Lerp( hunger, 0, 3 * 0.5 )
-		b_ang.x = b_ang.x + math.sin( CurTime() * 2 ) * Lerp( hunger, 0, 1 * 0.5 )
-
-		b_ang:Mul( 1 )
-
-		oang:Add(b_ang)
+	do -- hunger sway
+		oang:Add(self:GetSwayAngle())
 	end
 
 	end
