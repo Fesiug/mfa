@@ -199,6 +199,45 @@ hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 			--surface.DrawTexturedRectUV( 0, 0, (c*500), (c*250), 1, 1, 0, 0 )
 			--surface.DrawTexturedRectUV( w - (c*500), 0, (c*500), (c*250), 0, 1, 1, 0 )
 
+			do
+				local icos = dd(300)
+				local pos_x, pos_y = dd(-125), h - dd(680)
+				local lool1 = (icos*0.5)
+				local lool2 = icos
+		
+				if p:GetNWBool("MFAShield", false) then
+					surface.SetMaterial( mat_bub4 )
+					surface.SetDrawColor( 255, 255, 255, 100 )
+					surface.DrawTexturedRect( pos_x, pos_y, icos, icos )
+			
+					surface.SetMaterial( mat_bub2 )
+					surface.SetDrawColor( 255, 255, 255, 50 )
+					surface.DrawTexturedRect( pos_x, pos_y, icos, icos )
+				end
+		
+				local he = p:Health() / p:GetMaxHealth()
+				for i, data in ipairs(annoyingshit) do
+					if !data.Limb then continue end
+					local effective = p:GetNWFloat( "MFA_HP_" .. data.Limb, 1 )
+					local shithead = 0--math.Clamp( math.Remap( effective, 0, 1, data.Range_Min, data.Range_Max), 0, 1 )
+
+					surface.SetMaterial( data.Mat )
+					
+					surface.SetDrawColor( 0, 0, 127, 0 )
+					surface.DrawTexturedRect( pos_x + lool1, pos_y + lool2, icos, icos )
+
+					surface.SetDrawColor( 255, 0, 0, 255*(1-effective) ) -- *(1-he) )
+					surface.DrawTexturedRectUV( pos_x + lool1, pos_y + lool2 + (icos * (shithead)), icos, icos * (1-shithead), 0, (shithead), 1, 1 )
+				end
+
+				surface.SetMaterial( mat_bub )
+				surface.SetDrawColor( CLR_B )
+				surface.DrawTexturedRect( pos_x+s1 + lool1, pos_y+s2 + lool2, icos, icos )
+				surface.SetDrawColor( CLR_W )
+				surface.DrawTexturedRect( pos_x + lool1, pos_y + lool2, icos, icos )
+			end
+
+
 			surface.SetDrawColor( CLR_B )
 			surface.DrawOutlinedRect( dd(60) + s1, h - dd(30+16) + s2, dd(250), dd(12), dd(2) )
 		
