@@ -200,110 +200,33 @@ hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 			--surface.DrawTexturedRectUV( w - (c*500), 0, (c*500), (c*250), 0, 1, 1, 0 )
 
 			surface.SetDrawColor( CLR_B )
-			surface.DrawOutlinedRect( dd(30) + s1, h - dd(30+24+4) + s2, dd(250), dd(12), dd(2) )
+			surface.DrawOutlinedRect( dd(60) + s1, h - dd(30+16) + s2, dd(250), dd(12), dd(2) )
 		
 			local he = p:Health() / p:GetMaxHealth()
 			local mul = Lerp( he, 0.4, 0.9 )
 			surface.SetDrawColor( CLR_W.r * mul, CLR_W.g * mul, CLR_W.b * mul )
-			surface.DrawRect( dd(30), h - dd(30+24+4), dd(250) * he, dd(12) )
+			surface.DrawRect( dd(60), h - dd(30+16), dd(250) * he, dd(12) )
 
 			surface.SetDrawColor( CLR_W )
-			surface.DrawOutlinedRect( dd(30), h - dd(30+24+4), dd(250), dd(12), dd(2) )
+			surface.DrawOutlinedRect( dd(60), h - dd(30+16), dd(250), dd(12), dd(2) )
 
+			surface.SetDrawColor( CLR_B )
+			surface.DrawOutlinedRect( dd(30) + s1, h - dd(125+30) - dd(300) + s2, dd(12), dd(100*4) )
 			local amt = p:GetNWFloat( "MFA_Stamina", 1 )
 			for i=1, 4 do
 				local e = i-1
 				
-				surface.SetDrawColor( CLR_B )
-				surface.DrawOutlinedRect( dd(30) + dd(125*e) + s1, h - dd(30) - dd(12) + s2, dd(125), dd(12), dd(2) )
-
-				local mul = Lerp( i/4, 0.65, 0.85 )
-				surface.SetDrawColor( CLR_W.r * mul, CLR_W.g * mul, CLR_W.b * mul )
-	
 				local te = math.Clamp( math.TimeFraction( 0 + (0.25*e), (0.25*i), amt ), 0, 1 )
-				surface.DrawRect( dd(30) + dd(125*e), h - dd(30) - dd(12), dd(125 * te), dd(12) )
-				
+				local mul = Lerp( i/4, 0.3, 0.85 )
+				surface.SetDrawColor( CLR_W.r * mul, CLR_W.g * mul, CLR_W.b * mul )
+				surface.DrawRect( dd(30), h - dd(125+30) - dd(100*e) + dd(100*(1-te)), dd(12), dd(100*te) )
+
 				mul = 1.1
 				surface.SetDrawColor( CLR_W.r * mul, CLR_W.g * mul, CLR_W.b * mul )
-				surface.DrawOutlinedRect( dd(30) + dd(125*e), h - dd(30) - dd(12), dd(125), dd(12), dd(2) )
+				surface.DrawOutlinedRect( dd(30), h - dd(125+30) - dd(100*e), dd(12), dd(100), dd(2) )
 			end
 
-			ftext( p:Nick(), "MFA_HUD_48", dd(41), h - dd(94), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP )
-
-			if enableditem == "radiopack" then
-			-- radar / terminal / teamhealth
-			surface.SetDrawColor( CLR_B )
-			surface.DrawRect( (c*20), (c*20), (c*20*24), (c*20*18)+(c*10) )
-			surface.SetDrawColor( CLR_W )
-			surface.DrawOutlinedRect( (c*20), (c*20), (c*20*24), (c*20*18)+(c*10), (c*4) )
-			ftext( "RADIOPACK - 87%", "MFA_HUD_20", (c*20), (c*400), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP )
-			ftext( os.date( "%H:%M:%S", Timestamp ) .. " - N:40213 SECURE", "MFA_HUD_20", (c*20), (c*425), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP )
-			ftext("", "MFA_HUD_20", (c*20), (c*450), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP )
-
-			local ix = 0
-			local tx, ty = (c*30), (c*30)
-			ftext( "Welcome to 'af4be9'!" or "Type 'help' for instructions.", "MFA_HUD_20", tx, ty+(c*25*ix), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP ) ix = ix + 1
-			ftext( "Last login at 8/27/2022 1100.", "MFA_HUD_20", tx, ty+(c*25*ix), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP ) ix = ix + 1
-			ix = ix + 1
-			ftext( "C1: Network relay online", "MFA_HUD_20", tx, ty+(c*25*ix), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP ) ix = ix + 1
-			ftext( "C2: Network relay online", "MFA_HUD_20", tx, ty+(c*25*ix), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP ) ix = ix + 1
-			ftext( "C1: CAM#4 alert at 12:00", "MFA_HUD_20", tx, ty+(c*25*ix), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP ) ix = ix + 1
-			ftext( "C2: 'Submachine gun' complete", "MFA_HUD_20", tx, ty+(c*25*ix), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP ) ix = ix + 1
-			ftext( "C2: 'Pistol ammo x30' complete", "MFA_HUD_20", tx, ty+(c*25*ix), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP ) ix = ix + 1
-			ftext( "C2: 'Pistol ammo x30' complete", "MFA_HUD_20", tx, ty+(c*25*ix), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP ) ix = ix + 1
-			ftext( "C2: 'Pistol' complete", "MFA_HUD_20", tx, ty+(c*25*ix), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP ) ix = ix + 1
-			ftext( "C1: TUR#2 serious damage - 30%", "MFA_HUD_20", tx, ty+(c*25*ix), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP ) ix = ix + 1
-			ftext( "C1: TUR#1 power failure - 2%", "MFA_HUD_20", tx, ty+(c*25*ix), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP ) ix = ix + 1
-			ix = ix + 1
-			ftext( "TERM> " .. "C1 sudo rm rf /" .. (CurTime() % 1 > 0.5 and "_" or ""), "MFA_HUD_20", tx, ty+(c*25*ix), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP ) ix = ix + 1
-			end
-
-			if enableditem == "radiopack2" then
-
-			surface.SetDrawColor( Color(50, 50, 50) )
-			surface.DrawRect( 0, 0, 640, 480 )
-
-			local screenbuffer = terminaltest
-			local stronk = string.Explode("\n", screenbuffer)
-			for i, v in ipairs(stronk) do
-				while #stronk < 24 do--for a=1, 24 do
-					table.insert(stronk, " ")
-				end
-			end
-			for i, v in ipairs(stronk) do
-				for a=1, (64-#v) do
-					stronk[i] = stronk[i] .. " "
-				end
-			end
-			--PrintTable(stronk)
-			local max_w = 64
-			local max_h = 24
-			for i, v in ipairs(stronk) do
-				--print(i, v)
-				local coc = string.Explode("", v)
-				for h, x in ipairs(coc) do
-					if h > max_w then continue end
-					if i > max_h then continue end
-					--if h == max_w and (CurTime() % 2 > 1) and x != " " then x = ">" end
-					--if i == max_h and (CurTime() % 2 > 1) and x != " " then x = "v" end
-					local wh = h - Lerp( h/max_w, 0, 1 )
-					local wi = i - Lerp( i/max_h, 0, 1 )
-					surface.SetDrawColor( Color(0, 0, 0) )
-					surface.DrawRect( Lerp( wh/max_w, 0, 640 ) - (Lerp( 1/max_w, 0, 640 )*0.5), Lerp( wi/max_h, 0, 480 ) - (Lerp( 1/max_h, 0, 480 )*0.5), Lerp( 1/max_w, 0, 640 ), Lerp( 1/max_h, 0, 480 ) )
-				end
-				for h, x in ipairs(coc) do
-					if h > max_w then continue end
-					if i > max_h then continue end
-					--if h == max_w and (CurTime() % 2 > 1) and x != " " then x = ">" end
-					--if i == max_h and (CurTime() % 2 > 1) and x != " " then x = "v" end
-					local wh = h - Lerp( h/max_w, 0, 1 )
-					local wi = i - Lerp( i/max_h, 0, 1 )
-					ftext( x, "MFA_Terminal", Lerp( wh/max_w, 0, 640 ), Lerp( wi/max_h, 0, 480 ), CLR_W, CLR_B, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
-				end
-			end
-
-		end
-
+			ftext( p:Nick(), "MFA_HUD_48", dd(76), h - dd(84), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP )
 		end
 		
 
@@ -390,20 +313,77 @@ end)
 
 --[[
 
-1 pound = 0.453592 kilo
+			if enableditem == "radiopack" then
+			-- radar / terminal / teamhealth
+			surface.SetDrawColor( CLR_B )
+			surface.DrawRect( (c*20), (c*20), (c*20*24), (c*20*18)+(c*10) )
+			surface.SetDrawColor( CLR_W )
+			surface.DrawOutlinedRect( (c*20), (c*20), (c*20*24), (c*20*18)+(c*10), (c*4) )
+			ftext( "RADIOPACK - 87%", "MFA_HUD_20", (c*20), (c*400), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP )
+			ftext( os.date( "%H:%M:%S", Timestamp ) .. " - N:40213 SECURE", "MFA_HUD_20", (c*20), (c*425), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP )
+			ftext("", "MFA_HUD_20", (c*20), (c*450), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP )
 
-Caliber			Bullets per lb		lbs per 100		kilo per 100
-.22 LR			175					0.57			0.25,854744
-9 mm			56					1.77			0.80,285784
-.308 Win.		42					2.36			1.07,047712
-.223 Rem.		127					0.78			0.35,380176
-12 Ga.			18					5.47			2.48,114824
-0.45 ACP		30					3.28			1.48,778176
+			local ix = 0
+			local tx, ty = (c*30), (c*30)
+			ftext( "Welcome to 'af4be9'!" or "Type 'help' for instructions.", "MFA_HUD_20", tx, ty+(c*25*ix), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP ) ix = ix + 1
+			ftext( "Last login at 8/27/2022 1100.", "MFA_HUD_20", tx, ty+(c*25*ix), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP ) ix = ix + 1
+			ix = ix + 1
+			ftext( "C1: Network relay online", "MFA_HUD_20", tx, ty+(c*25*ix), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP ) ix = ix + 1
+			ftext( "C2: Network relay online", "MFA_HUD_20", tx, ty+(c*25*ix), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP ) ix = ix + 1
+			ftext( "C1: CAM#4 alert at 12:00", "MFA_HUD_20", tx, ty+(c*25*ix), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP ) ix = ix + 1
+			ftext( "C2: 'Submachine gun' complete", "MFA_HUD_20", tx, ty+(c*25*ix), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP ) ix = ix + 1
+			ftext( "C2: 'Pistol ammo x30' complete", "MFA_HUD_20", tx, ty+(c*25*ix), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP ) ix = ix + 1
+			ftext( "C2: 'Pistol ammo x30' complete", "MFA_HUD_20", tx, ty+(c*25*ix), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP ) ix = ix + 1
+			ftext( "C2: 'Pistol' complete", "MFA_HUD_20", tx, ty+(c*25*ix), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP ) ix = ix + 1
+			ftext( "C1: TUR#2 serious damage - 30%", "MFA_HUD_20", tx, ty+(c*25*ix), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP ) ix = ix + 1
+			ftext( "C1: TUR#1 power failure - 2%", "MFA_HUD_20", tx, ty+(c*25*ix), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP ) ix = ix + 1
+			ix = ix + 1
+			ftext( "TERM> " .. "C1 sudo rm rf /" .. (CurTime() % 1 > 0.5 and "_" or ""), "MFA_HUD_20", tx, ty+(c*25*ix), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP ) ix = ix + 1
+			end
 
-0.38 spec.		53					1.88			0.00
-.30-06			46					2.14			0.00
-.30-30			41					2.42			0.00
-7 mm			38					2.57			0.00
-0.40 S&W		42					2.35			0.00
+			if enableditem == "radiopack2" then
 
+			surface.SetDrawColor( Color(50, 50, 50) )
+			surface.DrawRect( 0, 0, 640, 480 )
+
+			local screenbuffer = terminaltest
+			local stronk = string.Explode("\n", screenbuffer)
+			for i, v in ipairs(stronk) do
+				while #stronk < 24 do--for a=1, 24 do
+					table.insert(stronk, " ")
+				end
+			end
+			for i, v in ipairs(stronk) do
+				for a=1, (64-#v) do
+					stronk[i] = stronk[i] .. " "
+				end
+			end
+			--PrintTable(stronk)
+			local max_w = 64
+			local max_h = 24
+			for i, v in ipairs(stronk) do
+				--print(i, v)
+				local coc = string.Explode("", v)
+				for h, x in ipairs(coc) do
+					if h > max_w then continue end
+					if i > max_h then continue end
+					--if h == max_w and (CurTime() % 2 > 1) and x != " " then x = ">" end
+					--if i == max_h and (CurTime() % 2 > 1) and x != " " then x = "v" end
+					local wh = h - Lerp( h/max_w, 0, 1 )
+					local wi = i - Lerp( i/max_h, 0, 1 )
+					surface.SetDrawColor( Color(0, 0, 0) )
+					surface.DrawRect( Lerp( wh/max_w, 0, 640 ) - (Lerp( 1/max_w, 0, 640 )*0.5), Lerp( wi/max_h, 0, 480 ) - (Lerp( 1/max_h, 0, 480 )*0.5), Lerp( 1/max_w, 0, 640 ), Lerp( 1/max_h, 0, 480 ) )
+				end
+				for h, x in ipairs(coc) do
+					if h > max_w then continue end
+					if i > max_h then continue end
+					--if h == max_w and (CurTime() % 2 > 1) and x != " " then x = ">" end
+					--if i == max_h and (CurTime() % 2 > 1) and x != " " then x = "v" end
+					local wh = h - Lerp( h/max_w, 0, 1 )
+					local wi = i - Lerp( i/max_h, 0, 1 )
+					ftext( x, "MFA_Terminal", Lerp( wh/max_w, 0, 640 ), Lerp( wi/max_h, 0, 480 ), CLR_W, CLR_B, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+				end
+			end
+
+		end
 ]]

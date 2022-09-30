@@ -7,6 +7,8 @@ ENT.Spawnable			= true
 ENT.Category			= "MFA - foodstuffs"
 ENT.PrintName			= "coffee"
 
+ENT.Description			= "stimulant, speeds up actions"
+
 ENT.Model				= {
 	"models/props_misc/coffee_container-1.mdl",
 	"models/props_misc/coffee_container-2.mdl",
