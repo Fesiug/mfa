@@ -49,7 +49,7 @@ if SERVER then
 
 			-- movement
 			if ply:Alive() then
-				drain = drain + (1/( 60 * 60 ))
+				drain = drain + (1/( 60 * 60 * 4 ))
 				if ply:OnGround() then
 					local vel = ply:GetAbsVelocity():Length2D()
 					drain = drain + Lerp( vel/200, 0, (1/( 60 * GetConVar("mfa_ply_stamina_mult_move"):GetFloat() )) * ( ply:IsSprinting() and 2 or 1 ) )
@@ -70,7 +70,7 @@ if SERVER then
 
 			local drain = 0
 			drain = drain + 0.003
-			drain = drain + ( Lerp( vel/200, 0, 0.003 ) * ( ply:IsSprinting() and 1.5 or 1 ) )
+			drain = drain + ( Lerp( vel/200, 0, 0.002 ) * ( ply:IsSprinting() and 1.5 or 1 ) )
 			ply:SetNWFloat( "MFA_Stamina", math.Clamp( stammy - drain, 0, 1 ) )
 		end
 	end)
