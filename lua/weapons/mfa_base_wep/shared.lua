@@ -922,6 +922,9 @@ end
 -- Deploy and holster
 local deploydebounce = 0
 function SWEP:Deploy(valis)
+	self:SetHolster_Time( 0 )
+	self:SetHolster_Entity( NULL )
+
 	-- The dirtiest hack of ALL TIME!
 	if deploydebounce > CurTime() then return false end
 	local original = self:GetNWBool( "readyed", false )
@@ -946,6 +949,7 @@ function SWEP:Holster( wep )
 	self:SetShotgunReloading( 0 )
 
 	if wep == self then return end
+	if self:GetHolster_Entity() then return end
 
 	if (self:GetHolster_Time() != 0 and self:GetHolster_Time() <= CurTime()) or !IsValid( wep ) then
 		self:SetHolster_Time( 0 )

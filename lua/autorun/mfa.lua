@@ -28,14 +28,15 @@ PrecacheParticleSystem( "muzzleflash_4" )
 PrecacheParticleSystem( "muzzleflash_5" )
 PrecacheParticleSystem( "muzzleflash_6" )
 
+CreateConVar("mfa_ply_stamina", 0)
+CreateConVar("mfa_ply_stamina_mult_move", 15)
 
 if SERVER then
-
 	local lastpcall = {}
 	local nextpcall = {}
 	hook.Add("PlayerPostThink", "MFA_PlayerPostThink", function( ply )
 		local dt = 0
-		if (nextpcall[ply] or 0) <= CurTime() then
+		if GetConVar("mfa_ply_stamina"):GetBool() and (nextpcall[ply] or 0) <= CurTime() then
 			if !lastpcall[ply] then
 				lastpcall[ply] = CurTime()
 				dt = 0
@@ -51,7 +52,7 @@ if SERVER then
 				drain = drain + (1/( 60 * 60 ))
 				if ply:OnGround() then
 					local vel = ply:GetAbsVelocity():Length2D()
-					drain = drain + Lerp( vel/200, 0, (1/( 60 * 10 )) * ( ply:IsSprinting() and 2 or 1 ) )
+					drain = drain + Lerp( vel/200, 0, (1/( 60 * GetConVar("mfa_ply_stamina_mult_move"):GetFloat() )) * ( ply:IsSprinting() and 2 or 1 ) )
 				end
 			end
 
