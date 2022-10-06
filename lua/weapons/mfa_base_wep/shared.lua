@@ -949,7 +949,6 @@ function SWEP:Holster( wep )
 	self:SetShotgunReloading( 0 )
 
 	if wep == self then return end
-	if IsValid( self:GetHolster_Entity() ) then return end
 
 	if (self:GetHolster_Time() != 0 and self:GetHolster_Time() <= CurTime()) or !IsValid( wep ) then
 		self:SetHolster_Time( 0 )
