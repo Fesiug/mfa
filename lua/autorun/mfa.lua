@@ -1,5 +1,16 @@
+MFA = MFA or {}
 
 AddCSLuaFile()
+
+include("mfa/medical/sh_limbdamage.lua")
+AddCSLuaFile("mfa/medical/sh_limbdamage.lua")
+
+if CLIENT then
+	include("mfa/medical/cl_limbdamage.lua")
+	AddCSLuaFile("mfa/medical/sh_limbdamage.lua")
+else
+	include("mfa/medical/sv_limbdamage.lua")
+end
 
 game.AddParticles( "particles/muzzleflashes_test.pcf" )
 game.AddParticles( "particles/muzzleflashes_test_b.pcf" )

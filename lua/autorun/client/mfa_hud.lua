@@ -140,47 +140,47 @@ local ammolookup = {
 }
 
 local annoyingshit = {
-	{	
+	{
 		Range_Min = 0.34,
 		Range_Max = 0.66,
 		Mat = mat_bubd_arm_r,
-		Limb = "arm_r",
+		Limb = "Right Arm",
 	},
-	{	
+	{
 		Range_Min = 0.34,
 		Range_Max = 0.66,
 		Mat = mat_bubd_arm_l,
-		Limb = "arm_l",
+		Limb = "Left Arm",
 	},
 	{
 		Range_Min = 0.63,
 		Range_Max = 0.94,
 		Mat = mat_bubd_leg_r,
-		Limb = "leg_r",
+		Limb = "Right Leg",
 	},
 	{
 		Range_Min = 0.63,
 		Range_Max = 0.94,
 		Mat = mat_bubd_leg_l,
-		Limb = "leg_l",
+		Limb = "Left Leg",
 	},
 	{
 		Range_Min = 0.5,
 		Range_Max = 0.66,
 		Mat = mat_bubd_stomach,
-		Limb = "stomach",
+		Limb = "Stomach",
 	},
 	{
 		Range_Min = 0.31,
 		Range_Max = 0.49,
 		Mat = mat_bubd_chest,
-		Limb = "chest",
+		Limb = "Chest",
 	},
 	{
 		Range_Min = 0.05,
 		Range_Max = 0.28,
 		Mat = mat_bubd_head,
-		Limb = "head",
+		Limb = "Head",
 	},
 }
 
@@ -204,25 +204,25 @@ hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 				local pos_x, pos_y = dd(-125), h - dd(680)
 				local lool1 = (icos*0.5)
 				local lool2 = icos
-		
+
 				if p:GetNWBool("MFAShield", false) then
 					surface.SetMaterial( mat_bub4 )
 					surface.SetDrawColor( 255, 255, 255, 100 )
 					surface.DrawTexturedRect( pos_x, pos_y, icos, icos )
-			
+
 					surface.SetMaterial( mat_bub2 )
 					surface.SetDrawColor( 255, 255, 255, 50 )
 					surface.DrawTexturedRect( pos_x, pos_y, icos, icos )
 				end
-		
+
 				local he = p:Health() / p:GetMaxHealth()
 				for i, data in ipairs(annoyingshit) do
 					if !data.Limb then continue end
-					local effective = p:GetNWFloat( "MFA_HP_" .. data.Limb, 1 )
+					local effective = MFA.Medical.LimbHealth(p, data.Limb) -- p:GetNWFloat( "MFA_HP_" .. data.Limb, 1 )
 					local shithead = 0--math.Clamp( math.Remap( effective, 0, 1, data.Range_Min, data.Range_Max), 0, 1 )
 
 					surface.SetMaterial( data.Mat )
-					
+
 					surface.SetDrawColor( 0, 0, 127, 0 )
 					surface.DrawTexturedRect( pos_x + lool1, pos_y + lool2, icos, icos )
 
@@ -237,46 +237,50 @@ hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 				surface.DrawTexturedRect( pos_x + lool1, pos_y + lool2, icos, icos )
 			end
 
-			for i=1, 7 do
-				local limb
+			for i = 1, 7 do
+				local limb, limb_s
 				local posx, posy = 0, 0
 				if i == 1 then
-					limb = "head"
+					limb = "Head"
 					posy = 4
 				elseif i == 2 then
-					limb = "chest"
+					limb = "Chest"
 					posy = 77
 				elseif i == 3 then
-					limb = "stomach"
+					limb = "Stomach"
 					posy = 128
 				elseif i == 4 then
-					limb = "l_arm"
+					limb = "Left Arm"
+					limb_s = "l_arm"
 					posx = -98
 					posy = 61
 				elseif i == 5 then
-					limb = "r_arm"
+					limb = "Right Arm"
+					limb_s = "r_arm"
 					posx = 98
 					posy = 61
 				elseif i == 6 then
-					limb = "l_leg"
+					limb = "Left Leg"
+					limb_s = "l_leg"
 					posx = -84
 					posy = 187
 				elseif i == 7 then
-					limb = "r_leg"
+					limb = "Right Leg"
+					limb_s = "r_leg"
 					posx = 84
 					posy = 187
 				else
 					continue
 				end
 
-				ftext( string.format( "%s", string.upper(limb)), "MFA_HUD_5", dd(175 + posx), h - dd(340 - posy), CLR_W, CLR_B, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
-				ftext( string.format( "%.0f%%", p:GetNWFloat( "MFA_HP_" .. limb, 1 )*100 ), "MFA_HUD_5", dd(175 + posx), h - dd(340 - 15 - posy), CLR_W, CLR_B, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+				ftext( string.format( "%s", string.upper(limb_s or limb)), "MFA_HUD_5", dd(175 + posx), h - dd(340 - posy), CLR_W, CLR_B, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+				ftext( string.format( "%.0f%%", MFA.Medical.LimbFraction(p, limb) * 100 ), "MFA_HUD_5", dd(175 + posx), h - dd(340 - 15 - posy), CLR_W, CLR_B, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 			end
 
 
 			surface.SetDrawColor( CLR_B )
 			surface.DrawOutlinedRect( dd(60) + s1, h - dd(30+16) + s2, dd(250), dd(12), dd(3) )
-		
+
 			local he = p:Health() / p:GetMaxHealth()
 			local mul = Lerp( he, 0.4, 0.9 )
 			surface.SetDrawColor( CLR_W.r * mul, CLR_W.g * mul, CLR_W.b * mul )
@@ -290,7 +294,7 @@ hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 			local amt = p:GetNWFloat( "MFA_Stamina", 1 )
 			for i=1, 4 do
 				local e = i-1
-				
+
 				local te = math.Clamp( math.TimeFraction( 0 + (0.25*e), (0.25*i), amt ), 0, 1 )
 				local mul = Lerp( i/4, 0.3, 0.85 )
 				surface.SetDrawColor( CLR_W.r * mul, CLR_W.g * mul, CLR_W.b * mul )
@@ -302,8 +306,32 @@ hook.Add( "HUDPaint", "MFA_HUDPaint", function()
 			end
 
 			ftext( p:Nick(), "MFA_HUD_48", dd(76), h - dd(84), CLR_W, CLR_B, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP )
+
+			local anchorX = ScrW() * GetConVar("cl_limbdamage_ui_widthMult"):GetFloat() + GetConVar("cl_limbdamage_ui_width"):GetInt()
+			local anchorY = ScrH() * GetConVar("cl_limbdamage_ui_heightMult"):GetFloat() + GetConVar("cl_limbdamage_ui_height"):GetInt()
+			local down = 0
+			surface.SetDrawColor(255, 255, 255, a)
+			for limb, status in pairs(p.LimbStatus) do
+				local injured = GetConVar("cl_limbdamage_ui_textmode"):GetInt() == 1 and ((limb ~= "Chest" and p.LimbHealth[limb] < p.LimbMaxHealth[limb]) or (limb == "Chest" and (p:Health() < p:GetMaxHealth())))
+
+				if status ~= 0 then
+					local right = 0
+					draw.SimpleText(limb .. ": ", "MFA_HUD_5", anchorX + 300, anchorY + 50 + down, CLR_W, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP)
+
+					local str = {}
+					for _, s in pairs(MFA.Medical.StatusList) do
+						if MFA.Medical.LimbStatusHas(p, limb, s) then
+							table.insert(str, MFA.Medical.StatusName[s])
+							right = right + 25
+						end
+					end
+					draw.SimpleText(table.concat(str, ","), "MFA_HUD_5", anchorX + 300, anchorY + 50 + down, CLR_W, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+
+					down = down + 30
+				end
+			end
 		end
-		
+
 
 		local wep = p:GetActiveWeapon()
 		if !IsValid(wep) then wep = false end
