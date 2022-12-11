@@ -6,7 +6,7 @@ SWEP.Spawnable				= true
 
 SWEP.Slot					= 1
 SWEP.Category				= "MFA"	
-SWEP.PrintName				= "MATArms Rhino"
+SWEP.PrintName				= "MATAR Rhino"
 SWEP.Trivia = {
 	Category = "Sidearm",
 	["Real Name"] = "Rhino 60DS",

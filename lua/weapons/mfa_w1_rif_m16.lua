@@ -6,7 +6,7 @@ SWEP.Spawnable				= true
 
 SWEP.Slot					= 2
 SWEP.Category				= "MFA"	
-SWEP.PrintName				= "COBRA Mk. 4"
+SWEP.PrintName				= "COBRA UAR"
 SWEP.Trivia = {
 	Category = "Rifle",
 	Description = "Full-length 5.56 assault rifle. Long barrel allows for prolonged fire with minimal penalty to accuracy.",

@@ -6,7 +6,7 @@ SWEP.Spawnable				= true
 
 SWEP.Slot					= 1
 SWEP.Category				= "MFA"	
-SWEP.PrintName				= "ES BASE-9"
+SWEP.PrintName				= "ES B-99"
 SWEP.Trivia = {
 	Category = "Sidearm",
 	Description = "Standard 9mm sidearm. Ergonomic design ensures controllability even on the move.",

@@ -64,7 +64,7 @@ if SERVER then
 	end)
 
 	hook.Add("Move", "MFA_Move", function( ply, mv )
-		if mv:KeyPressed( IN_JUMP ) and ply:OnGround() then
+		if GetConVar("mfa_ply_stamina"):GetBool() and mv:KeyPressed( IN_JUMP ) and ply:OnGround() then
 			local vel = ply:GetAbsVelocity():Length2D()
 			local stammy = ply:GetNWFloat( "MFA_Stamina", 1 )
 

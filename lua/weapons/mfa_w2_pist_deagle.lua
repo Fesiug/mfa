@@ -6,7 +6,7 @@ SWEP.Spawnable				= true
 
 SWEP.Slot					= 1
 SWEP.Category				= "MFA"	
-SWEP.PrintName				= "Gavel AUTO-50"
+SWEP.PrintName				= "Gavel A50"
 SWEP.Trivia = {
 	Category = "Sidearm",
 	["Real Name"] = "Desert Eagle",

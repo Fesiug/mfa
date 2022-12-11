@@ -6,10 +6,10 @@ SWEP.Spawnable				= true
 
 SWEP.Slot					= 2
 SWEP.Category				= "MFA"	
-SWEP.PrintName				= "Kross Vertex"
+SWEP.PrintName				= "KC Vertex"
 SWEP.Trivia = {
 	Category = "Submachine Gun",
-	["Real Name"] = "UMP",
+	["Real Name"] = "Kriss Vector",
 }
 
 SWEP.UseHands				= true

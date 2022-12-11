@@ -6,7 +6,7 @@ SWEP.Spawnable				= true
 
 SWEP.Slot					= 2
 SWEP.Category				= "MFA"	
-SWEP.PrintName				= "Predator Super-12"
+SWEP.PrintName				= "PRED Super-12"
 SWEP.Trivia = {
 	Category = "Shotgun",
 	Description = "A gorgeous shotgun featuring an extended magazine and tightened pellet spread.",
